@@ -284,16 +284,19 @@ select:focus {
     font-weight: 600;
 }
 
-.scrMsg1 {
-    border: none;
+hr.scrMsg1,
+hr.scrMsg2 {
+    border: 0;
     height: 7px;
-    background-color: linear-gradient(135deg, #5a67d8 0%, #6d28d9 100%);
+    display: block;
+}
+
+.scrMsg1 {
+    background: linear-gradient(135deg, #5a67d8, #6d28d9);
 }
 
 .scrMsg2 {
-    border: none;
-    height: 7px;
-    background-color: linear-gradient(135deg, #6d28d9 0%, #5a67d8 100%);
+    background: linear-gradient(135deg, #6d28d9, #5a67d8);
 }
 
 .results-details {
