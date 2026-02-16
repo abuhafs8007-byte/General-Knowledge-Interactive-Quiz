@@ -317,12 +317,12 @@ select:focus {
 }
 
 .topic-btn {
-    padding: 15px;
+    padding: 10px;
     border: 2px solid #ddd;
     background: white;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
     transition: all 0.3s;
     text-align: center;
 }
