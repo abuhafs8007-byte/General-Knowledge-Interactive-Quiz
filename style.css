@@ -286,10 +286,13 @@ select:focus {
 
 hr.scrMsg1,
 hr.scrMsg2 {
-    border: 0;
+    border: none;
     height: 5px;
-    display: block;
-    border-radius: 10px;
+    width: 100%;
+    border-radius: 50px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 
 .scrMsg1 {
@@ -393,7 +396,7 @@ hr.scrMsg2 {
     width: 90%;
     max-width: 400px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    animation: fadeInScale 1.5s ease;
+    animation: fadeInScale 1.0s ease;
 }
 
 .modal-box h2 {
