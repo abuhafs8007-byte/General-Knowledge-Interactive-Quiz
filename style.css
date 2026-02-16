@@ -217,6 +217,7 @@ select:focus {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    font-size: 16px;
 }
 
 .option {
@@ -276,7 +277,7 @@ select:focus {
 }
 
 .score-message {
-    font-size: 20px;
+    font-size: 16px;
     color: #333;
     margin-bottom: 20px;
 }
