@@ -978,14 +978,13 @@ function launchConfetti() {
     canvas.height = window.innerHeight;
 
     const confettiPieces = [];
-    const colors = [
-        '#4F46E5', // Indigo
-        '#ffd000', // Soft Blue
-        '#8B5CF6', // Purple
-        '#A5B4FC', // Light Blue
-        '#ffad77', // Soft White
-    ];
-
+    const colors = [  
+    '#4F46E5', // Indigo  
+    '#ffd000', // Soft Blue  
+    '#8B5CF6', // Purple  
+    '#FFD700', // Gold  
+    '#F9FAFB', // Soft White  
+];
     for (let i = 0; i < 150; i++) {
         confettiPieces.push({
             x: Math.random() * canvas.width,  // random across top
