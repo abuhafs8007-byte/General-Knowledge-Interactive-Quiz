@@ -247,7 +247,8 @@ select:focus {
     margin: 0;
     cursor: pointer;
     flex: 1;
-    font-weight: 400;
+    font-weight: 300;
+    font-size: 15px;
 }
 
 .option.selected {
