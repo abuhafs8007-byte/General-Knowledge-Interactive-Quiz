@@ -482,3 +482,8 @@ hr.scrMsg2 {
         font-size: 22px;
     }
 }
+
+input[type="radio"] + label {
+  font-size: 16px;
+  font-weight: 500;
+}
