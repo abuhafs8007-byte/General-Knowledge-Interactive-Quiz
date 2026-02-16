@@ -273,13 +273,13 @@ select:focus {
     font-size: 48px;
     color: #4f46e5;
     font-weight: bold;
-    margin: 20px 0;
+    margin: 20px 8px 0 0;
 }
 
 .score-message {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 15px;
+    color: black;
+    margin-bottom: 15px;
 }
 
 .results-details {
