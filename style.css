@@ -273,13 +273,27 @@ select:focus {
     font-size: 48px;
     color: #4f46e5;
     font-weight: bold;
-    margin: 20px 8px 0 0;
+    margin: 20px 0 0 0;
 }
 
 .score-message {
     font-size: 15px;
     color: black;
     margin-bottom: 15px;
+    margin-top: 15px;
+    font-weight: 700;
+}
+
+.scrMsg1 {
+    border: none;
+    height: 7px;
+    background-color: linear-gradient(135deg, #5a67d8 0%, #6d28d9 100%);
+}
+
+.scrMsg2 {
+    border: none;
+    height: 7px;
+    background-color: linear-gradient(135deg, #6d28d9 0%, #5a67d8 100%);
 }
 
 .results-details {
