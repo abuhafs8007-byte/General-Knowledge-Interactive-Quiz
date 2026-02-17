@@ -739,7 +739,7 @@ restartBtn.addEventListener('click', restartQuiz);
 
 function startQuiz() {
     if (!selectedTopic) {
-        alert('Please Select a Topic')
+        alert('Please Select a Subject')
         return;
     }
 
