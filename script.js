@@ -138,27 +138,28 @@ const quizData = {
     },
     basic_Science: {
         easy: [
-            { q: "Which part of a plant makes food?", opts: ["Root", "Stem", "Leaf", "Flower"], ans: 2 },
-            { q: "Which organ pumps blood around the body?", opts: ["Lungs", "Heart", "Brain", "Stomach"], ans: 1 },
-            { q: "Water changes into ice at what temperature?", opts: ["0°C", "50°C", "100°C", "10°C"], ans: 0 },
-            { q: "Which sense organ is used for hearing?", opts: ["Eye", "Ear", "Nose", "Tongue"], ans: 1 },
-            { q: "Which material is attracted to a magnet?", opts: ["Plastic", "Wood", "Iron", "Paper"], ans: 2 },
-            { q: "What form of energy comes from the Sun?", opts: ["Sound", "Light", "Magnetic", "Nuclear"], ans: 1 },
-            { q: "Which gas do humans need to breathe in?", opts: ["Carbon dioxide", "Nitrogen", "Oxygen", "Hydrogen"], ans: 2 },
-            { q: "Which simple machine is used to lift a car?", opts: ["Lever", "Pulley", "Jack", "Wheel"], ans: 2 },
-            { q: "Animals that eat only plants are called?", opts: ["Carnivores", "Herbivores", "Omnivores", "Insects"], ans: 1 },
-            { q: "Which state of matter has a fixed shape?", opts: ["Solid", "Liquid", "Gas", "Air"], ans: 0 },
-            { q: "What should you do first for a small cut?", opts: ["Ignore it", "Wash it with clean water", "Put sand on it", "Tie it tightly"], ans: 1 },
-            { q: "Which force pulls objects toward the Earth?", opts: ["Magnetism", "Friction", "Gravity", "Push"], ans: 2 },
-            { q: "Which part of the body helps you think?", opts: ["Heart", "Brain", "Lungs", "Kidney"], ans: 1 },
-            { q: "Which animal lives both on land and in water?", opts: ["Dog", "Frog", "Cat", "Cow"], ans: 1 },
-            { q: "Boiling water changes into what?", opts: ["Ice", "Steam", "Oil", "Dust"], ans: 1 },
-            { q: "Which simple machine is a seesaw?", opts: ["Lever", "Pulley", "Screw", "Wedge"], ans: 0 },
-            { q: "What do plants need to grow?", opts: ["Plastic", "Sunlight", "Stone", "Metal"], ans: 1 },
-            { q: "Which property describes how heavy something is?", opts: ["Color", "Mass", "Shape", "Taste"], ans: 1 },
-            { q: "Which organ helps us breathe?", opts: ["Heart", "Liver", "Lungs", "Brain"], ans: 2 },
-            { q: "Air is mostly made of which gas?", opts: ["Oxygen", "Nitrogen", "Carbon dioxide", "Helium"], ans: 1 }
+            { q: "Which of the following is a major cause of air pollution?", opts: ["Planting trees", "Burning fossil fuels", "Using bicycles", "Recycling waste"], ans: 1 },
+            { q: "Which gas is mainly responsible for global warming?", opts: ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], ans: 2 },
+            { q: "Air pollution can lead to which health problem?", opts: ["Strong bones", "Good eyesight", "Respiratory diseases", "Fast growth"], ans: 2 },
+            { q: "Which of these helps reduce air pollution?", opts: ["Cutting down trees", "Using generators often", "Planting trees", "Burning plastics"], ans: 2 },
+            { q: "STIs are mainly transmitted through?", opts: ["Sharing food", "Handshake", "Unprotected sexual contact", "Breathing air"], ans: 2 },
+            { q: "Which of the following is an example of an STI?", opts: ["Malaria", "HIV/AIDS", "Typhoid", "Cholera"], ans: 1 },
+            { q: "Which method can help prevent STIs?", opts: ["Sharing needles", "Unsafe sex", "Using protection", "Poor hygiene"], ans: 2 },
+            { q: "Which of these is a symptom of some STIs?", opts: ["Clear vision", "Skin rashes", "Strong muscles", "Fast running"], ans: 1 },
+            { q: "Energy is defined as the ability to?", opts: ["Sleep", "Do work", "Eat food", "Grow plants"], ans: 1 },
+            { q: "Which of the following is a form of energy?", opts: ["Light", "Sand", "Stone", "Soil"], ans: 0 },
+            { q: "Which energy source is renewable?", opts: ["Coal", "Petrol", "Solar", "Diesel"], ans: 2 },
+            { q: "Which device uses electrical energy?", opts: ["Broom", "Television", "Spoon", "Book"], ans: 1 },
+            { q: "Air is a mixture of gases. Which gas is highest in air?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"], ans: 2 },
+            { q: "Which gas do humans breathe in for respiration?", opts: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"], ans: 1 },
+            { q: "Which of these is a property of air?", opts: ["It has no weight", "It occupies space", "It cannot move", "It has no pressure"], ans: 1 },
+            { q: "Which instrument is used to measure air pressure?", opts: ["Thermometer", "Barometer", "Hygrometer", "Ruler"], ans: 1 },
+            { q: "Which layer of air surrounds the Earth?", opts: ["Hydrosphere", "Lithosphere", "Atmosphere", "Biosphere"], ans: 2 },
+            { q: "Which activity adds harmful smoke to the air?", opts: ["Reading books", "Driving cars", "Drinking water", "Sleeping"], ans: 1 },
+            { q: "Which of these is a non-renewable source of energy?", opts: ["Wind", "Sun", "Coal", "Water"], ans: 2 },
+            { q: "Which gas is needed by plants for photosynthesis?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"], ans: 1 }
         ],
+
         medium: [
             { q: "What is the process by which plants make their food?", opts: ["Respiration", "Photosynthesis", "Digestion", "Transpiration"], ans: 1 },
             { q: "Which blood vessels carry blood away from the heart?", opts: ["Veins", "Capillaries", "Arteries", "Nerves"], ans: 2 },
@@ -913,7 +914,7 @@ function calculateScore() {
                 passSound.pause();
                 passSound.currentTime = 0;
                 passSound.volume = 1;
-                passSound.play().catch(() => {});
+                passSound.play().catch(() => { });
             }
         } else if (percentage < 50) {
             if (typeof launchFailEffect === 'function') launchFailEffect();
@@ -922,7 +923,7 @@ function calculateScore() {
                 failSound.pause();
                 failSound.currentTime = 0;
                 failSound.volume = 1;
-                failSound.play().catch(() => {});
+                failSound.play().catch(() => { });
             }
         }
     }, 100);
@@ -978,13 +979,13 @@ function launchConfetti() {
     canvas.height = window.innerHeight;
 
     const confettiPieces = [];
-    const colors = [  
-    '#4F46E5', // Indigo  
-    '#ffd000', // Soft Blue  
-    '#8B5CF6', // Purple  
-    '#FFD700', // Gold  
-    '#F9FAFB', // Soft White  
-];
+    const colors = [
+        '#4F46E5', // Indigo  
+        '#ffd000', // Soft Blue  
+        '#8B5CF6', // Purple  
+        '#FFD700', // Gold  
+        '#F9FAFB', // Soft White  
+    ];
     for (let i = 0; i < 150; i++) {
         confettiPieces.push({
             x: Math.random() * canvas.width,  // random across top
