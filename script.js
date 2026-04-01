@@ -294,7 +294,7 @@ const quizData = {
             { q: "What is Hadith?", opts: ["Words of scholars", "Sayings and actions of the Prophet ﷺ", "Stories of kings", "Arabic poems"], ans: 1 },
             { q: "Who collected many authentic Hadiths?", opts: ["Imam Bukhari", "Imam Malik", "Imam Shafi'i", "Imam Ahmad"], ans: 0 },
             { q: "What is a weak Hadith called?", opts: ["Sahih", "Hasan", "Da’if", "Mutawatir"], ans: 2 },
-            { q: "What is a strong Hadith called?", opts: ["Da’if", "Sahih", "Broken", "False"], ans: 1 }
+            { q: "What is a strong Hadith called?", opts: ["Da’if", "Broken",  "Sahih", "False"], ans: 2 }
         ],
         medium: [
             { q: "Which Prophet was known for building the Canoe/Ark?", opts: ["Nuh", "Musa", "Ibrahim", "Isa"], ans: 0 },
