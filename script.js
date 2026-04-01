@@ -275,8 +275,6 @@ const quizData = {
     },
     islamic_Studies: {
         easy: [
-            { q: "What is Hadith?", opts: ["Words of scholars", "Sayings and actions of the Prophet ﷺ", "Stories of kings", "Arabic poems"], ans: 1 },
-            { q: "Who collected many authentic Hadiths?", opts: ["Imam Bukhari", "Imam Malik", "Imam Shafi'i", "Imam Ahmad"], ans: 0 },
             { q: "Why were Hadiths collected?", opts: ["For fun", "To preserve the teachings of the Prophet ﷺ", "To write stories", "To entertain people"], ans: 1 },
             { q: "Which of these is a famous Hadith scholar?", opts: ["Imam Nawawi", "Ibn Sina", "Al-Khwarizmi", "Ibn Khaldun"], ans: 0 },
             { q: "Hadith 1 of Nawawi focuses on?", opts: ["Prayer", "Fasting", "Intentions", "Zakat"], ans: 2 },
@@ -293,6 +291,8 @@ const quizData = {
             { q: "Why is the birth of the Prophet ﷺ important?", opts: ["He was a king", "He brought guidance to mankind", "He built cities", "He discovered science"], ans: 1 },
             { q: "What is Sunnah?", opts: ["Opinions of scholars", "Practices of the Prophet ﷺ", "Stories of Arabs", "Islamic laws only"], ans: 1 },
             { q: "Which book is known for authentic Hadith?", opts: ["Sahih Bukhari", "Qur’an only", "History books", "Poetry books"], ans: 0 },
+            { q: "What is Hadith?", opts: ["Words of scholars", "Sayings and actions of the Prophet ﷺ", "Stories of kings", "Arabic poems"], ans: 1 },
+            { q: "Who collected many authentic Hadiths?", opts: ["Imam Bukhari", "Imam Malik", "Imam Shafi'i", "Imam Ahmad"], ans: 0 },
             { q: "What is a weak Hadith called?", opts: ["Sahih", "Hasan", "Da’if", "Mutawatir"], ans: 2 },
             { q: "What is a strong Hadith called?", opts: ["Da’if", "Sahih", "Broken", "False"], ans: 1 }
         ],
