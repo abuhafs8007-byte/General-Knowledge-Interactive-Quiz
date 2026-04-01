@@ -157,7 +157,7 @@ const quizData = {
             { q: "Which layer of air surrounds the Earth?", opts: ["Hydrosphere", "Lithosphere", "Atmosphere", "Biosphere"], ans: 2 },
             { q: "Which activity adds harmful smoke to the air?", opts: ["Reading books", "Driving cars", "Drinking water", "Sleeping"], ans: 1 },
             { q: "Which of these is a non-renewable source of energy?", opts: ["Wind", "Sun", "Coal", "Water"], ans: 2 },
-            { q: "Which gas is needed by plants for photosynthesis?", opts: ["Oxygen", "Nitrogen",  "Carbon dioxide", "Helium"], ans: 2 }
+            { q: "Which gas is needed by plants for photosynthesis?", opts: ["Oxygen", "Nitrogen", "Carbon dioxide", "Helium"], ans: 2 }
         ],
 
         medium: [
@@ -275,26 +275,26 @@ const quizData = {
     },
     islamic_Studies: {
         easy: [
-            { q: "What is the first pillar of Islam?", opts: ["Zakat", "Salah", "Shahada", "Sawm"], ans: 2 },
-            { q: "Which Prophet built the Kaaba?", opts: ["Prophet Muhammad", "Prophet Ibrahim", "Prophet Musa", "Prophet Isa"], ans: 1 },
-            { q: "How many times do Muslims pray daily?", opts: ["3", "5", "7", "4"], ans: 1 },
-            { q: "What is the holy book of Islam?", opts: ["Bible", "Qur’an", "Torah", "Vedas"], ans: 1 },
-            { q: "During which month do Muslims fast?", opts: ["Muharram", "Ramadan", "Shawwal", "Rabi' al-awwal"], ans: 1 },
-            { q: "Which pillar of Islam involves giving charity?", opts: ["Sawm", "Hajj", "Zakat", "Shahada"], ans: 2 },
-            { q: "What is the term for faith in Arabic?", opts: ["Iman", "Salah", "Tawheed", "Shirk"], ans: 0 },
-            { q: "Where do Muslims go for Friday congregational prayer?", opts: ["Home", "Market", "Mosque", "School"], ans: 2 },
-            { q: "Which Prophet was swallowed by a big fish?", opts: ["Yunus", "Musa", "Ibrahim", "Nuh"], ans: 0 },
-            { q: "What is the term for the pilgrimage to Mecca?", opts: ["Sawm", "Hajj", "Umrah", "Zakat"], ans: 1 },
-            { q: "Which pillar involves testifying that there is no god but Allah?", opts: ["Salah", "Shahada", "Zakat", "Sawm"], ans: 1 },
-            { q: "Who is the last Prophet in Islam?", opts: ["Prophet Isa", "Prophet Musa", "Prophet Muhammad", "Prophet Ibrahim"], ans: 2 },
-            { q: "What is the Arabic term for fasting?", opts: ["Salah", "Sawm", "Zakat", "Hajj"], ans: 1 },
-            { q: "Which angel brought revelation to Prophet Muhammad?", opts: ["Israafeel", "Jibreel", "Meekaaeel", "Israaeel"], ans: 1 },
-            { q: "Giving to the poor is called?", opts: ["Salah", "Sawm", "Sadaqah", "Shahada"], ans: 2 },
-            { q: "What is the term for belief in destiny?", opts: ["At-Tawheed", "Al-Eemaanu Bil-Qadar", "Shirk", "Fiqh"], ans: 1 },
-            { q: "Which Prophet was tested by ALLAAH with long lasting sickness?", opts: ["Ayyub", "Yunus", "Nuh", "Ibrahim"], ans: 0 },
-            { q: "What is the direction Muslims face during prayer?", opts: ["Medina", "Jerusalem", "Mecca", "Cairo"], ans: 2 },
-            { q: "Which pillar requires traveling to Mecca if able?", opts: ["Sawm", "Hajj", "Zakat", "Salah"], ans: 1 },
-            { q: "Belief in all the prophets is part of?", opts: ["Pillars of Iman", "Pillars of Islam", "Fiqh", "Shariah"], ans: 0 }
+            { q: "What is Hadith?", opts: ["Words of scholars", "Sayings and actions of the Prophet ﷺ", "Stories of kings", "Arabic poems"], ans: 1 },
+            { q: "Who collected many authentic Hadiths?", opts: ["Imam Bukhari", "Imam Malik", "Imam Shafi'i", "Imam Ahmad"], ans: 0 },
+            { q: "Why were Hadiths collected?", opts: ["For fun", "To preserve the teachings of the Prophet ﷺ", "To write stories", "To entertain people"], ans: 1 },
+            { q: "Which of these is a famous Hadith scholar?", opts: ["Imam Nawawi", "Ibn Sina", "Al-Khwarizmi", "Ibn Khaldun"], ans: 0 },
+            { q: "Hadith 1 of Nawawi focuses on?", opts: ["Prayer", "Fasting", "Intentions", "Zakat"], ans: 2 },
+            { q: "The famous Hadith begins with 'Actions are judged by'?", opts: ["Words", "Intentions", "People", "Time"], ans: 1 },
+            { q: "Why is intention important in Islam?", opts: ["It changes the reward of actions", "It reduces effort", "It removes prayer", "It replaces fasting"], ans: 0 },
+            { q: "Who narrated the first Hadith in Nawawi's collection?", opts: ["Abu Hurairah", "Umar ibn Al-Khattab", "Ali ibn Abi Talib", "Aisha"], ans: 1 },
+            { q: "What does the Hadith on intention teach?", opts: ["To eat well", "To act with sincerity", "To sleep more", "To travel often"], ans: 1 },
+            { q: "The Prophet Muhammad ﷺ was born in which city?", opts: ["Madinah", "Taif", "Makkah", "Jerusalem"], ans: 2 },
+            { q: "In which year was the Prophet ﷺ born?", opts: ["Year of the Elephant", "Year of Hijrah", "Year of Badr", "Year of Uhud"], ans: 0 },
+            { q: "What was the name of the Prophet’s father?", opts: ["Abdullah", "Abu Talib", "Hamzah", "Abbas"], ans: 0 },
+            { q: "What was the name of the Prophet’s mother?", opts: ["Khadijah", "Aminah", "Aisha", "Fatimah"], ans: 1 },
+            { q: "The Prophet ﷺ belonged to which tribe?", opts: ["Quraysh", "Ansar", "Aws", "Khazraj"], ans: 0 },
+            { q: "Who took care of the Prophet ﷺ after his mother died?", opts: ["His uncle", "His grandfather", "His brother", "His teacher"], ans: 1 },
+            { q: "Why is the birth of the Prophet ﷺ important?", opts: ["He was a king", "He brought guidance to mankind", "He built cities", "He discovered science"], ans: 1 },
+            { q: "What is Sunnah?", opts: ["Opinions of scholars", "Practices of the Prophet ﷺ", "Stories of Arabs", "Islamic laws only"], ans: 1 },
+            { q: "Which book is known for authentic Hadith?", opts: ["Sahih Bukhari", "Qur’an only", "History books", "Poetry books"], ans: 0 },
+            { q: "What is a weak Hadith called?", opts: ["Sahih", "Hasan", "Da’if", "Mutawatir"], ans: 2 },
+            { q: "What is a strong Hadith called?", opts: ["Da’if", "Sahih", "Broken", "False"], ans: 1 }
         ],
         medium: [
             { q: "Which Prophet was known for building the Canoe/Ark?", opts: ["Nuh", "Musa", "Ibrahim", "Isa"], ans: 0 },
