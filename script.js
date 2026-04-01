@@ -184,27 +184,28 @@ const quizData = {
         ],
 
         hard: [
-            { q: "Which process releases energy from food in cells?", opts: ["Photosynthesis", "Respiration", "Transpiration", "Excretion"], ans: 1 },
-            { q: "What is the function of red blood cells?", opts: ["Fight infection", "Carry oxygen", "Clot blood", "Digest food"], ans: 1 },
-            { q: "Which property measures resistance to scratching?", opts: ["Density", "Hardness", "Mass", "Volume"], ans: 1 },
-            { q: "Which law explains that for every action there is an equal and opposite reaction?", opts: ["Newton’s First Law", "Newton’s Second Law", "Newton’s Third Law", "Law of Gravity"], ans: 2 },
-            { q: "What is the role of chlorophyll in plants?", opts: ["Absorb sunlight", "Store water", "Protect roots", "Attract insects"], ans: 0 },
-            { q: "Which part of the brain controls balance?", opts: ["Cerebrum", "Cerebellum", "Medulla", "Spinal cord"], ans: 1 },
-            { q: "What is the term for animals that regulate their body temperature internally?", opts: ["Cold-blooded", "Warm-blooded", "Herbivores", "Vertebrates"], ans: 1 },
-            { q: "Which environmental factor can lead to soil erosion?", opts: ["Planting trees", "Heavy rainfall", "Recycling", "Composting"], ans: 1 },
-            { q: "Which state of matter has particles that move freely and fill any container?", opts: ["Solid", "Liquid", "Gas", "Plasma only"], ans: 2 },
-            { q: "What type of energy transformation occurs in a light bulb?", opts: ["Light to heat", "Electrical to light", "Sound to light", "Heat to electrical"], ans: 1 },
-            { q: "Which organ system removes liquid waste from the body?", opts: ["Digestive system", "Respiratory system", "Urinary system", "Nervous system"], ans: 2 },
-            { q: "What is mechanical advantage in simple machines?", opts: ["Speed increase", "Force multiplication", "Energy loss", "Heat production"], ans: 1 },
-            { q: "Which blood component helps in clotting?", opts: ["Plasma", "Red cells", "Platelets", "White cells"], ans: 2 },
-            { q: "What is the main greenhouse gas responsible for global warming?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"], ans: 1 },
-            { q: "Which organ produces bile?", opts: ["Pancreas", "Liver", "Stomach", "Kidney"], ans: 1 },
-            { q: "What is the SI unit of force?", opts: ["Joule", "Newton", "Watt", "Pascal"], ans: 1 },
-            { q: "Which process changes a solid directly into gas?", opts: ["Condensation", "Freezing", "Sublimation", "Melting"], ans: 2 },
-            { q: "Which part of the eye controls the amount of light entering?", opts: ["Retina", "Cornea", "Pupil", "Lens"], ans: 2 },
-            { q: "What should you do first in case of severe bleeding?", opts: ["Wash with soap", "Apply direct pressure", "Give food", "Ignore it"], ans: 1 },
-            { q: "Which ecosystem has the highest biodiversity?", opts: ["Desert", "Tundra", "Rainforest", "Savanna"], ans: 2 }
+            { q: "What is an acid?", opts: ["Substance that produces OH-", "Substance that produces H+", "Substance that is neutral", "Substance that is solid"], ans: 1 },
+            { q: "What is a base?", opts: ["Produces H+", "Produces OH-", "Produces CO2", "Produces heat only"], ans: 1 },
+            { q: "Which of these is an acid?", opts: ["NaOH", "HCl", "KOH", "CaO"], ans: 1 },
+            { q: "Which of these is a base?", opts: ["H2SO4", "HCl", "NaOH", "HNO3"], ans: 2 },
+            { q: "Neutralisation produces?", opts: ["Acid only", "Base only", "Salt and water", "Gas only"], ans: 2 },
+            { q: "Which indicator turns red in acid?", opts: ["Litmus", "Phenolphthalein", "Methyl orange", "Universal indicator"], ans: 0 },
+            { q: "Electrical energy is energy from?", opts: ["Water", "Moving charges", "Sunlight", "Wind"], ans: 1 },
+            { q: "Which device uses electrical energy?", opts: ["Knife", "Fan", "Spoon", "Book"], ans: 1 },
+            { q: "A conductor allows?", opts: ["No current", "Heat only", "Electric current", "Light only"], ans: 2 },
+            { q: "Which is a good conductor?", opts: ["Wood", "Plastic", "Copper", "Rubber"], ans: 2 },
+            { q: "Radioactivity is the emission of?", opts: ["Light only", "Heat only", "Radiation", "Sound"], ans: 2 },
+            { q: "Which element is radioactive?", opts: ["Oxygen", "Uranium", "Nitrogen", "Hydrogen"], ans: 1 },
+            { q: "Which device detects radiation?", opts: ["Thermometer", "Geiger counter", "Barometer", "Voltmeter"], ans: 1 },
+            { q: "Ozone layer protects Earth from?", opts: ["Rain", "Heat", "UV radiation", "Wind"], ans: 2 },
+            { q: "Ozone depletion is mainly caused by?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 },
+            { q: "Effect of ozone depletion includes?", opts: ["Cool weather", "More UV rays", "Less sunlight", "More rain"], ans: 1 },
+            { q: "What is the full meaning of CFC?", opts: ["Chlorofluorocarbons", "Carbon Fluoride Compounds", "Chlorine Fuel Chemicals", "Chemical Fuel Components"], ans: 0 },
+            { q: "Which material is an insulator?", opts: ["Copper", "Iron", "Rubber", "Aluminium"], ans: 2 },
+            { q: "Half-life is related to?", opts: ["Electricity", "Radioactivity", "Heat", "Sound"], ans: 1 },
+            { q: "Which gas forms ozone?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], ans: 0 }
         ]
+
     },
     Basic_Technology: {
         easy: [
@@ -297,7 +298,7 @@ const quizData = {
             { q: "What is a weak Hadith called?", opts: ["Sahih", "Hasan", "Da’if", "Mutawatir"], ans: 2 },
             { q: "What is a strong Hadith called?", opts: ["Da’if", "Broken", "Sahih", "False"], ans: 2 }
         ],
-        
+
         medium: [
             { q: "Belief in the prophets is which pillar of Iman?", opts: ["First", "Second", "Fourth", "Sixth"], ans: 2 },
             { q: "Prophets were sent to do what?", opts: ["Entertain people", "Guide mankind", "Build houses", "Teach farming"], ans: 1 },
