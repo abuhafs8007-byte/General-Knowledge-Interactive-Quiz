@@ -322,27 +322,27 @@ const quizData = {
             { q: "What lesson is learned from the Conquest of Makkah?", opts: ["Revenge", "Forgiveness", "Pride", "Isolation"], ans: 1 }
         ],
 
-        hard: [
-            { q: "Which Prophet was known as 'Khalilullah' (Friend of Allah)?", opts: ["Ibrahim", "Musa", "Nuh", "Isa"], ans: 0 },
-            { q: "Which angel will blow the trumpet on the Day of Judgment?", opts: ["Israafeel", "Jibreel", "Meekaaeel", "Israaeel"], ans: 0 },
-            { q: "Which companion of Prophet Muhammad was known as 'Siddiq'?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 0 },
-            { q: "Which Surah is the longest in the Qur’an?", opts: ["Al-Baqarah", "Yasin", "Al-Fatiha", "An-Nisa"], ans: 0 },
-            { q: "Which Prophet was thrown into the fire but saved by Allah?", opts: ["Ibrahim", "Musa", "Nuh", "Yunus"], ans: 0 },
-            { q: "Zakat is obligatory on wealth exceeding?", opts: ["Nisab", "Sadaqah", "Fidyah", "Waqf"], ans: 0 },
-            { q: "Which battle was the first major victory for Muslims?", opts: ["Badr", "Uhud", "Khandaq", "Tabuk"], ans: 0 },
-            { q: "Which Caliph compiled the Qur’an in one book?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 2 },
-            { q: "Belief in all Prophets does NOT include?", opts: ["Muhammad", "Isa", "Krishna", "Musa"], ans: 2 },
-            { q: "During Hajj, pilgrims perform which ritual at Mina?", opts: ["Tawaf", "Ramy al-Jamarat", "Sa’i", "Wuquf"], ans: 1 },
-            { q: "The Hijrah marks the migration to?", opts: ["Mecca", "Medina", "Ta’if", "Jerusalem"], ans: 1 },
-            { q: "Which Surah mentions 'Ayat al-Kursi'?", opts: ["Al-Baqarah", "Al-Fatiha", "Yasin", "Al-Ikhlas"], ans: 0 },
-            { q: "Which Prophet was swallowed by a big fish as a test of patience?", opts: ["Yunus", "Ibrahim", "Musa", "Nuh"], ans: 0 },
-            { q: "Which Islamic era followed the death of Prophet Muhammad?", opts: ["Rashidun Caliphate", "Umayyad", "Abbasid", "Ottoman"], ans: 0 },
-            { q: "Belief in Qadar includes?", opts: ["Fate and destiny", "Charity", "Prayer", "Pilgrimage"], ans: 0 },
-            { q: "Which pillar of Islam requires abstaining from food, drink, and bad deeds from dawn to sunset during Ramadan?", opts: ["Salah", "Sawm", "Hajj", "Zakat"], ans: 1 },
-            { q: "The Farewell Pilgrimage was performed in which year of Hijrah?", opts: ["9 AH", "10 AH", "8 AH", "11 AH"], ans: 0 },
-            { q: "Which Prophet is associated with the building of the Ark?", opts: ["Nuh", "Musa", "Ibrahim", "Yunus"], ans: 0 },
-            { q: "Which Surah contains stories of many Prophets?", opts: ["Al-An’am", "Al-Baqarah", "Hud", "Yasin"], ans: 2 },
-            { q: "Belief in the unseen includes all EXCEPT?", opts: ["Angels", "Jinn", "ALLAAH", "Stars"], ans: 3 }
+        easy: [
+            { q: "Who was the first Caliph in Islam?", opts: ["Umar ibn al-Khattab", "Abu Bakr as-Siddiq", "Uthman ibn Affan", "Ali ibn Abi Talib"], ans: 1 },
+            { q: "Which Caliph was known for compiling the Qur'an into a single book?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 2 },
+            { q: "Who was the fourth Rightly Guided Caliph?", opts: ["Uthman ibn Affan", "Ali ibn Abi Talib", "Umar ibn al-Khattab", "Abu Bakr"], ans: 1 },
+            { q: "What does 'Khulafaahur-Raashidoon' mean?", opts: ["Wrong leaders", "Guided Caliphs", "Rich rulers", "War leaders"], ans: 1 },
+            { q: "Which Caliph expanded the Islamic state greatly?", opts: ["Abu Bakr", "Umar", "Ali", "Uthman"], ans: 1 },
+            { q: "Who was known for his generosity and funded the well of Rumah?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 2 },
+            { q: "What is Shirk?", opts: ["Fasting in Ramadan", "Associating partners with Allah", "Giving charity", "Performing Hajj"], ans: 1 },
+            { q: "Which of the following is a major Shirk?", opts: ["Praying to Allah alone", "Believing in one God", "Worshipping idols", "Giving zakat"], ans: 2 },
+            { q: "Which Caliph faced a major civil unrest and was martyred?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 3 },
+            { q: "Which of these is NOT part of Hajj?", opts: ["Tawaf", "Sa'i", "Zakat", "Standing at Arafat"], ans: 2 },
+            { q: "Shirk includes:", opts: ["Believing in one Allah", "Worshipping Allah alone", "Associating partners with Allah", "Praying regularly"], ans: 2 },
+            { q: "Who succeeded Abu Bakr as Caliph?", opts: ["Ali", "Uthman", "Umar", "Hasan"], ans: 2 },
+            { q: "The term 'Raashidoon' means:", opts: ["Misguided", "Just rulers", "Guided rightly", "Wealthy rulers"], ans: 2 },
+            { q: "Which Caliph is known for his strong justice?", opts: ["Umar ibn al-Khattab", "Abu Bakr", "Uthman", "Ali"], ans: 0 },
+            { q: "How many Rightly Guided Caliphs are there?", opts: ["3", "4", "5", "6"], ans: 1 },
+            { q: "Which of these nullifies Tawhid?", opts: ["Salah", "Zakat", "Shirk", "Fasting"], ans: 2 },
+            { q: "What does Shirk mean in Islam?", opts: ["Fasting in Ramadan", "Associating partners with Allah", "Giving charity", "Performing Hajj"], ans: 1 },
+            { q: "Which of the following is an example of Shirk?", opts: ["Praying only to Allah", "Believing in one God", "Worshipping idols", "Giving zakat"], ans: 2 },
+            { q: "Why is Shirk considered a major sin?", opts: ["It is a small mistake", "It opposes monotheism", "It increases wealth", "It is encouraged"], ans: 1 },
+            { q: "What is the main duty of a Muslim regarding Tawhid?", opts: ["Worship many gods", "Avoid prayer", "Worship Allah alone", "Follow traditions only"], ans: 2 }
         ]
     },
     civic_Education: {
