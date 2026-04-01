@@ -161,27 +161,28 @@ const quizData = {
         ],
 
         medium: [
-            { q: "What is the process by which plants make their food?", opts: ["Respiration", "Photosynthesis", "Digestion", "Transpiration"], ans: 1 },
-            { q: "Which blood vessels carry blood away from the heart?", opts: ["Veins", "Capillaries", "Arteries", "Nerves"], ans: 2 },
-            { q: "Which material is a good conductor of electricity?", opts: ["Rubber", "Copper", "Wood", "Glass"], ans: 1 },
-            { q: "Energy stored in food is called?", opts: ["Heat energy", "Light energy", "Chemical energy", "Sound energy"], ans: 2 },
-            { q: "Which layer of the Earth contains living things?", opts: ["Core", "Mantle", "Biosphere", "Crust only"], ans: 2 },
-            { q: "What type of motion is a swinging pendulum?", opts: ["Circular motion", "Rotational motion", "Oscillatory motion", "Linear motion"], ans: 2 },
-            { q: "Which organ filters waste from the blood?", opts: ["Heart", "Liver", "Kidney", "Lungs"], ans: 2 },
-            { q: "Evaporation is the change from?", opts: ["Gas to liquid", "Liquid to gas", "Solid to liquid", "Gas to solid"], ans: 1 },
-            { q: "Which simple machine is used to draw water from a well?", opts: ["Pulley", "Lever", "Wedge", "Inclined plane"], ans: 0 },
-            { q: "Which part of a flower becomes the fruit?", opts: ["Petal", "Ovary", "Stamen", "Sepal"], ans: 1 },
-            { q: "Which force slows down moving objects?", opts: ["Gravity", "Magnetism", "Friction", "Push"], ans: 2 },
-            { q: "What is the main source of fresh water for humans?", opts: ["Oceans", "Rivers and lakes", "Clouds", "Deserts"], ans: 1 },
-            { q: "Which animal is a carnivore?", opts: ["Cow", "Goat", "Lion", "Sheep"], ans: 2 },
-            { q: "What is the boiling point of water at sea level?", opts: ["50°C", "90°C", "100°C", "120°C"], ans: 2 },
-            { q: "Which gas is released during photosynthesis?", opts: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"], ans: 1 },
-            { q: "What should you do if someone faints?", opts: ["Shake them hard", "Pour water on them immediately", "Lay them flat and loosen tight clothes", "Ignore them"], ans: 2 },
-            { q: "Which type of energy is produced by vibrating objects?", opts: ["Light energy", "Sound energy", "Heat energy", "Electrical energy"], ans: 1 },
-            { q: "Which part of the digestive system absorbs nutrients?", opts: ["Stomach", "Small intestine", "Large intestine", "Esophagus"], ans: 1 },
-            { q: "What is the main cause of air pollution?", opts: ["Trees", "Factory smoke", "Rain", "Soil"], ans: 1 },
-            { q: "Which simple machine is a ramp?", opts: ["Lever", "Inclined plane", "Pulley", "Wheel and axle"], ans: 1 }
+            { q: "What is a habitat?", opts: ["A type of food", "A place where organisms live", "A kind of plant", "A form of energy"], ans: 1 },
+            { q: "Which of these is an example of a terrestrial habitat?", opts: ["Ocean", "River", "Forest", "Pond"], ans: 2 },
+            { q: "Animals that live in water are called?", opts: ["Terrestrial", "Aerial", "Aquatic", "Desert"], ans: 2 },
+            { q: "Adaptation helps organisms to?", opts: ["Sleep well", "Survive in their environment", "Grow faster only", "Move slowly"], ans: 1 },
+            { q: "Which feature helps a fish live in water?", opts: ["Wings", "Fins", "Fur", "Claws"], ans: 1 },
+            { q: "An ecosystem consists of?", opts: ["Only plants", "Only animals", "Living and non-living things", "Only water"], ans: 2 },
+            { q: "Which of these is a producer in an ecosystem?", opts: ["Lion", "Goat", "Green plant", "Fungus"], ans: 2 },
+            { q: "Which of these is a consumer?", opts: ["Grass", "Algae", "Goat", "Tree"], ans: 2 },
+            { q: "Decomposers help to?", opts: ["Produce food", "Break down dead organisms", "Chase prey", "Store energy"], ans: 1 },
+            { q: "Which of these is a decomposer?", opts: ["Mushroom", "Lion", "Fish", "Bird"], ans: 0 },
+            { q: "Man is classified as a higher animal because?", opts: ["He can fly", "He has advanced brain development", "He lives in water", "He has fur"], ans: 1 },
+            { q: "Which organ helps humans to think?", opts: ["Heart", "Brain", "Liver", "Kidney"], ans: 1 },
+            { q: "Humans are omnivores because they?", opts: ["Eat only plants", "Eat only meat", "Eat both plants and animals", "Do not eat"], ans: 2 },
+            { q: "Rusting mainly affects which material?", opts: ["Plastic", "Wood", "Iron", "Glass"], ans: 2 },
+            { q: "Rust is formed when iron reacts with?", opts: ["Oxygen and water", "Carbon dioxide only", "Nitrogen only", "Heat only"], ans: 0 },
+            { q: "Which condition is necessary for rusting?", opts: ["Dry air", "Cold temperature", "Presence of water", "Sunlight only"], ans: 2 },
+            { q: "Which of these can prevent rusting?", opts: ["Painting", "Wetting", "Heating", "Breaking"], ans: 0 },
+            { q: "Galvanizing prevents rusting by coating iron with?", opts: ["Copper", "Zinc", "Silver", "Gold"], ans: 1 },
+            { q: "Which part of the human body is responsible for breathing?", opts: ["Heart", "Lungs", "Kidney", "Brain"], ans: 1 },
+            { q: "Which method helps protect iron from rusting?", opts: ["Leaving it in water", "Painting it", "Breaking it", "Heating it"], ans: 1 }
         ],
+
         hard: [
             { q: "Which process releases energy from food in cells?", opts: ["Photosynthesis", "Respiration", "Transpiration", "Excretion"], ans: 1 },
             { q: "What is the function of red blood cells?", opts: ["Fight infection", "Carry oxygen", "Clot blood", "Digest food"], ans: 1 },
@@ -294,7 +295,7 @@ const quizData = {
             { q: "What is Hadith?", opts: ["Words of scholars", "Sayings and actions of the Prophet ﷺ", "Stories of kings", "Arabic poems"], ans: 1 },
             { q: "Who collected many authentic Hadiths?", opts: ["Imam Bukhari", "Imam Malik", "Imam Shafi'i", "Imam Ahmad"], ans: 0 },
             { q: "What is a weak Hadith called?", opts: ["Sahih", "Hasan", "Da’if", "Mutawatir"], ans: 2 },
-            { q: "What is a strong Hadith called?", opts: ["Da’if", "Broken",  "Sahih", "False"], ans: 2 }
+            { q: "What is a strong Hadith called?", opts: ["Da’if", "Broken", "Sahih", "False"], ans: 2 }
         ],
         medium: [
             { q: "Which Prophet was known for building the Canoe/Ark?", opts: ["Nuh", "Musa", "Ibrahim", "Isa"], ans: 0 },
