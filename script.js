@@ -157,7 +157,7 @@ const quizData = {
             { q: "Which layer of air surrounds the Earth?", opts: ["Hydrosphere", "Lithosphere", "Atmosphere", "Biosphere"], ans: 2 },
             { q: "Which activity adds harmful smoke to the air?", opts: ["Reading books", "Driving cars", "Drinking water", "Sleeping"], ans: 1 },
             { q: "Which of these is a non-renewable source of energy?", opts: ["Wind", "Sun", "Coal", "Water"], ans: 2 },
-            { q: "Which gas is needed by plants for photosynthesis?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"], ans: 1 }
+            { q: "Which gas is needed by plants for photosynthesis?", opts: ["Oxygen", "Nitrogen",  "Carbon dioxide", "Helium"], ans: 2 }
         ],
 
         medium: [
