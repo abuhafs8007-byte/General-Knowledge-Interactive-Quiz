@@ -322,7 +322,7 @@ const quizData = {
             { q: "What lesson is learned from the Conquest of Makkah?", opts: ["Revenge", "Forgiveness", "Pride", "Isolation"], ans: 1 }
         ],
 
-        easy: [
+        hard: [
             { q: "Who was the first Caliph in Islam?", opts: ["Umar ibn al-Khattab", "Abu Bakr as-Siddiq", "Uthman ibn Affan", "Ali ibn Abi Talib"], ans: 1 },
             { q: "Which Caliph was known for compiling the Qur'an into a single book?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 2 },
             { q: "Who was the fourth Rightly Guided Caliph?", opts: ["Uthman ibn Affan", "Ali ibn Abi Talib", "Umar ibn al-Khattab", "Abu Bakr"], ans: 1 },
