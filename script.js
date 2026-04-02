@@ -329,7 +329,7 @@ const quizData = {
             { q: "What does 'Khulafaahur-Raashidoon' mean?", opts: ["Wrong leaders", "Guided Caliphs", "Rich rulers", "War leaders"], ans: 1 },
             { q: "Which Caliph expanded the Islamic state greatly?", opts: ["Abu Bakr", "Umar", "Ali", "Uthman"], ans: 1 },
             { q: "Who was known for his generosity and funded the well of Rumah?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 2 },
-            { q: "Who of the following people is not a child of Abu Bakr", opts: [ "Aishah", "Abdur-Rahmaan", "Asmaa'a", "Muhammad"], ans: 1 },
+            { q: "Which of the following is considered minor Shirk?", opts: ["Worshipping idols", "Believing in many gods", "Showing off acts of worship", "Denying Allah"], ans: 2 },
             { q: "Which of the following is a major Shirk?", opts: ["Praying to Allah alone", "Believing in one God", "Worshipping idols", "Giving zakat"], ans: 2 },
             { q: "Which Caliph faced a major civil unrest and was martyred?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 3 },
             { q: "Which of these is NOT part of Hajj?", opts: ["Tawaf", "Sa'i", "Zakat", "Standing at Arafat"], ans: 2 },
