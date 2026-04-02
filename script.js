@@ -184,10 +184,10 @@ const quizData = {
         ],
 
         hard: [
-            { q: "What is an acid?", opts: ["Substance that produces OH-", "Substance that produces H+", "Substance that is neutral", "Substance that is solid"], ans: 1 },
-            { q: "What is a base?", opts: ["Produces H+", "Produces OH-", "Produces CO2", "Produces heat only"], ans: 1 },
+            {q: "Acids can be identified by their ____", opts: ["Bitter taste", "Sour taste", "Slippery feel", "Soapy touch"], ans: 1 },
+            {q: "Bases are known for their ____", opts: ["Sour taste", "Sweet taste", "Bitter taste", "Salty taste"], ans: 2 },
+            { q: "Which of the following describes a base?", opts: ["Tastes sour", "Feels slippery", "Has no taste", "Smells sweet"], ans: 1 },
             { q: "Which of these is an acid?", opts: ["NaOH", "HCl", "KOH", "CaO"], ans: 1 },
-            { q: "Which of these is a base?", opts: ["H2SO4", "HCl", "NaOH", "HNO3"], ans: 2 },
             { q: "Neutralisation produces?", opts: ["Acid only", "Base only", "Salt and water", "Gas only"], ans: 2 },
             { q: "Which indicator turns red in acid?", opts: ["Litmus", "Phenolphthalein", "Methyl orange", "Universal indicator"], ans: 0 },
             { q: "Electrical energy is energy from?", opts: ["Water", "Moving charges", "Sunlight", "Wind"], ans: 1 },
@@ -197,13 +197,13 @@ const quizData = {
             { q: "Radioactivity is the emission of?", opts: ["Light only", "Heat only", "Radiation", "Sound"], ans: 2 },
             { q: "Which element is radioactive?", opts: ["Oxygen", "Uranium", "Nitrogen", "Hydrogen"], ans: 1 },
             { q: "Which device detects radiation?", opts: ["Thermometer", "Geiger counter", "Barometer", "Voltmeter"], ans: 1 },
-            { q: "Ozone layer protects Earth from?", opts: ["Rain", "Heat", "UV radiation", "Wind"], ans: 2 },
-            { q: "Ozone depletion is mainly caused by?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 },
+            { q: "Electrical Energy can be used in all of the following places EXCEPT ____", opts: ["School", "Home", "Market", "Desert"], ans: 3 }, { q: "Ozone depletion is mainly caused by?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 },
             { q: "Effect of ozone depletion includes?", opts: ["Cool weather", "More UV rays", "Less sunlight", "More rain"], ans: 1 },
             { q: "What is the full meaning of CFC?", opts: ["Chlorofluorocarbons", "Carbon Fluoride Compounds", "Chlorine Fuel Chemicals", "Chemical Fuel Components"], ans: 0 },
             { q: "Which material is an insulator?", opts: ["Copper", "Iron", "Rubber", "Aluminium"], ans: 2 },
             { q: "Half-life is related to?", opts: ["Electricity", "Radioactivity", "Heat", "Sound"], ans: 1 },
-            { q: "Which gas forms ozone?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], ans: 0 }
+            { q: "Which gas forms ozone?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], ans: 0 },
+            { q: "Which of these is a base?", opts: ["H2SO4", "HCl", "NaOH", "HNO3"], ans: 2 }
         ]
 
     },
