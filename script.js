@@ -196,7 +196,7 @@ const quizData = {
             { q: "Which is a good conductor?", opts: ["Wood", "Plastic", "Copper", "Rubber"], ans: 2 },
             { q: "Radioactivity is the emission of?", opts: ["Light only", "Heat only", "Radiation", "Sound"], ans: 2 },
             { q: "Which element is radioactive?", opts: ["Oxygen", "Uranium", "Nitrogen", "Hydrogen"], ans: 1 },
-            { q: "Which device detects radiation?", opts: ["Thermometer", "Geiger counter", "Barometer", "Voltmeter"], ans: 1 },
+            { q: "Which of the following is a property of acids?", opts: ["Bitter taste", "Sour taste", "Slippery feel", "Soapy nature"], ans: 1 },
             { q: "Electrical Energy can be used in all of the following places EXCEPT ____", opts: ["School", "Home", "Market", "Desert"], ans: 3 }, { q: "Ozone depletion is mainly caused by?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 },
             { q: "Effect of ozone depletion includes?", opts: ["Cool weather", "More UV rays", "Less sunlight", "More rain"], ans: 1 },
             { q: "What is the full meaning of CFC?", opts: ["Chlorofluorocarbons", "Carbon Fluoride Compounds", "Chlorine Fuel Chemicals", "Chemical Fuel Components"], ans: 0 },
