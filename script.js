@@ -332,7 +332,7 @@ const quizData = {
             { q: "Which of the following is considered minor Shirk?", opts: ["Worshipping idols", "Believing in many gods", "Showing off acts of worship", "Denying Allah"], ans: 2 },
             { q: "Which of the following is a major Shirk?", opts: ["Praying to Allah alone", "Believing in one God", "Worshipping idols", "Giving zakat"], ans: 2 },
             { q: "Which Caliph faced a major civil unrest and was martyred?", opts: ["Abu Bakr", "Umar", "Uthman", "Ali"], ans: 3 },
-            { q: "Which of these is NOT part of Hajj?", opts: ["Tawaf", "Sa'i", "Zakat", "Standing at Arafat"], ans: 2 },
+            { q: "Which of the following is a condition (Shart) for the validity of Solaat?", opts: ["Reciting a long Surah", "Facing the Qiblah", "Saying Tasbeeh in Ruku'", "Raising hands in every movement"], ans: 1 },
             { q: "Shirk includes:", opts: ["Believing in one Allah", "Worshipping Allah alone", "Associating partners with Allah", "Praying regularly"], ans: 2 },
             { q: "Who succeeded Abu Bakr as Caliph?", opts: ["Ali", "Uthman", "Umar", "Hasan"], ans: 2 },
             { q: "The term 'Raashidoon' means:", opts: ["Misguided", "Just rulers", "Guided rightly", "Wealthy rulers"], ans: 2 },
