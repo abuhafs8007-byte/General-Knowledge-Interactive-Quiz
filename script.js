@@ -150,7 +150,11 @@ easy: [
 { q: "STIs are mainly spread through?", opts: ["Food", "Air", "Sexual contact", "Water"], ans: 2 },
 { q: "What does STI stand for?", opts: ["Serious Tissue Infection", "Sexually Transmitted Infection", "Skin Treatment Illness", "Simple Transfer Infection"], ans: 1 },
 { q: "HIV attacks which part of the body?", opts: ["Bones", "Immune system", "Skin", "Muscles"], ans: 1 },
-{ q: "Which of these can prevent HIV?", opts: ["Sharing needles", "Unsafe sex", "safe sexual activity”, "Touching"], ans: 2 },
+{ 
+  q: "Which of these can prevent HIV?", 
+  opts: ["Sharing needles", "Unsafe sex", "safe sexual activity", "Touching"], 
+  ans: 2 
+},
 { q: "AIDS is caused by?", opts: ["Bacteria", "Virus", "Fungus", "Dust"], ans: 1 },
 { q: "Which form of energy is used when you run?", opts: ["Heat energy", "Sound energy", "Chemical energy", "Light energy"], ans: 2 },
 { q: "The sun gives us which type of energy?", opts: ["Light energy", "Sound energy", "Nuclear waste", "Wind energy"], ans: 0 },
