@@ -168,7 +168,7 @@ easy: [
 { q: "Which is a safe way to reduce pollution?", opts: ["Burning waste", "Dumping in rivers", "Recycling", "Using more plastic"], ans: 2 },
 { q: “Continuous loud music is an example of?”, opts: [“Water pollution”, “Noise pollution”, “Land pollution”, “Air pollution”], ans: 1 },
 { q: "What happens when noise is too loud?", opts: ["Improves hearing", "Causes deafness", "Improves sleep", "Cools body"], ans: 1 }
-]
+],
 
         medium: [
             { q: "What is a habitat?", opts: ["A type of food", "A place where organisms live", "A kind of plant", "A form of energy"], ans: 1 },
