@@ -172,9 +172,9 @@ const quizData = {
 
         medium: [
             { q: "Where does digestion begins?", opts: ["Stomach", "Mouth", "Small intestine", "Large intestine"], ans: 1 },
-            { q: "Which organ filters blood in the excretory system?", opts: ["Lungs", "Kidneys", "Skin", "Heart"], ans: 1 },
+{ q: "Which is an abiotic factor?", opts: ["Animals", "Plants", "Sunlight", "Bacteria"], ans: 2 },
+{ q: "Humans are classified as mammals because they?", opts: ["Lay eggs", "Have hair and feed young with milk", "Live in water", "Have wings"], ans: 1 },
             { q: "Urine is stored in the?", opts: ["Ureter", "Bladder", "Kidney", "Urethra"], ans: 1 },
-            { q: "Which organ removes urea from blood?", opts: ["Lungs", "Kidneys", "Skin", "Heart"], ans: 1 },
             { q: "Which waste is removed by lungs?", opts: ["Urea", "Carbon dioxide", "Salt", "Water"], ans: 1 },
             { q: "Sweat mainly removes which substance?", opts: ["Oxygen", "Salt", "Glucose", "Protein"], ans: 1 },
             { q: "Growth means increase in what?", opts: ["Age only", "Size and mass", "Color", "Shape only"], ans: 1 },
