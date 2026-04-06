@@ -137,28 +137,38 @@ const quizData = {
         ]
     },
     basic_Science: {
-        easy: [
-            { q: "Which of the following is a major cause of air pollution?", opts: ["Planting trees", "Burning fossil fuels", "Using bicycles", "Recycling waste"], ans: 1 },
-            { q: "Which gas is mainly responsible for global warming?", opts: ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], ans: 2 },
-            { q: "Air pollution can lead to which health problem?", opts: ["Strong bones", "Good eyesight", "Respiratory diseases", "Fast growth"], ans: 2 },
-            { q: "Which of these helps reduce air pollution?", opts: ["Cutting down trees", "Using generators often", "Planting trees", "Burning plastics"], ans: 2 },
-            { q: "STIs are mainly transmitted through?", opts: ["Sharing food", "Handshake", "Unprotected sexual contact", "Breathing air"], ans: 2 },
-            { q: "Which of the following is an example of an STI?", opts: ["Malaria", "HIV/AIDS", "Typhoid", "Cholera"], ans: 1 },
-            { q: "Which method can help prevent STIs?", opts: ["Sharing needles", "Unsafe sex", "Using protection", "Poor hygiene"], ans: 2 },
-            { q: "Which of these is a symptom of some STIs?", opts: ["Clear vision", "Skin rashes", "Strong muscles", "Fast running"], ans: 1 },
-            { q: "Energy is defined as the ability to?", opts: ["Sleep", "Do work", "Eat food", "Grow plants"], ans: 1 },
-            { q: "Which of the following is a form of energy?", opts: ["Light", "Sand", "Stone", "Soil"], ans: 0 },
-            { q: "Which energy source is renewable?", opts: ["Coal", "Petrol", "Solar", "Diesel"], ans: 2 },
-            { q: "Which device uses electrical energy?", opts: ["Broom", "Television", "Spoon", "Book"], ans: 1 },
-            { q: "Air is a mixture of gases. Which gas is highest in air?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Helium"], ans: 2 },
-            { q: "Which gas do humans breathe in for respiration?", opts: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"], ans: 1 },
-            { q: "Which of these is a property of air?", opts: ["It has no weight", "It occupies space", "It cannot move", "It has no pressure"], ans: 1 },
-            { q: "Which instrument is used to measure air pressure?", opts: ["Thermometer", "Barometer", "Hygrometer", "Ruler"], ans: 1 },
-            { q: "Which layer of air surrounds the Earth?", opts: ["Hydrosphere", "Lithosphere", "Atmosphere", "Biosphere"], ans: 2 },
-            { q: "Which activity adds harmful smoke to the air?", opts: ["Reading books", "Driving cars", "Drinking water", "Sleeping"], ans: 1 },
-            { q: "Which of these is a non-renewable source of energy?", opts: ["Wind", "Sun", "Coal", "Water"], ans: 2 },
-            { q: "Which gas is needed by plants for photosynthesis?", opts: ["Oxygen", "Nitrogen", "Carbon dioxide", "Helium"], ans: 2 }
-        ],
+easy: [
+{ q: "Which of these is a chemical element?", opts: ["Water", "Oxygen", "Salt", "Sugar"], ans: 1 },
+{ q: "The symbol for Sodium is?", opts: ["S", "So", "Na", "N"], ans: 2 },
+{ q: "Which of these is a compound?", opts: ["Iron", "Oxygen", "Water", "Gold"], ans: 2 },
+{ q: "What is formed when two or more elements combine chemically?", opts: ["Mixture", "Compound", "Solution", "Gas"], ans: 1 },
+{ q: "Which activity can cause land pollution?", opts: ["Planting trees", "Recycling", "Dumping refuse", "Cleaning"], ans: 2 },
+{ q: "Dirty water from factories causes?", opts: ["Air pollution", "Water pollution", "Noise pollution", "Soil formation"], ans: 1 },
+{ q: "Which of these is an element found in air?", opts: ["Nitrogen", "Salt", "Sugar", "Water"], ans: 0 },
+{ q: "Noise pollution can damage the?", opts: ["Eyes", "Skin", "Ears", "Nose"], ans: 2 },
+{ q: "Which of these is a source of noise pollution?", opts: ["Flowing river", "Birds singing", "Loud speakers", "Wind"], ans: 2 },
+{ q: "STIs are mainly spread through?", opts: ["Food", "Air", "Sexual contact", "Water"], ans: 2 },
+{ q: "What does STI stand for?", opts: ["Serious Tissue Infection", "Sexually Transmitted Infection", "Skin Treatment Illness", "Simple Transfer Infection"], ans: 1 },
+{ q: "HIV attacks which part of the body?", opts: ["Bones", "Immune system", "Skin", "Muscles"], ans: 1 },
+{ q: "Which of these can prevent HIV?", opts: ["Sharing needles", "Unsafe sex", "safe sexual activity”, "Touching"], ans: 2 },
+{ q: "AIDS is caused by?", opts: ["Bacteria", "Virus", "Fungus", "Dust"], ans: 1 },
+{ q: "Which form of energy is used when you run?", opts: ["Heat energy", "Sound energy", "Chemical energy", "Light energy"], ans: 2 },
+{ q: "The sun gives us which type of energy?", opts: ["Light energy", "Sound energy", "Nuclear waste", "Wind energy"], ans: 0 },
+{ q: "Which of these is NOT a form of energy?", opts: ["Heat", "Light", "Air", "Sound"], ans: 2 },
+{ q: "Energy that moves objects is called?", opts: ["Stored energy", "Kinetic energy", "Heat energy", "Light energy"], ans: 1 },
+{ q: "Air is made up of mainly?", opts: ["Oxygen only", "Nitrogen only", "Nitrogen and oxygen", "Carbon only"], ans: 2 },
+{ q: "Which gas in air is needed for breathing?", opts: ["Carbon dioxide", "Nitrogen", "Oxygen", "Helium"], ans: 2 },
+{ q: "Which of these pollutes air the most?", opts: ["Trees", "Smoke", "Water", "Sand"], ans: 1 },
+{ q: "Burning tyres releases?", opts: ["Clean air", "Fresh oxygen", "Harmful gases", "Water vapour"], ans: 2 },
+{ q: "Which of these is NOT an element symbol?", opts: ["H", "O", "CO2", "N"], ans: 2 },
+{ q: "Which is an example of land pollution?", opts: ["Oil spill", "Throwing plastics on ground", "Car smoke", "Loud music"], ans: 1 },
+{ q: "Which disease is an STI?", opts: ["Malaria", "HIV", "Typhoid", "Cholera"], ans: 1 },
+{ q: "Air pollution can cause?", opts: ["Good health", "Breathing problems", "Strong bones", "Clear vision"], ans: 1 },
+{ q: "Which gas do plants use from air?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], ans: 1 },
+{ q: "Which is a safe way to reduce pollution?", opts: ["Burning waste", "Dumping in rivers", "Recycling", "Using more plastic"], ans: 2 },
+{ q: “Continuous loud music is an example of?”, opts: [“Water pollution”, “Noise pollution”, “Land pollution”, “Air pollution”], ans: 1 },
+{ q: "What happens when noise is too loud?", opts: ["Improves hearing", "Causes deafness", "Improves sleep", "Cools body"], ans: 1 }
+]
 
         medium: [
             { q: "What is a habitat?", opts: ["A type of food", "A place where organisms live", "A kind of plant", "A form of energy"], ans: 1 },
@@ -749,8 +759,8 @@ function startQuiz() {
     }
 
     const numQuestion = parseInt(numQuestionsInput.value)
-    if (numQuestion < 5 || numQuestion > 20) {
-        alert('Please enter a number between 5 and 20!');
+    if (numQuestion < 5 || numQuestion > 30) {
+        alert('Please enter a number between 5 and 30!');
         return;
     }
 
