@@ -166,7 +166,7 @@ easy: [
 { q: "Air pollution can cause?", opts: ["Good health", "Breathing problems", "Strong bones", "Clear vision"], ans: 1 },
 { q: "Which gas do plants use from air?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], ans: 1 },
 { q: "Which is a safe way to reduce pollution?", opts: ["Burning waste", "Dumping in rivers", "Recycling", "Using more plastic"], ans: 2 },
-{ q: “Continuous loud music is an example of?”, opts: [“Water pollution”, “Noise pollution”, “Land pollution”, “Air pollution”], ans: 1 },
+{ q: "Continuous loud music is an example of?", opts: ["Water pollution", "Noise pollution", "Land pollution", "Air pollution"], ans: 1 },
 { q: "What happens when noise is too loud?", opts: ["Improves hearing", "Causes deafness", "Improves sleep", "Cools body"], ans: 1 }
 ],
 
