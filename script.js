@@ -867,7 +867,7 @@ function displayQuestion() {
 
     nextBtn.textContent =
         currentQuestion === currentQuiz.length - 1
-            ? 'Finish Quiz'
+            ? 'Submit Exam'
             : 'Next Question';
 }
 
@@ -907,20 +907,24 @@ function calculateScore() {
     let message = '';
     let passed = false;
     if (percentage === 100) {
-        message = `🌟 Outstanding! You achieved a perfect score!<br>True mastery is the result of dedication and effort. Keep shining!`;
-        passed = true;
-    } else if (percentage >= 80) {
-        message = `🎉 Excellent work!<br>You are on the path to greatness. Keep pushing your limits and aim for the stars!`;
-        passed = true;
-    } else if (percentage >= 60) {
-        message = `👍 Good job!<br>Your hard work is paying off. Review your mistakes and come back even stronger!`;
-        passed = true;
-    } else if (percentage >= 40) {
-        message = `📚 Not bad!<br>Every attempt is a step forward. Keep learning and success will follow!`;
-    } else {
-        message = `💪 Don't give up!<br>Failure is not the opposite of success, it's part of success. Review, retry, and you'll achieve your goals!`;
-    }
-
+    message = `🌟 Excellent Performance!<br>Grade: A (Distinction)`;
+    passed = true;
+} else if (percentage >= 80) {
+    message = `🎉 Very Good Performance.<br>Grade: A`;
+    passed = true;
+} else if (percentage >= 70) {
+    message = `👍 Good Performance.<br>Grade: B`;
+    passed = true;
+} else if (percentage >= 60) {
+    message = `✔ Fair Performance.<br>Grade: C`;
+    passed = true;
+} else if (percentage >= 50) {
+    message = `⚠ Pass.<br>Grade: D`;
+    passed = true;
+} else {
+    message = `❌ Fail.<br>Grade: F`;
+    passed = false;
+}
     document.getElementById('finalScore').textContent = `${score}/${currentQuiz.length}`;
     document.getElementById('scoreMessage').innerHTML = message;
     document.getElementById('correctCount').textContent = score;
