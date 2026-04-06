@@ -34,16 +34,15 @@
 
     <div id="guidelineModal" class="modal-overlay">
         <div class="modal-box">
-            <h2>📘 Quiz Guidelines</h2>
+            <h2>📘 Exam Guidelines</h2>
             <ul>
                 <li>You must select a Subject and difficulty before starting.</li>
                 <li>You have 20 seconds for each question.</li>
-                <li>The timer starts immediately after the quiz begins.</li>
-                <li>Questions and answer options are shuffled each time you play.</li>
+                <li>The timer starts immediately after the 'START' Button is Clicked.</li>
+                <li>Questions and answer options are shuffled each time.</li>
                 <li>You cannot go back once you move to the next question.</li>
-                <li>If time runs out, the question will be marked as unanswered.</li>
+               <li>If time runs out, the question will be marked as unanswered.</li>
                 <li>Your final score and performance summary will be shown at the end.</li>
-                <li>Challenge yourself and try to beat your best score!</li>
             </ul>
             <button id="confirmGuidelines" class="btn">I Understand</button>
         </div>
@@ -51,8 +50,8 @@
     <div class="container">
         <!-- Start Screen -->
         <div id="startScreen" class="screen active">
-            <h1>🎯 Interactive Quiz</h1>
-            <p class="subtitle">Test your knowledge across different topics!</p>
+            <h1>📝Computer-Based Test (CBT) Platform</h1>
+            <p class="subtitle">Complete your exams with accuracy and discipline.</p>
 
             <div class="form-group">
                 <label>Select Subject:</label>
@@ -71,8 +70,8 @@
             </div>
 
             <div class="form-group">
-                <label for="numQuestions">Number of Questions (5-20):</label>
-                <input type="number" id="numQuestions" min="5" max="20" value="10">
+                <label for="numQuestions">Number of Questions (5-30):</label>
+                <input type="number" id="numQuestions" min="5" max="30" value="30">
             </div>
 
             <div class="form-group">
@@ -84,7 +83,7 @@
                 </div>
             </div>
 
-            <button class="btn" id="startbtn">Start Quiz</button>
+            <button class="btn" id="startbtn">START</button>
         </div>
 
         <!-- Quiz Screen -->
@@ -112,7 +111,7 @@
 
         <!-- Results Screen -->
         <div id="resultsScreen" class="screen">
-            <h1>🏆 Quiz Complete!</h1>
+            <h1>Exam Complete!</h1>
             <div class="score-display" id="finalScore">10/10</div>
             <hr class="scrMsg1"><div class="score-message" id="scoreMessage">Excellent! You're a quiz master!</div><hr class="scrMsg2">
 
@@ -139,7 +138,7 @@
                 </div>
             </div>
 
-            <button class="btn" id="restartBtn">Take Another Quiz</button>
+            <button class="btn" id="restartBtn">Take Another Exam</button>
 
             <button id="toggleReviewBtn" style="margin: 10px 0;" class="btn">⬇ Show Question Review ⬇</button>
             <div id="quizReview" class="quiz-review"
