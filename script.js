@@ -929,7 +929,7 @@ function calculateScore() {
     message = `❌ Fail.<br>Grade: F`;
     passed = false;
 }
-    document.getElementById('finalScore').textContent = `${score}/${currentQuiz.length}`;
+    document.getElementById('finalScore').textContent = `${Math.round((score / currentQuiz.length) * 60)}/60`;
     document.getElementById('scoreMessage').innerHTML = message;
     document.getElementById('correctCount').textContent = score;
     document.getElementById('wrongCount').textContent = currentQuiz.length - score;
