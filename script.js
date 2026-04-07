@@ -784,7 +784,7 @@ function startQuiz() {
     startTime = Date.now();
 
     // Start timer
-    timeRemaining = currentQuiz.length * 20;
+    timeRemaining = currentQuiz.length * 43;
     startTimer();
 
     showScreen('quiz');
