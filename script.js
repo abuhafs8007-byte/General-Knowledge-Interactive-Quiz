@@ -740,6 +740,8 @@ startBtn.addEventListener('click', startQuiz);
 nextBtn.addEventListener('click', nextQuestion);
 quitBtn.addEventListener('click', quitQuiz);
 restartBtn.addEventListener('click', restartQuiz);
+const prevBtn = document.getElementById('prevBtn');
+prevBtn.addEventListener('click', prevQuestion);
 
 function startQuiz() {
     if (!selectedTopic) {
@@ -1110,4 +1112,12 @@ function renderQuizReview() {
 
         quizReview.appendChild(questionWrapper);
     });
+}
+
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        displayQuestion();
+    }
 }
