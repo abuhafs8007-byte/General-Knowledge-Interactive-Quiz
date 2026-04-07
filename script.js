@@ -903,7 +903,8 @@ function calculateScore() {
         }
     });
 
-    const percentage = Math.round((score / currentQuiz.length) * 60);
+    const scaledScore = Math.round((score / currentQuiz.length) * 60);
+const percentage = Math.round((score / currentQuiz.length) * 100);
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
     const minutes = Math.floor(timeTaken / 60);
     const seconds = timeTaken % 60;
@@ -929,7 +930,7 @@ function calculateScore() {
     message = `❌ Fail.<br>Grade: F`;
     passed = false;
 }
-    document.getElementById('finalScore').textContent = `${Math.round((score / currentQuiz.length) * 60)}/60`;
+    document.getElementById('finalScore').textContent = `${scaledScore}/60`;
     document.getElementById('scoreMessage').innerHTML = message;
     document.getElementById('correctCount').textContent = score;
     document.getElementById('wrongCount').textContent = currentQuiz.length - score;
