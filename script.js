@@ -167,7 +167,12 @@ const quizData = {
             { q: "Which gas do plants use from air?", opts: ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], ans: 1 },
             { q: "Which is a safe way to reduce pollution?", opts: ["Burning waste", "Dumping in rivers", "Recycling", "Using more plastic"], ans: 2 },
             { q: "Continuous loud music is an example of?", opts: ["Water pollution", "Noise pollution", "Land pollution", "Air pollution"], ans: 1 },
-            { q: "What happens when noise is too loud?", opts: ["Improves hearing", "Causes deafness", "Improves sleep", "Cools body"], ans: 1 }
+            { q: "What happens when noise is too loud?", opts: ["Improves hearing", "Causes deafness", "Improves sleep", "Cools body"], ans: 1 },
+{ q: "Which of these is correctly matched with its symbol?", opts: ["Calcium - Ca", "Carbon - Co", "Chlorine - Clr", "Copper - Cp"], ans: 0 },
+{ q: "Which substance is formed when hydrogen combines with oxygen?", opts: ["Salt", "Water", "Air", "Iron"], ans: 1 },
+{ q: "Which of these is NOT a compound?", opts: ["Water", "Carbon dioxide", "Oxygen", "Salt"], ans: 2 },
+{ q: "Pouring dirty engine oil on the ground leads to?", opts: ["Air pollution", "Water pollution", "Land pollution", "Noise pollution"], ans: 2 },
+{ q: "Which situation best shows water pollution?", opts: ["Clean rain falling", "Throwing plastics in river", "Boiling water", "Using tap water"], ans: 1 }
         ],
 
         medium: [
@@ -750,8 +755,8 @@ function startQuiz() {
     }
 
     const numQuestion = parseInt(numQuestionsInput.value)
-    if (numQuestion < 5 || numQuestion > 30) {
-        alert('Please enter a number between 5 and 30!');
+    if (numQuestion < 5 || numQuestion > 35) {
+        alert('Please enter a number between 5 and 35!');
         return;
     }
 
