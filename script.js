@@ -758,6 +758,7 @@ function startQuiz() {
     // Get questions
     const topicQuestions = quizData[selectedTopic][selectedDifficulty];
     currentQuiz = [];
+
     while (currentQuiz.length < numQuestion && currentQuiz.length < topicQuestions.length) {
         const randomQuestion = topicQuestions[Math.floor(Math.random() * topicQuestions.length)];
         if (!currentQuiz.includes(randomQuestion)) {
@@ -765,19 +766,30 @@ function startQuiz() {
         }
     }
 
+    // ✅ FIX: Shuffle options ONCE here
+    currentQuiz = currentQuiz.map(q => {
+        const shuffled = q.opts
+            .map((option, index) => ({ option, originalIndex: index }))
+            .sort(() => Math.random() - 0.5);
+
+        return {
+            ...q,
+            shuffledOptions: shuffled
+        };
+    });
+
     currentQuestion = 0;
     score = 0;
     selectedAnswers = new Array(currentQuiz.length).fill(null);
     startTime = Date.now();
 
     // Start timer
-    timeRemaining = currentQuiz.length * 20; // 20 secs per question
+    timeRemaining = currentQuiz.length * 20;
     startTimer();
 
     showScreen('quiz');
-    displayQuestion();
+    displayQuestion(); // ✅ now safe
 }
-
 function startTimer() {
     const timerEl = document.getElementById('timer');
     timerInterval = setInterval(() => {
@@ -809,10 +821,7 @@ function displayQuestion() {
     const optionsContainer = document.getElementById('options');
     optionsContainer.innerHTML = '';
 
-    // 🔀 Create a shuffled copy of options (without mutating original)
-    const shuffledOptions = question.opts
-        .map((option, index) => ({ option, originalIndex: index }))
-        .sort(() => Math.random() - 0.5);
+    const shuffledOptions = question.shuffledOptions;
 
     shuffledOptions.forEach(({ option, originalIndex }) => {
         const optionWrapper = document.createElement('label');
@@ -850,8 +859,12 @@ function displayQuestion() {
         currentQuestion === currentQuiz.length - 1
             ? 'Submit Exam'
             : 'Next Question';
-}
 
+    // Previous button control
+    if (prevBtn) {
+        prevBtn.disabled = currentQuestion === 0;
+    }
+}
 
 function nextQuestion() {
     if (selectedAnswers[currentQuestion] !== null) {
