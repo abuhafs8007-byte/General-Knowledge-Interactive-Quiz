@@ -1054,7 +1054,7 @@ function restartQuiz() {
     topicBtns.forEach(btn => btn.classList.remove('selected'));
     difficultyBtns.forEach(btn => btn.classList.remove('selected'));
     difficultyBtns[1].classList.add('selected');
-    numQuestionsInput.value = '35';
+    numQuestionsInput.value = '40';
 
     showScreen('start');
 }
