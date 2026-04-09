@@ -513,3 +513,13 @@ input[type="radio"] + label {
 .btn-prev:hover {
     background: #d1d5db;
 }
+
+
+
+#quitBtn {
+    background: #dc2626;
+}
+
+#quitBtn:hover {
+    background: #b91c1c;
+}
