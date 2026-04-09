@@ -498,6 +498,8 @@ input[type="radio"] + label {
     justify-content: space-between;
     gap: 10px;
     margin-top: 20px;
+    font-size: 12px;   /* smaller text */
+    padding: 6px 10px; /* reduce padding */
 }
 
 .nav-buttons .btn {
@@ -512,8 +514,6 @@ input[type="radio"] + label {
 
 .btn-prev:hover {
     background: #d1d5db;
-    font-size: 10px;
-    padding: 7px;
 }
 
 
