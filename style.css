@@ -498,12 +498,12 @@ input[type="radio"] + label {
     justify-content: space-between;
     gap: 10px;
     margin-top: 20px;
-    font-size: 12px;   /* smaller text */
-    padding: 6px 10px; /* reduce padding */
 }
 
 .nav-buttons .btn {
     width: 48%;
+    font-size: 12px;   /* smaller text */
+    padding: 6px 10px; /* reduce padding */
 }
 
 /* Style Previous button differently */
