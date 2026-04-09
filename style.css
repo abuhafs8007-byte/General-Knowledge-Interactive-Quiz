@@ -502,9 +502,9 @@ input[type="radio"] + label {
 
 .nav-buttons .btn {
     width: 48%;
-    font-size: 12px;   /* smaller text */
+    font-size: 14px;   /* smaller text */
     padding: 12px 6px; /* reduce padding */
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* Style Previous button differently */
