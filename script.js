@@ -168,17 +168,17 @@ const quizData = {
             { q: "Which is a safe way to reduce pollution?", opts: ["Burning waste", "Dumping in rivers", "Recycling", "Using more plastic"], ans: 2 },
             { q: "Continuous loud music is an example of?", opts: ["Water pollution", "Noise pollution", "Land pollution", "Air pollution"], ans: 1 },
             { q: "What happens when noise is too loud?", opts: ["Improves hearing", "Causes deafness", "Improves sleep", "Cools body"], ans: 1 },
-{ q: "Which of these is correctly matched with its symbol?", opts: ["Calcium - Ca", "Carbon - Co", "Chlorine - Clr", "Copper - Cp"], ans: 0 },
-{ q: "Which substance is formed when hydrogen combines with oxygen?", opts: ["Salt", "Water", "Air", "Iron"], ans: 1 },
-{ q: "Which of these is NOT a compound?", opts: ["Water", "Carbon dioxide", "Oxygen", "Salt"], ans: 2 },
-{ q: "Pouring dirty engine oil on the ground leads to?", opts: ["Air pollution", "Water pollution", "Land pollution", "Noise pollution"], ans: 2 },
-{ q: "Which situation best shows water pollution?", opts: ["Clean rain falling", "Throwing plastics in river", "Boiling water", "Using tap water"], ans: 1 }
+            { q: "Which of these is correctly matched with its symbol?", opts: ["Calcium - Ca", "Carbon - Co", "Chlorine - Clr", "Copper - Cp"], ans: 0 },
+            { q: "Which substance is formed when hydrogen combines with oxygen?", opts: ["Salt", "Water", "Air", "Iron"], ans: 1 },
+            { q: "Which of these is NOT a compound?", opts: ["Water", "Carbon dioxide", "Oxygen", "Salt"], ans: 2 },
+            { q: "Pouring dirty engine oil on the ground leads to?", opts: ["Air pollution", "Water pollution", "Land pollution", "Noise pollution"], ans: 2 },
+            { q: "Which situation best shows water pollution?", opts: ["Clean rain falling", "Throwing plastics in river", "Boiling water", "Using tap water"], ans: 1 }
         ],
 
         medium: [
             { q: "Where does digestion begins?", opts: ["Stomach", "Mouth", "Small intestine", "Large intestine"], ans: 1 },
-{ q: "Which is an abiotic factor?", opts: ["Animals", "Plants", "Sunlight", "Bacteria"], ans: 2 },
-{ q: "Humans are classified as mammals because they?", opts: ["Lay eggs", "Have hair and feed young with milk", "Live in water", "Have wings"], ans: 1 },
+            { q: "Which is an abiotic factor?", opts: ["Animals", "Plants", "Sunlight", "Bacteria"], ans: 2 },
+            { q: "Humans are classified as mammals because they?", opts: ["Lay eggs", "Have hair and feed young with milk", "Live in water", "Have wings"], ans: 1 },
             { q: "Urine is stored in the?", opts: ["Ureter", "Bladder", "Kidney", "Urethra"], ans: 1 },
             { q: "Which waste is removed by lungs?", opts: ["Urea", "Carbon dioxide", "Salt", "Water"], ans: 1 },
             { q: "Sweat mainly removes which substance?", opts: ["Oxygen", "Salt", "Glucose", "Protein"], ans: 1 },
@@ -205,15 +205,15 @@ const quizData = {
             { q: "Which part breaks food physically?", opts: ["Teeth", "Tongue", "Liver", "Kidney"], ans: 0 },
             { q: "Which gas causes rusting?", opts: ["Nitrogen", "Oxygen", "Carbon dioxide", "Hydrogen"], ans: 1 },
             { q: "Adolescence is a period of?", opts: ["No growth", "Rapid changes", "Sleeping only", "Old age"], ans: 1 },
-            { q: "Which organ helps remove excess water and salt?", opts: ["Skin", "Brain", "Heart", "Bone"], ans: 0 },{ q: "Which organ removes excess water and salts from the body as urine?", opts: ["Liver", "Kidney", "Lung", "Pancreas"], ans: 1 },
-{ q: "Which of these best describes growth in living things?", opts: ["Increase in size only", "Increase in number of cells", "Movement only", "Digestion only"], ans: 1 },
-{ q: "Which of the following is a component of an ecosystem?", opts: ["Rocks only", "Living and non-living things interacting", "Animals only", "Plants only"], ans: 1 },
-{ q: "Humans are called higher animals mainly because they can:", opts: ["Breathe underwater", "Think and reason", "Fly", "Hibernate"], ans: 1 },
-{ q: "Rusting of iron is caused by the presence of:", opts: ["Heat only", "Oxygen and water", "Light only", "Carbon dioxide only"], ans: 1 }
+            { q: "Which organ helps remove excess water and salt?", opts: ["Skin", "Brain", "Heart", "Bone"], ans: 0 }, { q: "Which organ removes excess water and salts from the body as urine?", opts: ["Liver", "Kidney", "Lung", "Pancreas"], ans: 1 },
+            { q: "Which of these best describes growth in living things?", opts: ["Increase in size only", "Increase in number of cells", "Movement only", "Digestion only"], ans: 1 },
+            { q: "Which of the following is a component of an ecosystem?", opts: ["Rocks only", "Living and non-living things interacting", "Animals only", "Plants only"], ans: 1 },
+            { q: "Humans are called higher animals mainly because they can:", opts: ["Breathe underwater", "Think and reason", "Fly", "Hibernate"], ans: 1 },
+            { q: "Rusting of iron is caused by the presence of:", opts: ["Heat only", "Oxygen and water", "Light only", "Carbon dioxide only"], ans: 1 }
         ],
 
-        hard: [ { q: "Which trait is most likely inherited from parents?", opts: ["Tattoo", "Eye color", "Scar", "Language"], ans: 1 }, { q: "Why do siblings look different despite same parents?", opts: ["Same genes", "Different gene combinations", "Same DNA", "No inheritance"], ans: 1 }, { q: "Which is a dominant trait?", opts: ["Hidden trait", "Trait always expressed", "Weak gene", "Environmental trait"], ans: 1 }, { q: "In the activity series, which metal is most reactive?", opts: ["Gold", "Copper", "Potassium", "Silver"], ans: 2 }, { q: "Recessive traits appear only when:", opts: ["Both genes are dominant", "One gene is present", "Both genes are recessive", "No gene is present"], ans: 2 }, { q: "Which metal cannot displace copper from its compound?", opts: ["Zinc", "Iron", "Silver", "Magnesium"], ans: 2 }, { q: "Acids turn blue litmus paper to:", opts: ["Green", "Red", "Yellow", "Black"], ans: 1 }, { q: "Which substance is a base?", opts: ["HCl", "NaOH", "H2SO4", "CO2"], ans: 1 }, { q: "Bases feel:", opts: ["Rough", "Slippery", "Dry", "Hard"], ans: 1 }, { q: "A salt is formed when:", opts: ["Acid reacts with metal", "Acid reacts with base", "Base reacts with water", "Metal reacts with air"], ans: 1 }, { q: "Which is a neutral substance?", opts: ["Vinegar", "Water", "Lime juice", "Soap"], ans: 1 }, { q: "Which device uses electrical energy to produce motion?", opts: ["Heater", "Motor", "Bulb", "Battery"], ans: 1 }, { q: "Electrical energy is produced mainly from:", opts: ["Wind only", "Water only", "Energy conversion", "Light only"], ans: 2 }, { q: "Which device converts electrical energy to heat?", opts: ["Fan", "Bulb", "Electric iron", "Generator"], ans: 2 },  { q: "Which material is a good conductor of electricity?", opts: ["Plastic", "Rubber", "Copper", "Wood"], ans: 2 }, { q: "A material that does not allow current to pass is called:", opts: ["Conductor", "Insulator", "Resistor", "Generator"], ans: 1 }, { q: "Which of these is an insulator?", opts: ["Aluminium", "Iron", "Glass", "Gold"], ans: 2 }, { q: "Radioactivity involves the release of:", opts: ["Light only", "Heat only", "Radiation from nucleus", "Sound waves"], ans: 2 }, { q: "Which element is radioactive?", opts: ["Oxygen", "Uranium", "Iron", "Carbon"], ans: 1 }, { q: "Exposure to radiation can cause:", opts: ["Stronger bones", "Cell damage", "Better vision", "Faster growth"], ans: 1 }, { q: "Ozone layer protects us from:", opts: ["Infrared rays", "Ultraviolet rays", "X-rays", "Gamma rays"], ans: 1 }, { q: "Which gas mainly depletes ozone layer?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 }, { q: "A result of ozone depletion is:", opts: ["Less sunlight", "Skin cancer", "Cold weather", "More rain"], ans: 1 }, { q: "Which acid is found in car batteries?", opts: ["Nitric acid", "Sulfuric acid", "Hydrochloric acid", "Acetic acid"], ans: 1 }, { q: "Which base is used in soap making?", opts: ["NaOH", "HCl", "CO2", "H2"], ans: 0 }, { q: "Which metal reacts fastest with water?", opts: ["Calcium", "Sodium", "Iron", "Copper"], ans: 1 }, { q: "Which trait is NOT inherited?", opts: ["Blood group", "Height", "Tribal marks", "Skin color"], ans: 2 }, { q: "Electric current is the flow of:", opts: ["Protons", "Neutrons", "Electrons", "Ions only"], ans: 2 }, { q: "Which material is used to cover electric wires?", opts: ["Copper", "Silver", "Rubber", "Iron"], ans: 2 }, { q: "Burning of CFCs leads to:", opts: ["Ozone formation", "Ozone depletion", "Cloud formation", "Rainfall"], ans: 1 },
-{ q: "Which parent trait combination can produce a recessive trait in a child?", opts: ["One dominant and one recessive", "Two dominant", "Two recessive", "No genes"], ans: 2 }, { q: "In the activity series, a metal will displace another metal if it is:", opts: ["Less reactive", "More reactive", "Equal reactive", "Heavier"], ans: 1 }, { q: "Which type of radiation has the lowest penetrating power?", opts: ["Alpha", "Beta", "Gamma", "X-ray"], ans: 0 }, { q: "Which situation increases the risk of ozone layer depletion?", opts: ["Using natural fertilizers", "Release of CFC gases", "Planting trees", "Using solar panels"], ans: 1 }, { q: "Which of the following best describes a conductor?", opts: ["Material that blocks heat", "Material that allows electric current easily", "Material that stores electricity", "Material that produces light"], ans: 1 } ]
+        hard: [{ q: "Which trait is most likely inherited from parents?", opts: ["Tattoo", "Eye color", "Scar", "Language"], ans: 1 }, { q: "Why do siblings look different despite same parents?", opts: ["Same genes", "Different gene combinations", "Same DNA", "No inheritance"], ans: 1 }, { q: "Which is a dominant trait?", opts: ["Hidden trait", "Trait always expressed", "Weak gene", "Environmental trait"], ans: 1 }, { q: "In the activity series, which metal is most reactive?", opts: ["Gold", "Copper", "Potassium", "Silver"], ans: 2 }, { q: "Recessive traits appear only when:", opts: ["Both genes are dominant", "One gene is present", "Both genes are recessive", "No gene is present"], ans: 2 }, { q: "Which metal cannot displace copper from its compound?", opts: ["Zinc", "Iron", "Silver", "Magnesium"], ans: 2 }, { q: "Acids turn blue litmus paper to:", opts: ["Green", "Red", "Yellow", "Black"], ans: 1 }, { q: "Which substance is a base?", opts: ["HCl", "NaOH", "H2SO4", "CO2"], ans: 1 }, { q: "Bases feel:", opts: ["Rough", "Slippery", "Dry", "Hard"], ans: 1 }, { q: "A salt is formed when:", opts: ["Acid reacts with metal", "Acid reacts with base", "Base reacts with water", "Metal reacts with air"], ans: 1 }, { q: "Which is a neutral substance?", opts: ["Vinegar", "Water", "Lime juice", "Soap"], ans: 1 }, { q: "Which device uses electrical energy to produce motion?", opts: ["Heater", "Motor", "Bulb", "Battery"], ans: 1 }, { q: "Electrical energy is produced mainly from:", opts: ["Wind only", "Water only", "Energy conversion", "Light only"], ans: 2 }, { q: "Which device converts electrical energy to heat?", opts: ["Fan", "Bulb", "Electric iron", "Generator"], ans: 2 }, { q: "Which material is a good conductor of electricity?", opts: ["Plastic", "Rubber", "Copper", "Wood"], ans: 2 }, { q: "A material that does not allow current to pass is called:", opts: ["Conductor", "Insulator", "Resistor", "Generator"], ans: 1 }, { q: "Which of these is an insulator?", opts: ["Aluminium", "Iron", "Glass", "Gold"], ans: 2 }, { q: "Radioactivity involves the release of:", opts: ["Light only", "Heat only", "Radiation from nucleus", "Sound waves"], ans: 2 }, { q: "Which element is radioactive?", opts: ["Oxygen", "Uranium", "Iron", "Carbon"], ans: 1 }, { q: "Exposure to radiation can cause:", opts: ["Stronger bones", "Cell damage", "Better vision", "Faster growth"], ans: 1 }, { q: "Ozone layer protects us from:", opts: ["Infrared rays", "Ultraviolet rays", "X-rays", "Gamma rays"], ans: 1 }, { q: "Which gas mainly depletes ozone layer?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 }, { q: "A result of ozone depletion is:", opts: ["Less sunlight", "Skin cancer", "Cold weather", "More rain"], ans: 1 }, { q: "Which acid is found in car batteries?", opts: ["Nitric acid", "Sulfuric acid", "Hydrochloric acid", "Acetic acid"], ans: 1 }, { q: "Which base is used in soap making?", opts: ["NaOH", "HCl", "CO2", "H2"], ans: 0 }, { q: "Which metal reacts fastest with water?", opts: ["Calcium", "Sodium", "Iron", "Copper"], ans: 1 }, { q: "Which trait is NOT inherited?", opts: ["Blood group", "Height", "Tribal marks", "Skin color"], ans: 2 }, { q: "Electric current is the flow of:", opts: ["Protons", "Neutrons", "Electrons", "Ions only"], ans: 2 }, { q: "Which material is used to cover electric wires?", opts: ["Copper", "Silver", "Rubber", "Iron"], ans: 2 }, { q: "Burning of CFCs leads to:", opts: ["Ozone formation", "Ozone depletion", "Cloud formation", "Rainfall"], ans: 1 },
+        { q: "Which parent trait combination can produce a recessive trait in a child?", opts: ["One dominant and one recessive", "Two dominant", "Two recessive", "No genes"], ans: 2 }, { q: "In the activity series, a metal will displace another metal if it is:", opts: ["Less reactive", "More reactive", "Equal reactive", "Heavier"], ans: 1 }, { q: "Which type of radiation has the lowest penetrating power?", opts: ["Alpha", "Beta", "Gamma", "X-ray"], ans: 0 }, { q: "Which situation increases the risk of ozone layer depletion?", opts: ["Using natural fertilizers", "Release of CFC gases", "Planting trees", "Using solar panels"], ans: 1 }, { q: "Which of the following best describes a conductor?", opts: ["Material that blocks heat", "Material that allows electric current easily", "Material that stores electricity", "Material that produces light"], ans: 1 }]
     },
 
     Basic_Technology: {
@@ -286,26 +286,46 @@ const quizData = {
     },
     islamic_Studies: {
         easy: [
-            { q: "Why were Hadiths collected?", opts: ["For fun", "To preserve the teachings of the Prophet ﷺ", "To write stories", "To entertain people"], ans: 1 },
-            { q: "Which of these is a famous Hadith scholar?", opts: ["Imam Nawawi", "Ibn Sina", "Al-Khwarizmi", "Ibn Khaldun"], ans: 0 },
-            { q: "Hadith 1 of Nawawi focuses on?", opts: ["Prayer", "Fasting", "Intentions", "Zakat"], ans: 2 },
-            { q: "The famous Hadith begins with 'Actions are judged by'?", opts: ["Words", "Intentions", "People", "Time"], ans: 1 },
-            { q: "Why is intention important in Islam?", opts: ["It changes the reward of actions", "It reduces effort", "It removes prayer", "It replaces fasting"], ans: 0 },
-            { q: "Who narrated the first Hadith in Nawawi's collection?", opts: ["Abu Hurairah", "Umar ibn Al-Khattab", "Ali ibn Abi Talib", "Aisha"], ans: 1 },
-            { q: "What does the Hadith on intention teach?", opts: ["To eat well", "To act with sincerity", "To sleep more", "To travel often"], ans: 1 },
-            { q: "The Prophet Muhammad ﷺ was born in which city?", opts: ["Madinah", "Taif", "Makkah", "Jerusalem"], ans: 2 },
-            { q: "In which year was the Prophet ﷺ born?", opts: ["Year of the Elephant", "Year of Hijrah", "Year of Badr", "Year of Uhud"], ans: 0 },
-            { q: "What was the name of the Prophet’s father?", opts: ["Abdullah", "Abu Talib", "Hamzah", "Abbas"], ans: 0 },
-            { q: "What was the name of the Prophet’s mother?", opts: ["Khadijah", "Aminah", "Aisha", "Fatimah"], ans: 1 },
-            { q: "The Prophet ﷺ belonged to which tribe?", opts: ["Quraysh", "Ansar", "Aws", "Khazraj"], ans: 0 },
-            { q: "Who took care of the Prophet ﷺ after his mother died?", opts: ["His uncle", "His grandfather", "His brother", "His teacher"], ans: 1 },
-            { q: "Why is the birth of the Prophet ﷺ important?", opts: ["He was a king", "He brought guidance to mankind", "He built cities", "He discovered science"], ans: 1 },
-            { q: "What is Sunnah?", opts: ["Opinions of scholars", "Practices of the Prophet ﷺ", "Stories of Arabs", "Islamic laws only"], ans: 1 },
-            { q: "Which book is known for authentic Hadith?", opts: ["Sahih Bukhari", "Qur’an only", "History books", "Poetry books"], ans: 0 },
-            { q: "What is Hadith?", opts: ["Words of scholars", "Sayings and actions of the Prophet ﷺ", "Stories of kings", "Arabic poems"], ans: 1 },
-            { q: "Who collected many authentic Hadiths?", opts: ["Imam Bukhari", "Imam Malik", "Imam Shafi'i", "Imam Ahmad"], ans: 0 },
-            { q: "What is a weak Hadith called?", opts: ["Sahih", "Hasan", "Da’if", "Mutawatir"], ans: 2 },
-            { q: "What is a strong Hadith called?", opts: ["Da’if", "Broken", "Sahih", "False"], ans: 2 }
+            { q: "What is the meaning of 'Ahad' in Sooratul Ikhlaas?", opts: ["One and only", "Most powerful", "Ever-living", "All-hearing"], ans: 0 },
+            { q: "Which verse shows ALLAAH does not need anything?", opts: ["Qul huwa Allahu Ahad", "Allahu Samad", "Lam yalid", "Walam yakun lahu kufuwan ahad"], ans: 1 },
+            { q: "How many verses are in Sooratul Ikhlaas?", opts: ["3", "4", "5", "6"], ans: 1 },
+            { q: "What does 'As-Samad' mean?", opts: ["The Merciful", "The Self Sufficient", "The Creator", "The Judge"], ans: 1 },
+            { q: "Which statement is correct about ALLAAH in Sooratul Ikhlaas?", opts: ["He has children", "He was born", "Nothing is like Him", "He rests"], ans: 2 },
+            { q: "What is the main theme of Sooratul Ikhlaas?", opts: ["Stories of prophets", "Oneness of ALLAAH", "Prayer rules", "Charity"], ans: 1 },
+            { q: "Who attacked the Ka'bah in the Year of the Elephant?", opts: ["Quraysh", "Romans", "Abraha", "Persians"], ans: 2 },
+            { q: "What animals did Abraha use in his army?", opts: ["Horses", "Camels", "Elephants", "Lions"], ans: 2 },
+            { q: "What destroyed Abraha’s army?", opts: ["Storm", "Fire", "Birds with stones", "Flood"], ans: 2 },
+            { q: "What is the Arabic name for the Year of the Elephant?", opts: ["Aam al-Hijrah", "Aam ul-Fil", "Aam al-Nasr", "Aam al-Qamar"], ans: 1 },
+            { q: "Why did Abraha want to destroy the Ka'bah?", opts: ["For gold", "To stop pilgrimage to Makkah", "To build houses", "For trade"], ans: 1 },
+            { q: "Which bird is mentioned in Surah Al-Fil?", opts: ["Hudhud", "Abaabeel", "Ankabut", "Naml"], ans: 1 },
+            { q: "What were the stones made of?", opts: ["Gold", "Clay", "Iron", "Sand"], ans: 1 },
+            { q: "Who is the compiler of Hadith collections?", opts: ["Sahabah only", "Scholars like Bukhari", "Kings", "Traders"], ans: 1 },
+            { q: "What does Hadith refer to?", opts: ["Qur'an verses", "Sayings and actions of the Prophet", "Stories of kings", "Poems"], ans: 1 },
+            { q: "Which of these is a famous Hadith collector?", opts: ["Umar", "Bukhari", "Bilal", "Ali"], ans: 1 },
+            { q: "Why were Hadith collected?", opts: ["For stories", "To preserve Sunnah", "For trade", "For war"], ans: 1 },
+            { q: "What is Sunnah?", opts: ["Only speech", "Only actions", "Way of the Prophet", "Books"], ans: 2 },
+            { q: "Where was the Prophet (SAW) born?", opts: ["Madinah", "Taif", "Makkah", "Yemen"], ans: 2 },
+            { q: "In which year was the Prophet (SAW) born?", opts: ["Year of Hijrah", "Year of Elephant", "Year of Victory", "Year of Famine"], ans: 1 },
+            { q: "Who was the mother of the Prophet (SAW)?", opts: ["Aminah", "Khadijah", "Aisha", "Fatimah"], ans: 0 },
+            { q: "Who was the father of the Prophet (SAW)?", opts: ["Abu Talib", "Abdullah", "Abbas", "Hamzah"], ans: 1 },
+            { q: "Who took care of the Prophet after his grandfather died?", opts: ["Abu Bakr", "Umar", "Abu Talib", "Ali"], ans: 2 },
+            { q: "What was the nickname of the Prophet in his youth?", opts: ["Al-Ameen", "Al-Farooq", "Al-Athary", "Al-Hakeem"], ans: 0 },
+            { q: "What job did the Prophet (SAW) do in his youth?", opts: ["Farmer", "Shepherd", "Soldier", "King"], ans: 1 },
+            { q: "Who did the Prophet marry first?", opts: ["Aisha", "Hafsa", "Khadijah", "Zainab"], ans: 2 },
+            { q: "What was special about Khadijah (RA)?", opts: ["She was poor", "She was a trader", "She was young only", "She was a slave"], ans: 1 },
+            { q: "How old was the Prophet when he married Khadijah?", opts: ["20", "25", "30", "40"], ans: 1 },
+            { q: "How old was Khadijah when she married the Prophet?", opts: ["25", "30", "35", "40"], ans: 3 },
+            { q: "What quality made Khadijah trust the Prophet?", opts: ["Strength", "Wealth", "Honesty", "Anger"], ans: 2 },
+            { q: "What does 'Lam yalid' mean?", opts: ["He was born", "He gives birth", "He did not give birth", "He eats"], ans: 2 },
+            { q: "What does 'Walam yulad' mean?", opts: ["He is strong", "He was not born", "He is kind", "He sees"], ans: 1 },
+            { q: "What lesson is learnt from Year of Elephant?", opts: ["Trust ALLAAH’s protection", "Fear animals", "Build houses", "Travel more"], ans: 0 },
+            { q: "Which city did Abraha come from?", opts: ["Egypt", "Abyssinia", "Iraq", "Syria"], ans: 1 },
+            { q: "What is the Ka'bah used for?", opts: ["Trading", "Worship of ALLAAH", "Farming", "Storage"], ans: 1 },
+            { q: "Who first supported the Prophet after marriage?", opts: ["Ali", "Abu Talib", "Khadijah", "Umar"], ans: 2 },
+            { q: "What type of man was the Prophet before Prophethood?", opts: ["Dishonest", "Trustworthy", "Lazy", "Harsh"], ans: 1 },
+            { q: "What does Hadith help Muslims understand?", opts: ["Science only", "Sunnah and Islam", "Trade rules", "Languages"], ans: 1 },
+            { q: "Which of these is NOT an attribute of ALLAAH?", opts: ["All-Knowing", "All-Seeing", "Sleeps", "All-Powerful"], ans: 2 },
+            { q: "What is the reward of reading Sooratul Ikhlaas often?", opts: ["Nothing", "Equal to one-third Qur'an", "Less reward", "Only for children"], ans: 1 }
         ],
 
         medium: [
@@ -560,101 +580,101 @@ const quizData = {
     },
     chemistry: {
         easy: [
-{ q: "The current Vice President of the Federal Republic of Nigeria is", opts: ["Seyi Tinubu", "Godswill Akpabio", "Femi Gbajabiamila", "Kashim Shettima"], ans: 3 },
-{ q: "Who is the current Deputy Governor of Lagos state? ", opts: ["Obafemi Hamzat", "Joe Igbokwe", "Babajide Sanwo-olu", "Obasa"], ans: 0 },
-{ q: "The Nigerian hero whose picture is on #500 note is", opts: ["Obafemi Awolowo ", "Murtala Muhammed ", "Nnamdi Azikiwe", "Tafawa Balewa"], ans: 2 },
-{ q: "Daarul-Hikam Academy is situated in ..... Local Government Area of Lagos state. ", opts: ["Alimosho", "Ojo", "Badagry ", "Iba"], ans: 1 },
-{ q: "The first of the ten commandments in Suratul-An'aam is", opts: ["Treat your parents well", "Be just and truthful ", "Join nothing in worship with ALLAAH ", "Abstain from immorality"], ans: 2 },
-{ q: "Fulfil the covenant of ALLAAH is the .... commandment. ", opts: ["5", "7", "8", "9"], ans: 3 },
-{ q: "Which of these is not one of the commandments? ", opts: ["Be nice", "Beware of killing a soul ", "Give full measure ", "Be just"], ans: 0 },
-{ q: "What is the meaning of حَصَّالَةٌ? ", opts: ["Moneybox ", "Keyholder ", "Luggage ", "Case"], ans: 0 },
-{ q: "The word lantern in Arabic is:", opts: ["شُعْلَةٌ", "لَمْبَةٌ", "فَانُوسٌ", "مِصْبَاحٌ"], ans: 2 },
-{ q: "Radio in Arabic is", opts: ["رَادِيو", "دُرُحٌ", "مِذْيَاعٌ", "A and C"], ans: 3 },
-{ q: "\"The commandment \"\"َوَأَوفُو الكَيْل وَالمِيزَانَ بِالقِسْطِ\"\"  means\"", opts: ["Fulfil the covenant of ALLAAH ", "Give full measure and weight ", "Do not approach the property of the orphan", "Follow the straight path of ALLAAH "], ans: 1 },
-{ q: "NATO stands for:", opts: ["North Africa Treaty Organisation ", "North America Treaty Organisation ", "North Atlantic Trade Organisation ", "North Atlantic Treaty Organisation "], ans: 3 },
-{ q: "ECOWAS is an acronym for:", opts: ["Economics Community of West African States ", "Economy Community of West African States ", "Economic Community of West African States ", "Economics Communities of West African States "], ans: 2 },
-{ q: "ECOMOG stands for:", opts: ["ECOWAS Monitoring Group ", "ECOWAS Monetary Group", "ECOWAS Mobility Group ", "None of the above"], ans: 0 },
-{ q: "Which is odd? ", opts: ["FIFA", "NFF", "CAF", "FEPA"], ans: 3 },
-{ q: "The seat of the Nigerian presidency is the ", opts: ["White House ", "Aso Rock Villa", "Chatham House ", "Bourdillon"], ans: 1 },
-{ q: "Cutlery include the following except ", opts: ["Spoon", "Knife ", "Matches", "Fork"], ans: 2 },
-{ q: "The money being paid to kidnappers for the release of their victims is called", opts: ["Bail", "Ransom ", "Compensation ", "Fine"], ans: 1 },
-{ q: "The fastest means of transportation is", opts: ["Rail", "Road", "Air", "Water"], ans: 2 },
-{ q: "The richest black man in the world is", opts: ["Femi Otedola", "Abdul Samad Rabiu (BUA) ", "Mike Adenuga", "Aliko Dangote"], ans: 3 },
-{ q: "The Dangote Refinery is located in ", opts: ["Abuja", "Lagos", "Kano", "Portharcourt"], ans: 1 },
-{ q: "The capital of Zamfara is", opts: ["Dutse", "Gusau", "Zamfara", "Damaturu "], ans: 1 },
-{ q: "The fifth pillar of Islam is ", opts: ["Zakaat", "Hajj", "Sawm", "Shahadah"], ans: 1 },
-{ q: "\"Which option correctly translates \"\"Antenna\"\" to Arabic?\"", opts: ["هَوَائِيٌّ", "تَقْوِيمٌ", "تِلْفَازٌ", "نَظَّارَةٌ"], ans: 0 },
-{ q: "Mirror in Arabic is:", opts: ["مِرْآةٌ", "مِجْهَرٌ", "مِنْظَارٌ", "مَرْأَةٌ"], ans: 0 },
-{ q: "\"\"\"Wall\"\" in Arabic is\"", opts: ["دُرُجٌ", "حَائِطٌ", "جِدَارٌ", "B and C"], ans: 3 },
-{ q: "مَقْعَدٌ means ", opts: ["Seat", "Chair", "Table", "A and B"], ans: 3 },
-{ q: "\"If it takes 10 minutes for a handkerchief to get dried on a sunny day, how long will it take 3 of such handkerchiefs to dry? \"", opts: ["30 minutes", "3 minutes ", "10 minutes ", "5 minutes "], ans: 2 },
-{ q: "The National Security Adviser (NSA) is", opts: ["George Akume", "Nuhu Ribadu ", "Olayemi Cardoso", "Ben Kalu"], ans: 1 },
-{ q: "Who is the Secretary to the Government of the Federation (SGF)? ", opts: ["Nasir El Rufai", "Ali Ndume", "Godswill Akpabio", "George Akume"], ans: 3 }
-],
+            { q: "The current Vice President of the Federal Republic of Nigeria is", opts: ["Seyi Tinubu", "Godswill Akpabio", "Femi Gbajabiamila", "Kashim Shettima"], ans: 3 },
+            { q: "Who is the current Deputy Governor of Lagos state? ", opts: ["Obafemi Hamzat", "Joe Igbokwe", "Babajide Sanwo-olu", "Obasa"], ans: 0 },
+            { q: "The Nigerian hero whose picture is on #500 note is", opts: ["Obafemi Awolowo ", "Murtala Muhammed ", "Nnamdi Azikiwe", "Tafawa Balewa"], ans: 2 },
+            { q: "Daarul-Hikam Academy is situated in ..... Local Government Area of Lagos state. ", opts: ["Alimosho", "Ojo", "Badagry ", "Iba"], ans: 1 },
+            { q: "The first of the ten commandments in Suratul-An'aam is", opts: ["Treat your parents well", "Be just and truthful ", "Join nothing in worship with ALLAAH ", "Abstain from immorality"], ans: 2 },
+            { q: "Fulfil the covenant of ALLAAH is the .... commandment. ", opts: ["5", "7", "8", "9"], ans: 3 },
+            { q: "Which of these is not one of the commandments? ", opts: ["Be nice", "Beware of killing a soul ", "Give full measure ", "Be just"], ans: 0 },
+            { q: "What is the meaning of حَصَّالَةٌ? ", opts: ["Moneybox ", "Keyholder ", "Luggage ", "Case"], ans: 0 },
+            { q: "The word lantern in Arabic is:", opts: ["شُعْلَةٌ", "لَمْبَةٌ", "فَانُوسٌ", "مِصْبَاحٌ"], ans: 2 },
+            { q: "Radio in Arabic is", opts: ["رَادِيو", "دُرُحٌ", "مِذْيَاعٌ", "A and C"], ans: 3 },
+            { q: "\"The commandment \"\"َوَأَوفُو الكَيْل وَالمِيزَانَ بِالقِسْطِ\"\"  means\"", opts: ["Fulfil the covenant of ALLAAH ", "Give full measure and weight ", "Do not approach the property of the orphan", "Follow the straight path of ALLAAH "], ans: 1 },
+            { q: "NATO stands for:", opts: ["North Africa Treaty Organisation ", "North America Treaty Organisation ", "North Atlantic Trade Organisation ", "North Atlantic Treaty Organisation "], ans: 3 },
+            { q: "ECOWAS is an acronym for:", opts: ["Economics Community of West African States ", "Economy Community of West African States ", "Economic Community of West African States ", "Economics Communities of West African States "], ans: 2 },
+            { q: "ECOMOG stands for:", opts: ["ECOWAS Monitoring Group ", "ECOWAS Monetary Group", "ECOWAS Mobility Group ", "None of the above"], ans: 0 },
+            { q: "Which is odd? ", opts: ["FIFA", "NFF", "CAF", "FEPA"], ans: 3 },
+            { q: "The seat of the Nigerian presidency is the ", opts: ["White House ", "Aso Rock Villa", "Chatham House ", "Bourdillon"], ans: 1 },
+            { q: "Cutlery include the following except ", opts: ["Spoon", "Knife ", "Matches", "Fork"], ans: 2 },
+            { q: "The money being paid to kidnappers for the release of their victims is called", opts: ["Bail", "Ransom ", "Compensation ", "Fine"], ans: 1 },
+            { q: "The fastest means of transportation is", opts: ["Rail", "Road", "Air", "Water"], ans: 2 },
+            { q: "The richest black man in the world is", opts: ["Femi Otedola", "Abdul Samad Rabiu (BUA) ", "Mike Adenuga", "Aliko Dangote"], ans: 3 },
+            { q: "The Dangote Refinery is located in ", opts: ["Abuja", "Lagos", "Kano", "Portharcourt"], ans: 1 },
+            { q: "The capital of Zamfara is", opts: ["Dutse", "Gusau", "Zamfara", "Damaturu "], ans: 1 },
+            { q: "The fifth pillar of Islam is ", opts: ["Zakaat", "Hajj", "Sawm", "Shahadah"], ans: 1 },
+            { q: "\"Which option correctly translates \"\"Antenna\"\" to Arabic?\"", opts: ["هَوَائِيٌّ", "تَقْوِيمٌ", "تِلْفَازٌ", "نَظَّارَةٌ"], ans: 0 },
+            { q: "Mirror in Arabic is:", opts: ["مِرْآةٌ", "مِجْهَرٌ", "مِنْظَارٌ", "مَرْأَةٌ"], ans: 0 },
+            { q: "\"\"\"Wall\"\" in Arabic is\"", opts: ["دُرُجٌ", "حَائِطٌ", "جِدَارٌ", "B and C"], ans: 3 },
+            { q: "مَقْعَدٌ means ", opts: ["Seat", "Chair", "Table", "A and B"], ans: 3 },
+            { q: "\"If it takes 10 minutes for a handkerchief to get dried on a sunny day, how long will it take 3 of such handkerchiefs to dry? \"", opts: ["30 minutes", "3 minutes ", "10 minutes ", "5 minutes "], ans: 2 },
+            { q: "The National Security Adviser (NSA) is", opts: ["George Akume", "Nuhu Ribadu ", "Olayemi Cardoso", "Ben Kalu"], ans: 1 },
+            { q: "Who is the Secretary to the Government of the Federation (SGF)? ", opts: ["Nasir El Rufai", "Ali Ndume", "Godswill Akpabio", "George Akume"], ans: 3 }
+        ],
         medium: [
-{ q: "The current Vice President of the Federal Republic of Nigeria is", opts: ["Seyi Tinubu", "Godswill Akpabio", "Femi Gbajabiamila", "Kashim Shettima"], ans: 3 },
-{ q: "Who is the current Deputy Governor of Lagos state? ", opts: ["Obafemi Hamzat", "Joe Igbokwe", "Babajide Sanwo-olu", "Obasa"], ans: 0 },
-{ q: "The Nigerian hero whose picture is on #500 note is", opts: ["Obafemi Awolowo ", "Murtala Muhammed ", "Nnamdi Azikiwe", "Tafawa Balewa"], ans: 2 },
-{ q: "Daarul-Hikam Academy is situated in ..... Local Government Area of Lagos state. ", opts: ["Alimosho", "Ojo", "Badagry ", "Iba"], ans: 1 },
-{ q: "The first of the ten commandments in Suratul-An'aam is", opts: ["Treat your parents well", "Be just and truthful ", "Join nothing in worship with ALLAAH ", "Abstain from immorality"], ans: 2 },
-{ q: "Fulfil the covenant of ALLAAH is the .... commandment. ", opts: ["5", "7", "8", "9"], ans: 3 },
-{ q: "Which of these is not one of the commandments? ", opts: ["Be nice", "Beware of killing a soul ", "Give full measure ", "Be just"], ans: 0 },
-{ q: "What is the meaning of حَصَّالَةٌ? ", opts: ["Moneybox ", "Keyholder ", "Luggage ", "Case"], ans: 0 },
-{ q: "The word lantern in Arabic is:", opts: ["شُعْلَةٌ", "لَمْبَةٌ", "فَانُوسٌ", "مِصْبَاحٌ"], ans: 2 },
-{ q: "Radio in Arabic is", opts: ["رَادِيو", "دُرُحٌ", "مِذْيَاعٌ", "A and C"], ans: 3 },
-{ q: "\"The commandment \"\"َوَأَوفُو الكَيْل وَالمِيزَانَ بِالقِسْطِ\"\"  means\"", opts: ["Fulfil the covenant of ALLAAH ", "Give full measure and weight ", "Do not approach the property of the orphan", "Follow the straight path of ALLAAH "], ans: 1 },
-{ q: "NATO stands for:", opts: ["North Africa Treaty Organisation ", "North America Treaty Organisation ", "North Atlantic Trade Organisation ", "North Atlantic Treaty Organisation "], ans: 3 },
-{ q: "ECOWAS is an acronym for:", opts: ["Economics Community of West African States ", "Economy Community of West African States ", "Economic Community of West African States ", "Economics Communities of West African States "], ans: 2 },
-{ q: "ECOMOG stands for:", opts: ["ECOWAS Monitoring Group ", "ECOWAS Monetary Group", "ECOWAS Mobility Group ", "None of the above"], ans: 0 },
-{ q: "Which is odd? ", opts: ["FIFA", "NFF", "CAF", "FEPA"], ans: 3 },
-{ q: "The seat of the Nigerian presidency is the ", opts: ["White House ", "Aso Rock Villa", "Chatham House ", "Bourdillon"], ans: 1 },
-{ q: "Cutlery include the following except ", opts: ["Spoon", "Knife ", "Matches", "Fork"], ans: 2 },
-{ q: "The money being paid to kidnappers for the release of their victims is called", opts: ["Bail", "Ransom ", "Compensation ", "Fine"], ans: 1 },
-{ q: "The fastest means of transportation is", opts: ["Rail", "Road", "Air", "Water"], ans: 2 },
-{ q: "The richest black man in the world is", opts: ["Femi Otedola", "Abdul Samad Rabiu (BUA) ", "Mike Adenuga", "Aliko Dangote"], ans: 3 },
-{ q: "The Dangote Refinery is located in ", opts: ["Abuja", "Lagos", "Kano", "Portharcourt"], ans: 1 },
-{ q: "The capital of Zamfara is", opts: ["Dutse", "Gusau", "Zamfara", "Damaturu "], ans: 1 },
-{ q: "The fifth pillar of Islam is ", opts: ["Zakaat", "Hajj", "Sawm", "Shahadah"], ans: 1 },
-{ q: "\"Which option correctly translates \"\"Antenna\"\" to Arabic?\"", opts: ["هَوَائِيٌّ", "تَقْوِيمٌ", "تِلْفَازٌ", "نَظَّارَةٌ"], ans: 0 },
-{ q: "Mirror in Arabic is:", opts: ["مِرْآةٌ", "مِجْهَرٌ", "مِنْظَارٌ", "مَرْأَةٌ"], ans: 0 },
-{ q: "\"\"\"Wall\"\" in Arabic is\"", opts: ["دُرُجٌ", "حَائِطٌ", "جِدَارٌ", "B and C"], ans: 3 },
-{ q: "مَقْعَدٌ means ", opts: ["Seat", "Chair", "Table", "A and B"], ans: 3 },
-{ q: "\"If it takes 10 minutes for a handkerchief to get dried on a sunny day, how long will it take 3 of such handkerchiefs to dry? \"", opts: ["30 minutes", "3 minutes ", "10 minutes ", "5 minutes "], ans: 2 },
-{ q: "The National Security Adviser (NSA) is", opts: ["George Akume", "Nuhu Ribadu ", "Olayemi Cardoso", "Ben Kalu"], ans: 1 },
-{ q: "Who is the Secretary to the Government of the Federation (SGF)? ", opts: ["Nasir El Rufai", "Ali Ndume", "Godswill Akpabio", "George Akume"], ans: 3 }
-],
+            { q: "The current Vice President of the Federal Republic of Nigeria is", opts: ["Seyi Tinubu", "Godswill Akpabio", "Femi Gbajabiamila", "Kashim Shettima"], ans: 3 },
+            { q: "Who is the current Deputy Governor of Lagos state? ", opts: ["Obafemi Hamzat", "Joe Igbokwe", "Babajide Sanwo-olu", "Obasa"], ans: 0 },
+            { q: "The Nigerian hero whose picture is on #500 note is", opts: ["Obafemi Awolowo ", "Murtala Muhammed ", "Nnamdi Azikiwe", "Tafawa Balewa"], ans: 2 },
+            { q: "Daarul-Hikam Academy is situated in ..... Local Government Area of Lagos state. ", opts: ["Alimosho", "Ojo", "Badagry ", "Iba"], ans: 1 },
+            { q: "The first of the ten commandments in Suratul-An'aam is", opts: ["Treat your parents well", "Be just and truthful ", "Join nothing in worship with ALLAAH ", "Abstain from immorality"], ans: 2 },
+            { q: "Fulfil the covenant of ALLAAH is the .... commandment. ", opts: ["5", "7", "8", "9"], ans: 3 },
+            { q: "Which of these is not one of the commandments? ", opts: ["Be nice", "Beware of killing a soul ", "Give full measure ", "Be just"], ans: 0 },
+            { q: "What is the meaning of حَصَّالَةٌ? ", opts: ["Moneybox ", "Keyholder ", "Luggage ", "Case"], ans: 0 },
+            { q: "The word lantern in Arabic is:", opts: ["شُعْلَةٌ", "لَمْبَةٌ", "فَانُوسٌ", "مِصْبَاحٌ"], ans: 2 },
+            { q: "Radio in Arabic is", opts: ["رَادِيو", "دُرُحٌ", "مِذْيَاعٌ", "A and C"], ans: 3 },
+            { q: "\"The commandment \"\"َوَأَوفُو الكَيْل وَالمِيزَانَ بِالقِسْطِ\"\"  means\"", opts: ["Fulfil the covenant of ALLAAH ", "Give full measure and weight ", "Do not approach the property of the orphan", "Follow the straight path of ALLAAH "], ans: 1 },
+            { q: "NATO stands for:", opts: ["North Africa Treaty Organisation ", "North America Treaty Organisation ", "North Atlantic Trade Organisation ", "North Atlantic Treaty Organisation "], ans: 3 },
+            { q: "ECOWAS is an acronym for:", opts: ["Economics Community of West African States ", "Economy Community of West African States ", "Economic Community of West African States ", "Economics Communities of West African States "], ans: 2 },
+            { q: "ECOMOG stands for:", opts: ["ECOWAS Monitoring Group ", "ECOWAS Monetary Group", "ECOWAS Mobility Group ", "None of the above"], ans: 0 },
+            { q: "Which is odd? ", opts: ["FIFA", "NFF", "CAF", "FEPA"], ans: 3 },
+            { q: "The seat of the Nigerian presidency is the ", opts: ["White House ", "Aso Rock Villa", "Chatham House ", "Bourdillon"], ans: 1 },
+            { q: "Cutlery include the following except ", opts: ["Spoon", "Knife ", "Matches", "Fork"], ans: 2 },
+            { q: "The money being paid to kidnappers for the release of their victims is called", opts: ["Bail", "Ransom ", "Compensation ", "Fine"], ans: 1 },
+            { q: "The fastest means of transportation is", opts: ["Rail", "Road", "Air", "Water"], ans: 2 },
+            { q: "The richest black man in the world is", opts: ["Femi Otedola", "Abdul Samad Rabiu (BUA) ", "Mike Adenuga", "Aliko Dangote"], ans: 3 },
+            { q: "The Dangote Refinery is located in ", opts: ["Abuja", "Lagos", "Kano", "Portharcourt"], ans: 1 },
+            { q: "The capital of Zamfara is", opts: ["Dutse", "Gusau", "Zamfara", "Damaturu "], ans: 1 },
+            { q: "The fifth pillar of Islam is ", opts: ["Zakaat", "Hajj", "Sawm", "Shahadah"], ans: 1 },
+            { q: "\"Which option correctly translates \"\"Antenna\"\" to Arabic?\"", opts: ["هَوَائِيٌّ", "تَقْوِيمٌ", "تِلْفَازٌ", "نَظَّارَةٌ"], ans: 0 },
+            { q: "Mirror in Arabic is:", opts: ["مِرْآةٌ", "مِجْهَرٌ", "مِنْظَارٌ", "مَرْأَةٌ"], ans: 0 },
+            { q: "\"\"\"Wall\"\" in Arabic is\"", opts: ["دُرُجٌ", "حَائِطٌ", "جِدَارٌ", "B and C"], ans: 3 },
+            { q: "مَقْعَدٌ means ", opts: ["Seat", "Chair", "Table", "A and B"], ans: 3 },
+            { q: "\"If it takes 10 minutes for a handkerchief to get dried on a sunny day, how long will it take 3 of such handkerchiefs to dry? \"", opts: ["30 minutes", "3 minutes ", "10 minutes ", "5 minutes "], ans: 2 },
+            { q: "The National Security Adviser (NSA) is", opts: ["George Akume", "Nuhu Ribadu ", "Olayemi Cardoso", "Ben Kalu"], ans: 1 },
+            { q: "Who is the Secretary to the Government of the Federation (SGF)? ", opts: ["Nasir El Rufai", "Ali Ndume", "Godswill Akpabio", "George Akume"], ans: 3 }
+        ],
         hard: [
-{ q: "The current Vice President of the Federal Republic of Nigeria is", opts: ["Seyi Tinubu", "Godswill Akpabio", "Femi Gbajabiamila", "Kashim Shettima"], ans: 3 },
-{ q: "Who is the current Deputy Governor of Lagos state? ", opts: ["Obafemi Hamzat", "Joe Igbokwe", "Babajide Sanwo-olu", "Obasa"], ans: 0 },
-{ q: "The Nigerian hero whose picture is on #500 note is", opts: ["Obafemi Awolowo ", "Murtala Muhammed ", "Nnamdi Azikiwe", "Tafawa Balewa"], ans: 2 },
-{ q: "Daarul-Hikam Academy is situated in ..... Local Government Area of Lagos state. ", opts: ["Alimosho", "Ojo", "Badagry ", "Iba"], ans: 1 },
-{ q: "The first of the ten commandments in Suratul-An'aam is", opts: ["Treat your parents well", "Be just and truthful ", "Join nothing in worship with ALLAAH ", "Abstain from immorality"], ans: 2 },
-{ q: "Fulfil the covenant of ALLAAH is the .... commandment. ", opts: ["5", "7", "8", "9"], ans: 3 },
-{ q: "Which of these is not one of the commandments? ", opts: ["Be nice", "Beware of killing a soul ", "Give full measure ", "Be just"], ans: 0 },
-{ q: "What is the meaning of حَصَّالَةٌ? ", opts: ["Moneybox ", "Keyholder ", "Luggage ", "Case"], ans: 0 },
-{ q: "The word lantern in Arabic is:", opts: ["شُعْلَةٌ", "لَمْبَةٌ", "فَانُوسٌ", "مِصْبَاحٌ"], ans: 2 },
-{ q: "Radio in Arabic is", opts: ["رَادِيو", "دُرُحٌ", "مِذْيَاعٌ", "A and C"], ans: 3 },
-{ q: "\"The commandment \"\"َوَأَوفُو الكَيْل وَالمِيزَانَ بِالقِسْطِ\"\"  means\"", opts: ["Fulfil the covenant of ALLAAH ", "Give full measure and weight ", "Do not approach the property of the orphan", "Follow the straight path of ALLAAH "], ans: 1 },
-{ q: "NATO stands for:", opts: ["North Africa Treaty Organisation ", "North America Treaty Organisation ", "North Atlantic Trade Organisation ", "North Atlantic Treaty Organisation "], ans: 3 },
-{ q: "ECOWAS is an acronym for:", opts: ["Economics Community of West African States ", "Economy Community of West African States ", "Economic Community of West African States ", "Economics Communities of West African States "], ans: 2 },
-{ q: "ECOMOG stands for:", opts: ["ECOWAS Monitoring Group ", "ECOWAS Monetary Group", "ECOWAS Mobility Group ", "None of the above"], ans: 0 },
-{ q: "Which is odd? ", opts: ["FIFA", "NFF", "CAF", "FEPA"], ans: 3 },
-{ q: "The seat of the Nigerian presidency is the ", opts: ["White House ", "Aso Rock Villa", "Chatham House ", "Bourdillon"], ans: 1 },
-{ q: "Cutlery include the following except ", opts: ["Spoon", "Knife ", "Matches", "Fork"], ans: 2 },
-{ q: "The money being paid to kidnappers for the release of their victims is called", opts: ["Bail", "Ransom ", "Compensation ", "Fine"], ans: 1 },
-{ q: "The fastest means of transportation is", opts: ["Rail", "Road", "Air", "Water"], ans: 2 },
-{ q: "The richest black man in the world is", opts: ["Femi Otedola", "Abdul Samad Rabiu (BUA) ", "Mike Adenuga", "Aliko Dangote"], ans: 3 },
-{ q: "The Dangote Refinery is located in ", opts: ["Abuja", "Lagos", "Kano", "Portharcourt"], ans: 1 },
-{ q: "The capital of Zamfara is", opts: ["Dutse", "Gusau", "Zamfara", "Damaturu "], ans: 1 },
-{ q: "The fifth pillar of Islam is ", opts: ["Zakaat", "Hajj", "Sawm", "Shahadah"], ans: 1 },
-{ q: "\"Which option correctly translates \"\"Antenna\"\" to Arabic?\"", opts: ["هَوَائِيٌّ", "تَقْوِيمٌ", "تِلْفَازٌ", "نَظَّارَةٌ"], ans: 0 },
-{ q: "Mirror in Arabic is:", opts: ["مِرْآةٌ", "مِجْهَرٌ", "مِنْظَارٌ", "مَرْأَةٌ"], ans: 0 },
-{ q: "\"\"\"Wall\"\" in Arabic is\"", opts: ["دُرُجٌ", "حَائِطٌ", "جِدَارٌ", "B and C"], ans: 3 },
-{ q: "مَقْعَدٌ means ", opts: ["Seat", "Chair", "Table", "A and B"], ans: 3 },
-{ q: "\"If it takes 10 minutes for a handkerchief to get dried on a sunny day, how long will it take 3 of such handkerchiefs to dry? \"", opts: ["30 minutes", "3 minutes ", "10 minutes ", "5 minutes "], ans: 2 },
-{ q: "The National Security Adviser (NSA) is", opts: ["George Akume", "Nuhu Ribadu ", "Olayemi Cardoso", "Ben Kalu"], ans: 1 },
-{ q: "Who is the Secretary to the Government of the Federation (SGF)? ", opts: ["Nasir El Rufai", "Ali Ndume", "Godswill Akpabio", "George Akume"], ans: 3 }
-]
+            { q: "The current Vice President of the Federal Republic of Nigeria is", opts: ["Seyi Tinubu", "Godswill Akpabio", "Femi Gbajabiamila", "Kashim Shettima"], ans: 3 },
+            { q: "Who is the current Deputy Governor of Lagos state? ", opts: ["Obafemi Hamzat", "Joe Igbokwe", "Babajide Sanwo-olu", "Obasa"], ans: 0 },
+            { q: "The Nigerian hero whose picture is on #500 note is", opts: ["Obafemi Awolowo ", "Murtala Muhammed ", "Nnamdi Azikiwe", "Tafawa Balewa"], ans: 2 },
+            { q: "Daarul-Hikam Academy is situated in ..... Local Government Area of Lagos state. ", opts: ["Alimosho", "Ojo", "Badagry ", "Iba"], ans: 1 },
+            { q: "The first of the ten commandments in Suratul-An'aam is", opts: ["Treat your parents well", "Be just and truthful ", "Join nothing in worship with ALLAAH ", "Abstain from immorality"], ans: 2 },
+            { q: "Fulfil the covenant of ALLAAH is the .... commandment. ", opts: ["5", "7", "8", "9"], ans: 3 },
+            { q: "Which of these is not one of the commandments? ", opts: ["Be nice", "Beware of killing a soul ", "Give full measure ", "Be just"], ans: 0 },
+            { q: "What is the meaning of حَصَّالَةٌ? ", opts: ["Moneybox ", "Keyholder ", "Luggage ", "Case"], ans: 0 },
+            { q: "The word lantern in Arabic is:", opts: ["شُعْلَةٌ", "لَمْبَةٌ", "فَانُوسٌ", "مِصْبَاحٌ"], ans: 2 },
+            { q: "Radio in Arabic is", opts: ["رَادِيو", "دُرُحٌ", "مِذْيَاعٌ", "A and C"], ans: 3 },
+            { q: "\"The commandment \"\"َوَأَوفُو الكَيْل وَالمِيزَانَ بِالقِسْطِ\"\"  means\"", opts: ["Fulfil the covenant of ALLAAH ", "Give full measure and weight ", "Do not approach the property of the orphan", "Follow the straight path of ALLAAH "], ans: 1 },
+            { q: "NATO stands for:", opts: ["North Africa Treaty Organisation ", "North America Treaty Organisation ", "North Atlantic Trade Organisation ", "North Atlantic Treaty Organisation "], ans: 3 },
+            { q: "ECOWAS is an acronym for:", opts: ["Economics Community of West African States ", "Economy Community of West African States ", "Economic Community of West African States ", "Economics Communities of West African States "], ans: 2 },
+            { q: "ECOMOG stands for:", opts: ["ECOWAS Monitoring Group ", "ECOWAS Monetary Group", "ECOWAS Mobility Group ", "None of the above"], ans: 0 },
+            { q: "Which is odd? ", opts: ["FIFA", "NFF", "CAF", "FEPA"], ans: 3 },
+            { q: "The seat of the Nigerian presidency is the ", opts: ["White House ", "Aso Rock Villa", "Chatham House ", "Bourdillon"], ans: 1 },
+            { q: "Cutlery include the following except ", opts: ["Spoon", "Knife ", "Matches", "Fork"], ans: 2 },
+            { q: "The money being paid to kidnappers for the release of their victims is called", opts: ["Bail", "Ransom ", "Compensation ", "Fine"], ans: 1 },
+            { q: "The fastest means of transportation is", opts: ["Rail", "Road", "Air", "Water"], ans: 2 },
+            { q: "The richest black man in the world is", opts: ["Femi Otedola", "Abdul Samad Rabiu (BUA) ", "Mike Adenuga", "Aliko Dangote"], ans: 3 },
+            { q: "The Dangote Refinery is located in ", opts: ["Abuja", "Lagos", "Kano", "Portharcourt"], ans: 1 },
+            { q: "The capital of Zamfara is", opts: ["Dutse", "Gusau", "Zamfara", "Damaturu "], ans: 1 },
+            { q: "The fifth pillar of Islam is ", opts: ["Zakaat", "Hajj", "Sawm", "Shahadah"], ans: 1 },
+            { q: "\"Which option correctly translates \"\"Antenna\"\" to Arabic?\"", opts: ["هَوَائِيٌّ", "تَقْوِيمٌ", "تِلْفَازٌ", "نَظَّارَةٌ"], ans: 0 },
+            { q: "Mirror in Arabic is:", opts: ["مِرْآةٌ", "مِجْهَرٌ", "مِنْظَارٌ", "مَرْأَةٌ"], ans: 0 },
+            { q: "\"\"\"Wall\"\" in Arabic is\"", opts: ["دُرُجٌ", "حَائِطٌ", "جِدَارٌ", "B and C"], ans: 3 },
+            { q: "مَقْعَدٌ means ", opts: ["Seat", "Chair", "Table", "A and B"], ans: 3 },
+            { q: "\"If it takes 10 minutes for a handkerchief to get dried on a sunny day, how long will it take 3 of such handkerchiefs to dry? \"", opts: ["30 minutes", "3 minutes ", "10 minutes ", "5 minutes "], ans: 2 },
+            { q: "The National Security Adviser (NSA) is", opts: ["George Akume", "Nuhu Ribadu ", "Olayemi Cardoso", "Ben Kalu"], ans: 1 },
+            { q: "Who is the Secretary to the Government of the Federation (SGF)? ", opts: ["Nasir El Rufai", "Ali Ndume", "Godswill Akpabio", "George Akume"], ans: 3 }
+        ]
     },
     physics: {
         easy: [
@@ -790,8 +810,8 @@ function startQuiz() {
     }
 
     const numQuestion = parseInt(numQuestionsInput.value)
-    if (numQuestion < 5 || numQuestion > 35) {
-        alert('Please enter a number between 5 and 35!');
+    if (numQuestion < 5 || numQuestion > 40) {
+        alert('Please enter a number between 5 and 40!');
         return;
     }
 
@@ -824,7 +844,7 @@ function startQuiz() {
     startTime = Date.now();
 
     // Start timer
-    timeRemaining = currentQuiz.length * 43;
+    timeRemaining = currentQuiz.length * 37.5;
     startTimer();
 
     showScreen('quiz');
@@ -934,7 +954,7 @@ function calculateScore() {
     });
 
     const scaledScore = Math.round((score / currentQuiz.length) * 60);
-const percentage = Math.round((score / currentQuiz.length) * 100);
+    const percentage = Math.round((score / currentQuiz.length) * 100);
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
     const minutes = Math.floor(timeTaken / 60);
     const seconds = timeTaken % 60;
@@ -942,24 +962,24 @@ const percentage = Math.round((score / currentQuiz.length) * 100);
     let message = '';
     let passed = false;
     if (percentage === 100) {
-    message = `🌟 Excellent Performance!<br>Grade: A (Distinction)`;
-    passed = true;
-} else if (percentage >= 80) {
-    message = `🎉 Very Good Performance.<br>Grade: A`;
-    passed = true;
-} else if (percentage >= 70) {
-    message = `👍 Good Performance.<br>Grade: B`;
-    passed = true;
-} else if (percentage >= 60) {
-    message = `✔ Fair Performance.<br>Grade: C`;
-    passed = true;
-} else if (percentage >= 50) {
-    message = `⚠ Pass.<br>Grade: D`;
-    passed = true;
-} else {
-    message = `❌ Fail.<br>Grade: F`;
-    passed = false;
-}
+        message = `🌟 Excellent Performance!<br>Grade: A (Distinction)`;
+        passed = true;
+    } else if (percentage >= 80) {
+        message = `🎉 Very Good Performance.<br>Grade: A`;
+        passed = true;
+    } else if (percentage >= 70) {
+        message = `👍 Good Performance.<br>Grade: B`;
+        passed = true;
+    } else if (percentage >= 60) {
+        message = `✔ Fair Performance.<br>Grade: C`;
+        passed = true;
+    } else if (percentage >= 50) {
+        message = `⚠ Pass.<br>Grade: D`;
+        passed = true;
+    } else {
+        message = `❌ Fail.<br>Grade: F`;
+        passed = false;
+    }
     document.getElementById('finalScore').textContent = `${scaledScore}/60`;
     document.getElementById('scoreMessage').innerHTML = message;
     document.getElementById('correctCount').textContent = score;
