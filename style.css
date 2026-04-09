@@ -504,7 +504,7 @@ input[type="radio"] + label {
     width: 48%;
     font-size: 12px;   /* smaller text */
     padding: 12px 6px; /* reduce padding */
-    font-weight: 900;
+    font-weight: 500;
 }
 
 /* Style Previous button differently */
