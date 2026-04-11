@@ -799,6 +799,11 @@ let timeRemaining = 0;
 let timerInterval = null;
 let startTime = 0;
 
+let studentName = '';
+let tabSwitchCount = 0;
+let examSubmitted = false;
+let examStarted = false;
+
 // Progress Bar Helper
 function updateProgressBar(current, total) {
     const bar = document.getElementById('progressBarFill');
@@ -820,6 +825,7 @@ const startBtn = document.getElementById('startbtn');
 const nextBtn = document.getElementById('nextBtn');
 const quitBtn = document.getElementById('quitBtn');
 const restartBtn = document.getElementById('restartBtn');
+const questionSlider = document.getElementById('questionSlider');
 
 // Event Listeners
 topicBtns.forEach(btn => {
@@ -845,7 +851,51 @@ restartBtn.addEventListener('click', restartQuiz);
 const prevBtn = document.getElementById('prevBtn');
 prevBtn.addEventListener('click', prevQuestion);
 
+// Question slider navigation
+questionSlider.addEventListener('input', (e) => {
+    const targetQuestion = parseInt(e.target.value, 10) - 1;
+    if (!Number.isNaN(targetQuestion) && targetQuestion !== currentQuestion && targetQuestion >= 0 && targetQuestion < currentQuiz.length) {
+        currentQuestion = targetQuestion;
+        displayQuestion();
+    }
+});
+
+// Anti-cheat: Tab switch detection
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden' && !examSubmitted && examStarted) {
+        const attemptsRemaining = Math.max(0, 3 - tabSwitchCount);
+        const message = `You are attempting to leave the exam tab. You have ${attemptsRemaining} attempts remaining before your exam is submitted automatically. Do you want to continue?`;
+        const proceed = confirm(message);
+
+        if (proceed) {
+            tabSwitchCount++;
+            if (tabSwitchCount >= 3) {
+                finishQuiz();
+            }
+        } else {
+            setTimeout(() => {
+                if (typeof window.focus === 'function') {
+                    window.focus();
+                }
+            }, 300);
+        }
+    }
+});
+
+window.onbeforeunload = function() {
+    if (!examSubmitted && examStarted) {
+        return "Your exam is still in progress. Leaving will submit your test.";
+    }
+};
+
 function startQuiz() {
+    // === ADD THIS ===
+    studentName = document.getElementById('studentName').value.trim();
+    if (!studentName) {
+        alert('Please enter your name!');
+        return;
+    }
+
     if (!selectedTopic) {
         alert('Please Select a Subject')
         return;
@@ -889,8 +939,10 @@ function startQuiz() {
     timeRemaining = currentQuiz.length * 37.5;
     startTimer();
 
+    tabSwitchCount = 0;
+    examStarted = true;
     showScreen('quiz');
-    displayQuestion(); // ✅ now safe
+    displayQuestion();
 }
 function startTimer() {
     const timerEl = document.getElementById('timer');
@@ -920,6 +972,10 @@ function displayQuestion() {
     document.getElementById('totalQuestions').textContent = currentQuiz.length;
     updateProgressBar(currentQuestion + 1, currentQuiz.length);
 
+    // Sync slider
+    questionSlider.value = currentQuestion + 1;
+    questionSlider.max = currentQuiz.length;
+
     const optionsContainer = document.getElementById('options');
     optionsContainer.innerHTML = '';
 
@@ -946,6 +1002,13 @@ function displayQuestion() {
             });
 
             optionWrapper.classList.add('selected');
+
+            // Show prompt if this is the last question
+            if (currentQuestion === currentQuiz.length - 1) {
+                setTimeout(() => {
+                    alert('You have answered the final question. Click "Submit Exam" when ready.');
+                }, 500);
+            }
         });
 
         const textSpan = document.createElement('span');
@@ -969,21 +1032,33 @@ function displayQuestion() {
 }
 
 function nextQuestion() {
-    if (selectedAnswers[currentQuestion] !== null) {
-        if (currentQuestion < currentQuiz.length - 1) {
-            currentQuestion++;
-            displayQuestion();
-        } else {
+    if (currentQuestion < currentQuiz.length - 1) {
+        currentQuestion++;
+        displayQuestion();
+    } else {
+        const confirmSubmit = confirm('Are you sure you want to submit your exam? You cannot change your answers after submission.');
+        if (confirmSubmit) {
             finishQuiz();
         }
-    } else {
-        alert('Please select an answer!');
     }
 }
 
 function finishQuiz() {
+    // === ADD THIS ===
+    if (examSubmitted) return; // Prevent multiple submissions
+    examSubmitted = true;
+    // === END ADD ===
+
     clearInterval(timerInterval);
+    examStarted = false;
     calculateScore();
+    const classMapping = {
+        easy: 'JSS 1',
+        medium: 'JSS 2',
+        hard: 'JSS 3'
+    };
+    const classLevel = classMapping[selectedDifficulty] || 'JSS 2';
+    saveScoreToServer(studentName, score, classLevel, currentQuiz.length);
     showScreen('results');
 }
 
@@ -1030,6 +1105,14 @@ function calculateScore() {
     document.getElementById('timeTaken').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     document.getElementById('topicResult').textContent = selectedTopic.charAt(0).toUpperCase() + selectedTopic.slice(1);
 
+    const classMapping = {
+        easy: 'JSS 1',
+        medium: 'JSS 2',
+        hard: 'JSS 3'
+    };
+    document.getElementById('studentNameResult').textContent = studentName || 'N/A';
+    document.getElementById('classResult').textContent = classMapping[selectedDifficulty] || 'JSS 2';
+
     // Play sound and show effect
     setTimeout(() => {
         if (passed) {
@@ -1054,6 +1137,34 @@ function calculateScore() {
     }, 100);
 }
 
+// === ADD THIS ===
+function saveScoreToServer(name, score, classLevel, totalQuestions) {
+    if (!window.db || !window.addDoc || !window.collection) {
+        console.warn('Firebase not ready');
+        return;
+    }
+
+    const scoreOver60 = Math.round((score / totalQuestions) * 60);
+    const percentage = Math.round((score / totalQuestions) * 100);
+
+    window.addDoc(window.collection(window.db, 'cbt_scores'), {
+        name: name,
+        class: classLevel,
+        subject: selectedTopic,
+        score: score,
+        scoreOver60: scoreOver60,
+        percentage: percentage,
+        totalQuestions: totalQuestions,
+        timestamp: new Date()
+    }).then(() => {
+        console.log('✅ Score saved successfully');
+    }).catch((error) => {
+        console.error('❌ Error saving score:', error);
+    });
+}
+// View saved scores in Firebase Console → Firestore → cbt_scores
+// === END ADD ===
+
 function quitQuiz() {
     if (confirm('Are you sure you want to quit? Your progress will be lost.')) {
         clearInterval(timerInterval);
@@ -1062,6 +1173,12 @@ function quitQuiz() {
 }
 
 function restartQuiz() {
+    studentName = '';
+    tabSwitchCount = 0;
+    examSubmitted = false;
+    examStarted = false;
+    document.body.style.pointerEvents = ''; // Unlock interaction
+
     currentQuiz = [];
     currentQuestion = 0;
     score = 0;
@@ -1076,6 +1193,8 @@ function restartQuiz() {
     difficultyBtns.forEach(btn => btn.classList.remove('selected'));
     difficultyBtns[1].classList.add('selected');
     numQuestionsInput.value = '40';
+    document.getElementById('studentName').value = '';
+    // === END ADD ===
 
     showScreen('start');
 }
@@ -1237,8 +1356,3 @@ function prevQuestion() {
         displayQuestion();
     }
 }
-
-window.addEventListener("beforeunload", function (e) {
-  e.preventDefault();
-  e.returnValue = ""; // Required for most browsers
-});

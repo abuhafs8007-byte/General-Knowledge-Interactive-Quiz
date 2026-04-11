@@ -22,12 +22,41 @@
         content="Challenge yourself with quizzes covering Mathematics, English, Science, Technology, Islamic Studies, Civic Education, Social Studies, Biology, Chemistry, and Physics. Learn and have fun!">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://abuhafs8007-byte.github.io/General-Knowledge-Interactive-Quiz/">
-    <meta property="og:image" content="https://github.com/abuhafs8007-byte/General-Knowledge-Interactive-Quiz/blob/main/meta.jpeg?raw=true">
+    <meta property="og:image"
+        content="https://github.com/abuhafs8007-byte/General-Knowledge-Interactive-Quiz/blob/main/meta.jpeg?raw=true">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ultimate General Knowledge Quiz – Test Your Skills!">
     <meta name="twitter:description"
         content="Challenge yourself with quizzes covering Mathematics, English, Science, Technology, Islamic Studies, Civic Education, Social Studies, Biology, Chemistry, and Physics. Learn and have fun!">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/abuhafs8007-byte/General-Knowledge-Interactive-Quiz/refs/heads/main/meta.jpeg">
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/abuhafs8007-byte/General-Knowledge-Interactive-Quiz/refs/heads/main/meta.jpeg">
+
+    <!-- Firebase CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // Placeholder Firebase config - replace with your actual config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAJaem6_icKmg04_SoiSyWrWBAiLC7TSPU",
+            authDomain: "cbt-exam-eng.firebaseapp.com",
+            projectId: "cbt-exam-eng",
+            storageBucket: "cbt-exam-eng.firebasestorage.app",
+            messagingSenderId: "138024431357",
+            appId: "1:138024431357:web:0347c448991e28fc6fd894",
+            measurementId: "G-FYBM55P9JD"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.firebaseApp = app;
+        window.db = db;
+
+        window.addDoc = addDoc;
+        window.collection = collection;
+
+    </script>
 </head>
 
 <body>
@@ -40,7 +69,7 @@
                 <li>You are allotted 25 minutes to answer all questions.</li>
                 <li>The timer starts immediately after the 'START' Button is Clicked.</li>
                 <li>Questions and answer options are shuffled each time.</li>
-               <li>If time runs out, the question will be marked as unanswered.</li>
+                <li>If time runs out, the question will be marked as unanswered.</li>
                 <li>Your final score and performance summary will be shown at the end.</li>
             </ul>
             <button id="confirmGuidelines" class="btn">I Understand</button>
@@ -66,6 +95,11 @@
                     <button class="topic-btn" data-topic="chemistry">🎓 G.N.S.</button>
                     <button class="topic-btn" data-topic="physics">🔬 Physics</button>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="studentName">Student Name (Required):</label>
+                <input type="text" id="studentName" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
@@ -104,19 +138,30 @@
                 <div class="options" id="options"></div>
             </div>
 
-<div class="nav-buttons">
-    <button id="prevBtn" class="btn btn-prev">Previous Question</button>
-    <button id="nextBtn" class="btn">Next Question</button>
-</div>
+            <div class="form-group question-jump">
+                <label for="questionSlider">Jump to Question:</label>
+                <input type="number" id="questionSlider" min="1" step="1" value="1">
+            </div>
+
+            <div class="nav-buttons">
+                <button id="prevBtn" class="btn btn-prev">Previous Question</button>
+                <button id="nextBtn" class="btn">Next Question</button>
+            </div>
 
             <button class="btn btn-secondary" id="quitBtn" disabled>Cancel Exam</button>
         </div>
 
         <!-- Results Screen -->
         <div id="resultsScreen" class="screen">
-            <h1>Examination Submitted Successfully</h1>
+            <h1>Examination Submitted Successfully!</h1>
+            <div class="student-result-info">
+                <div><span class="result-label">Student:</span> <span id="studentNameResult">--</span></div>
+                <div><span class="result-label">Class:</span> <span id="classResult">--</span></div>
+            </div>
             <div class="score-display" id="finalScore">10/10</div>
-            <hr class="scrMsg1"><div class="score-message" id="scoreMessage">Excellent! You're a quiz master!</div><hr class="scrMsg2">
+            <hr class="scrMsg1">
+            <div class="score-message" id="scoreMessage">Excellent! You're a quiz master!</div>
+            <hr class="scrMsg2">
 
             <div class="results-details">
                 <div class="result-item">
