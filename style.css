@@ -556,13 +556,7 @@ hr.scrMsg2 {
         padding: 20px;
         margin: 10px;
     }
-    
-    .question-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    
+  
     #questionSlider {
         width: 100%;
     }
@@ -570,27 +564,6 @@ hr.scrMsg2 {
     .question-text {
         font-size: 18px;
         padding: 15px;
-    }
-    
-    .nav-buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .nav-buttons .btn {
-        width: 100%;
-    }
-    
-    .topic-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .difficulty-options {
-        flex-direction: column;
-    }
-    
-    .difficulty-btn {
-        width: 100%;
     }
 }
 
