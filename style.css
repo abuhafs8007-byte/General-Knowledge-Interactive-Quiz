@@ -178,7 +178,7 @@ select:focus {
 .question-jump {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     margin-bottom: 20px;
 }
 
@@ -388,13 +388,6 @@ hr.scrMsg2 {
 .student-result-info span {
     color: #4f46e5;
     font-weight: 700;
-}
-
-@media (max-width: 520px) {
-    .student-result-info {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 }
 
 .result-label {
