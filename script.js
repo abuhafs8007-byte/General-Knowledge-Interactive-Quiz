@@ -1590,7 +1590,7 @@ function saveScoreToServer(name, score, classLevel, totalQuestions) {
         const scoreOver60 = Math.round((score / totalQuestions) * 60);
         const percentage = Math.round((score / totalQuestions) * 100);
 
-        window.addDoc(window.collection(window.db, 'cbt_scores'), {
+        window.addDoc(collection(db, 'cbt_scores_english'), {
             name: name,
             class: classLevel,
             subject: selectedTopic,
