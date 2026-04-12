@@ -623,3 +623,157 @@ input[type="radio"] + label {
     background: #fca5a5;
     cursor: not-allowed;
 }
+
+
+/* ===== ULTRA MOBILE OPTIMIZATION ===== */
+@media (max-width: 480px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .container {
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        font-size: 11px;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .difficulty-btn {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .quiz-header {
+        gap: 5px;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    .progress-bar-container {
+        height: 8px;
+    }
+
+    .progress-bar-bg {
+        height: 8px;
+    }
+
+    .progress {
+        font-size: 11px;
+    }
+
+    .timer {
+        font-size: 13px;
+    }
+
+    .question-container {
+        margin-bottom: 15px;
+    }
+
+    .question-text {
+        font-size: 15px;
+        padding: 10px;
+        line-height: 1.5;
+        border-radius: 8px;
+    }
+
+    .options {
+        gap: 8px;
+    }
+
+    .option {
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .option input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+    }
+
+    .option label {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .nav-buttons {
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .nav-buttons .btn {
+        font-size: 13px;
+        padding: 10px;
+        min-height: 42px;
+    }
+
+    .score-display {
+        font-size: 34px;
+    }
+
+    .score-message {
+        font-size: 13px;
+    }
+
+    .results-details {
+        padding: 12px;
+    }
+
+    .result-item {
+        font-size: 13px;
+        padding: 8px 0;
+    }
+
+    .student-result-info {
+        font-size: 13px;
+        gap: 10px;
+    }
+
+    .topic-grid {
+        gap: 10px;
+    }
+
+    .topic-btn {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .modal-box {
+        padding: 20px;
+    }
+
+    .modal-box h2 {
+        font-size: 16px;
+    }
+
+    .modal-box ul {
+        font-size: 13px;
+    }
+}
