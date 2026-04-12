@@ -172,7 +172,49 @@ const quizData = {
             { q: "Which substance is formed when hydrogen combines with oxygen?", opts: ["Salt", "Water", "Air", "Iron"], ans: 1 },
             { q: "Which of these is NOT a compound?", opts: ["Water", "Carbon dioxide", "Oxygen", "Salt"], ans: 2 },
             { q: "Pouring dirty engine oil on the ground leads to?", opts: ["Air pollution", "Water pollution", "Land pollution", "Noise pollution"], ans: 2 },
-            { q: "Which situation best shows water pollution?", opts: ["Clean rain falling", "Throwing plastics in river", "Boiling water", "Using tap water"], ans: 1 }
+            { q: "Which situation best shows water pollution?", opts: ["Clean rain falling", "Throwing plastics in river", "Boiling water", "Using tap water"], ans: 1 },
+            [
+                {
+                    q: "What is pollution?",
+                    opts: [
+                        "The introduction of harmful substances into the environment",
+                        "The natural recycling of materials in ecosystems",
+                        "The process of growing crops in farms",
+                        "The movement of animals from one place to another"
+                    ],
+                    ans: 0
+                },
+                {
+                    q: "Which of the following best defines an atom?",
+                    opts: [
+                        "The smallest particle of an element that retains its chemical properties",
+                        "The smallest visible particle of matter under a microscope",
+                        "A combination of different compounds forming a mixture",
+                        "A cell structure found in living organisms"
+                    ],
+                    ans: 0
+                },
+                {
+                    q: "The symbol for Helium is ________",
+                    opts: ["H", "He", "Hl", "Hm"],
+                    ans: 1
+                },
+                {
+                    q: "Planting of trees is a prevention for _________ types of pollution",
+                    opts: ["Water pollution", "Noise pollution", "Air pollution", "Soil pollution"],
+                    ans: 2
+                },
+                {
+                    q: "Which of the following is an example of thermal energy?",
+                    opts: [
+                        "Light from a torch",
+                        "Sound from a bell",
+                        "Heat from boiling water",
+                        "Electric current in a wire"
+                    ],
+                    ans: 2
+                }
+            ]
         ],
 
         medium: [
@@ -209,7 +251,12 @@ const quizData = {
             { q: "Which of these best describes growth in living things?", opts: ["Increase in size only", "Increase in number of cells", "Movement only", "Digestion only"], ans: 1 },
             { q: "Which of the following is a component of an ecosystem?", opts: ["Rocks only", "Living and non-living things interacting", "Animals only", "Plants only"], ans: 1 },
             { q: "Humans are called higher animals mainly because they can:", opts: ["Breathe underwater", "Think and reason", "Fly", "Hibernate"], ans: 1 },
-            { q: "Rusting of iron is caused by the presence of:", opts: ["Heat only", "Oxygen and water", "Light only", "Carbon dioxide only"], ans: 1 }
+            { q: "Rusting of iron is caused by the presence of:", opts: ["Heat only", "Oxygen and water", "Light only", "Carbon dioxide only"], ans: 1 },
+            { q: "What is a food web?", opts: ["A single food chain in an ecosystem", "A network of interconnected food chains", "A group of animals living together", "A system of water movement in nature"], ans: 1 },
+            { q: "An organism that feeds on meat only is known as __________.", opts: ["Herbivore", "Omnivore", "Carnivore", "Producer"], ans: 2 },
+            { q: "Which of the following is not part of the human digestive system?", opts: ["Stomach", "Liver", "Heart", "Small intestine"], ans: 2 },
+            { q: "What is puberty?", opts: ["A stage of old age", "A period of rapid growth and development when a person becomes sexually mature", "A disease affecting teenagers", "A type of nutrition"], ans: 1 },
+            { q: "Which of the following is not a sign of puberty in males?", opts: ["Deepening of the voice", "Growth of facial hair", "Broadening of shoulders", "Development of hips"], ans: 3 }
         ],
 
         hard: [{ q: "Which trait is most likely inherited from parents?", opts: ["Tattoo", "Eye color", "Scar", "Language"], ans: 1 }, { q: "Why do siblings look different despite same parents?", opts: ["Same genes", "Different gene combinations", "Same DNA", "No inheritance"], ans: 1 }, { q: "Which is a dominant trait?", opts: ["Hidden trait", "Trait always expressed", "Weak gene", "Environmental trait"], ans: 1 }, { q: "In the activity series, which metal is most reactive?", opts: ["Gold", "Copper", "Potassium", "Silver"], ans: 2 }, { q: "Recessive traits appear only when:", opts: ["Both genes are dominant", "One gene is present", "Both genes are recessive", "No gene is present"], ans: 2 }, { q: "Which metal cannot displace copper from its compound?", opts: ["Zinc", "Iron", "Silver", "Magnesium"], ans: 2 }, { q: "Acids turn blue litmus paper to:", opts: ["Green", "Red", "Yellow", "Black"], ans: 1 }, { q: "Which substance is a base?", opts: ["HCl", "NaOH", "H2SO4", "CO2"], ans: 1 }, { q: "Bases feel:", opts: ["Rough", "Slippery", "Dry", "Hard"], ans: 1 }, { q: "A salt is formed when:", opts: ["Acid reacts with metal", "Acid reacts with base", "Base reacts with water", "Metal reacts with air"], ans: 1 }, { q: "Which is a neutral substance?", opts: ["Vinegar", "Water", "Lime juice", "Soap"], ans: 1 }, { q: "Which device uses electrical energy to produce motion?", opts: ["Heater", "Motor", "Bulb", "Battery"], ans: 1 }, { q: "Electrical energy is produced mainly from:", opts: ["Wind only", "Water only", "Energy conversion", "Light only"], ans: 2 }, { q: "Which device converts electrical energy to heat?", opts: ["Fan", "Bulb", "Electric iron", "Generator"], ans: 2 }, { q: "Which material is a good conductor of electricity?", opts: ["Plastic", "Rubber", "Copper", "Wood"], ans: 2 }, { q: "A material that does not allow current to pass is called:", opts: ["Conductor", "Insulator", "Resistor", "Generator"], ans: 1 }, { q: "Which of these is an insulator?", opts: ["Aluminium", "Iron", "Glass", "Gold"], ans: 2 }, { q: "Radioactivity involves the release of:", opts: ["Light only", "Heat only", "Radiation from nucleus", "Sound waves"], ans: 2 }, { q: "Which element is radioactive?", opts: ["Oxygen", "Uranium", "Iron", "Carbon"], ans: 1 }, { q: "Exposure to radiation can cause:", opts: ["Stronger bones", "Cell damage", "Better vision", "Faster growth"], ans: 1 }, { q: "Ozone layer protects us from:", opts: ["Infrared rays", "Ultraviolet rays", "X-rays", "Gamma rays"], ans: 1 }, { q: "Which gas mainly depletes ozone layer?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 }, { q: "A result of ozone depletion is:", opts: ["Less sunlight", "Skin cancer", "Cold weather", "More rain"], ans: 1 }, { q: "Which acid is found in car batteries?", opts: ["Nitric acid", "Sulfuric acid", "Hydrochloric acid", "Acetic acid"], ans: 1 }, { q: "Which base is used in soap making?", opts: ["NaOH", "HCl", "CO2", "H2"], ans: 0 }, { q: "Which metal reacts fastest with water?", opts: ["Calcium", "Sodium", "Iron", "Copper"], ans: 1 }, { q: "Which trait is NOT inherited?", opts: ["Blood group", "Height", "Tribal marks", "Skin color"], ans: 2 }, { q: "Electric current is the flow of:", opts: ["Protons", "Neutrons", "Electrons", "Ions only"], ans: 2 }, { q: "Which material is used to cover electric wires?", opts: ["Copper", "Silver", "Rubber", "Iron"], ans: 2 }, { q: "Burning of CFCs leads to:", opts: ["Ozone formation", "Ozone depletion", "Cloud formation", "Rainfall"], ans: 1 }, { q: "Which parent trait combination can produce a recessive trait in a child?", opts: ["One dominant and one recessive", "Two dominant", "Two recessive", "No genes"], ans: 2 }, { q: "In the activity series, a metal will displace another metal if it is:", opts: ["Less reactive", "More reactive", "Equal reactive", "Heavier"], ans: 1 }, { q: "Which type of radiation has the lowest penetrating power?", opts: ["Alpha", "Beta", "Gamma", "X-ray"], ans: 0 }, { q: "Which situation increases the risk of ozone layer depletion?", opts: ["Using natural fertilizers", "Release of CFC gases", "Planting trees", "Using solar panels"], ans: 1 }, { q: "Which of the following best describes a conductor?", opts: ["Material that blocks heat", "Material that allows electric current easily", "Material that stores electricity", "Material that produces light"], ans: 1 },
@@ -254,7 +301,7 @@ const quizData = {
             ],
             ans: 2
         }
-    ]
+        ]
     },
 
     Basic_Technology: {
@@ -1247,7 +1294,7 @@ function startQuiz() {
     // === CLEANUP ANTI-CHEAT BEFORE STARTING ===
     antiCheatSystem.cleanup();
     antiCheatSystem.reset();
-    
+
     // === ADD THIS ===
     studentName = document.getElementById('studentName').value.trim();
     if (!studentName) {
