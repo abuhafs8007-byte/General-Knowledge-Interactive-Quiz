@@ -901,35 +901,353 @@ questionSlider.addEventListener('input', (e) => {
     }
 });
 
-// Anti-cheat: Tab switch detection
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden' && !examSubmitted && examStarted) {
-        const attemptsRemaining = Math.max(0, 2 - tabSwitchCount);
-        const message = `You are attempting to leave the exam tab. You have ${attemptsRemaining} attempts remaining before your exam is submitted automatically. Do you want to continue?`;
-        const proceed = confirm(message);
+// ============================================
+// ANTI-CHEAT SYSTEM (Comprehensive)
+// ============================================
+const antiCheatSystem = {
+    navigationAttemptCount: 0,
+    maxAttemptsBeforeAutoSubmit: 3,
+    navigationPreventionActive: false,
+    isNavigationLocked: false,
+    warningMessages: [],
+    handlers: {
+        popstate: null,
+        beforeunload: null,
+        visibilitychange: null
+    },
 
-        if (proceed) {
-            tabSwitchCount++;
-            if (tabSwitchCount >= 3) {
-                finishQuiz();
-            }
-        } else {
-            setTimeout(() => {
-                if (typeof window.focus === 'function') {
-                    window.focus();
-                }
-            }, 300);
+    /**
+     * Initialize anti-cheat protection when exam starts
+     */
+    init() {
+        if (examStarted && !examSubmitted) {
+            this.navigationPreventionActive = true;
+            this.attachGlobalListeners();
+            this.blockBrowserNavigation();
         }
-    }
-});
+    },
 
-window.onbeforeunload = function () {
-    if (!examSubmitted && examStarted) {
-        return "Your exam is still in progress. Leaving will submit your test.";
+    /**
+     * Attach global event listeners for navigation attempts
+     */
+    attachGlobalListeners() {
+        this.handlers.popstate = (e) => this.handleNavigationAttempt('back/forward');
+        this.handlers.beforeunload = (e) => this.handleBeforeUnload(e);
+        this.handlers.visibilitychange = () => this.handleVisibilityChange();
+
+        window.addEventListener('popstate', this.handlers.popstate);
+        window.addEventListener('beforeunload', this.handlers.beforeunload);
+        document.addEventListener('visibilitychange', this.handlers.visibilitychange);
+    },
+
+    /**
+     * Handle back/forward button navigation attempts
+     */
+    handleNavigationAttempt(source) {
+        if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
+
+        // Push a new state to prevent actual back navigation
+        history.pushState(null, null, window.location.href);
+
+        this.showNavigationWarning('Back/Forward Button');
+    },
+
+    /**
+     * Handle beforeunload event (page refresh, close tab, navigate away)
+     */
+    handleBeforeUnload(e) {
+        if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
+
+        // Prevent default browser behavior
+        e.preventDefault();
+        e.returnValue = '';
+
+        // Log the attempt
+        this.navigationAttemptCount++;
+
+        return '';
+    },
+
+    /**
+     * Handle tab/window visibility changes
+     */
+    handleVisibilityChange() {
+        if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
+
+        if (document.visibilityState === 'hidden') {
+            this.navigationAttemptCount++;
+            this.showTabSwitchWarning();
+        }
+    },
+
+    /**
+     * Show warning dialog for navigation attempts
+     */
+    showNavigationWarning(source) {
+        this.navigationAttemptCount++;
+        const attemptsLeft = this.maxAttemptsBeforeAutoSubmit - this.navigationAttemptCount;
+
+        let message = `⚠️ Warning: You cannot leave the exam!\n\n`;
+        message += `Navigation attempt via: ${source}\n`;
+        message += `Attempts remaining: ${attemptsLeft}/${this.maxAttemptsBeforeAutoSubmit}\n\n`;
+        message += `If you attempt ${this.maxAttemptsBeforeAutoSubmit} times, your exam will be automatically submitted!`;
+
+        alert(message);
+
+        // Auto-submit if max attempts exceeded
+        if (this.navigationAttemptCount >= this.maxAttemptsBeforeAutoSubmit) {
+            this.autoSubmitExam('Too many navigation attempts detected');
+        }
+    },
+
+    /**
+     * Show warning for tab switching
+     */
+    showTabSwitchWarning() {
+        const attemptsLeft = this.maxAttemptsBeforeAutoSubmit - this.navigationAttemptCount;
+
+        let message = `⚠️ Warning: You attempted to leave the exam tab!\n\n`;
+        message += `Attempts remaining: ${attemptsLeft}/${this.maxAttemptsBeforeAutoSubmit}\n\n`;
+        message += `Please return to the exam window immediately!`;
+
+        // Show warning
+        const warningEl = document.createElement('div');
+        warningEl.className = 'tab-switch-warning';
+        warningEl.innerHTML = message.replace(/\n/g, '<br>');
+        warningEl.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            max-width: 400px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease-out;
+        `;
+
+        document.body.appendChild(warningEl);
+
+        // Auto-remove warning after 5 seconds
+        setTimeout(() => warningEl.remove(), 5000);
+
+        // Auto-submit if max attempts exceeded
+        if (this.navigationAttemptCount >= this.maxAttemptsBeforeAutoSubmit) {
+            this.autoSubmitExam('Too many tab switch attempts detected');
+        }
+    },
+
+    /**
+     * Block browser navigation mechanisms
+     */
+    blockBrowserNavigation() {
+        // Prevent right-click context menu
+        document.addEventListener('contextmenu', (e) => {
+            if (examStarted && !examSubmitted) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Prevent keyboard shortcuts for browser navigation
+        document.addEventListener('keydown', (e) => {
+            if (!examStarted || examSubmitted) return;
+
+            // Prevent Back button (Alt+Left or Backspace in some cases)
+            if ((e.altKey && e.key === 'ArrowLeft') || (e.key === 'Backspace' && e.target !== document.activeElement)) {
+                e.preventDefault();
+                this.handleNavigationAttempt('Backspace key');
+                return false;
+            }
+
+            // Prevent F5 (Refresh)
+            if (e.key === 'F5') {
+                e.preventDefault();
+                this.showNavigationWarning('F5 (Refresh)');
+                return false;
+            }
+
+            // Prevent Ctrl+R or Cmd+R (Refresh)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                this.showNavigationWarning('Ctrl+R (Refresh)');
+                return false;
+            }
+
+            // Prevent Ctrl+W or Cmd+W (Close Tab)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'w') {
+                e.preventDefault();
+                this.showNavigationWarning('Ctrl+W (Close Tab)');
+                return false;
+            }
+        });
+    },
+
+    /**
+     * Auto-submit exam when cheating is detected
+     */
+    autoSubmitExam(reason) {
+        if (examSubmitted) {
+            console.log('[ANTI-CHEAT] Auto-submit already initiated, skipping duplicate');
+            return;
+        }
+
+        console.log(`[ANTI-CHEAT] Cheating detected: ${reason}`);
+
+        // Create persistent modal overlay
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'cheat-detection-modal';
+        modalOverlay.innerHTML = `
+            <div class="cheat-modal-content">
+                <div class="cheat-icon">❌</div>
+                <h2>Cheating Detected!</h2>
+                <p class="cheat-reason">${reason}</p>
+                <p class="cheat-message">Your exam will be automatically submitted in 10 seconds...</p>
+                <div class="cheat-countdown">
+                    <span id="countdown-timer">10</span>
+                    <span>seconds remaining</span>
+                </div>
+                <div class="cheat-progress">
+                    <div class="cheat-progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+        `;
+
+        modalOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        `;
+
+        document.body.appendChild(modalOverlay);
+
+        // Prevent any user interaction
+        modalOverlay.addEventListener('click', (e) => e.preventDefault());
+        modalOverlay.addEventListener('keydown', (e) => e.preventDefault());
+        modalOverlay.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Mark as submitted immediately to prevent further attempts
+        this.navigationPreventionActive = false;
+
+        // Countdown timer
+        let countdown = 10;
+        const countdownEl = modalOverlay.querySelector('#countdown-timer');
+        const progressBar = modalOverlay.querySelector('#progress-bar');
+
+        console.log('[ANTI-CHEAT] Starting 10-second countdown...');
+
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownEl.textContent = countdown;
+
+            // Update progress bar (10 seconds total, so 10% per second)
+            const progress = ((10 - countdown) / 10) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                console.log('[ANTI-CHEAT] Countdown complete, initiating auto-submission...');
+
+                // Call async submission and ensure it's awaited
+                this.performAutoSubmission(modalOverlay);
+            }
+        }, 1000);
+    },
+
+    /**
+     * Perform the actual auto-submission after countdown (async)
+     */
+    async performAutoSubmission(modalOverlay) {
+        console.log('[AUTO-SUBMIT] Starting submission process...');
+
+        try {
+            // IMPORTANT: wait for full submission (includes Firebase + UI update)
+            await finishQuiz();
+
+            console.log('[AUTO-SUBMIT] Submission completed, switching screen');
+
+            // SMALL DELAY ensures UI updates properly
+            setTimeout(() => {
+                // Remove overlay AFTER screen switch
+                if (modalOverlay && modalOverlay.parentNode) {
+                    modalOverlay.remove();
+                }
+
+                // FORCE results screen (extra safety)
+                showScreen('results');
+
+            }, 300);
+
+        } catch (error) {
+            console.error('[AUTO-SUBMIT] Error during submission:', error);
+
+            // Even if error → still go to results
+            showScreen('results');
+
+            if (modalOverlay && modalOverlay.parentNode) {
+                modalOverlay.remove();
+            }
+        }
+    },
+
+    /**
+     * Disable anti-cheat protection (called after quiz is submitted)
+     */
+    disable() {
+        this.navigationPreventionActive = false;
+        this.navigationAttemptCount = 0;
+        examSubmitted = true;
+    },
+
+    /**
+     * Cleanup all event listeners safely
+     */
+    cleanup() {
+        if (this.handlers.popstate) {
+            window.removeEventListener('popstate', this.handlers.popstate);
+            this.handlers.popstate = null;
+        }
+
+        if (this.handlers.beforeunload) {
+            window.removeEventListener('beforeunload', this.handlers.beforeunload);
+            this.handlers.beforeunload = null;
+        }
+
+        if (this.handlers.visibilitychange) {
+            document.removeEventListener('visibilitychange', this.handlers.visibilitychange);
+            this.handlers.visibilitychange = null;
+        }
+
+        this.reset();
+    },
+
+    /**
+     * Reset internal state
+     */
+    reset() {
+        this.navigationAttemptCount = 0;
+        this.isNavigationLocked = false;
+        this.navigationPreventionActive = false;
+        this.warningMessages = [];
     }
 };
 
 function startQuiz() {
+    // === CLEANUP ANTI-CHEAT BEFORE STARTING ===
+    antiCheatSystem.cleanup();
+    antiCheatSystem.reset();
+    
     // === ADD THIS ===
     studentName = document.getElementById('studentName').value.trim();
     if (!studentName) {
@@ -982,6 +1300,8 @@ function startQuiz() {
 
     tabSwitchCount = 0;
     examStarted = true;
+    examSubmitted = false;
+    antiCheatSystem.init(); // Initialize anti-cheat protection
     showScreen('quiz');
     displayQuestion();
 }
@@ -1084,24 +1404,57 @@ function nextQuestion() {
     }
 }
 
-function finishQuiz() {
+async function finishQuiz() {
     // === ADD THIS ===
-    if (examSubmitted) return; // Prevent multiple submissions
+    if (!examStarted && examSubmitted) {
+        console.log('[FINISH-QUIZ] Already finalized');
+        return;
+    }
+    // Prevent multiple submissions
+    if (examSubmitted) {
+        console.log('[FINISH-QUIZ] Already submitted, skipping duplicate');
+        return;
+    }
     examSubmitted = true;
-    // === END ADD ===
+    antiCheatSystem.disable();
 
+    console.log('[FINISH-QUIZ] Quiz submission initiated');
+
+    // Stop timer
     clearInterval(timerInterval);
     examStarted = false;
+
+    // Calculate score
     calculateScore();
+    console.log(`[FINISH-QUIZ] Score calculated: ${score}/${currentQuiz.length}`);
+
+    // Map difficulty to class level
     const classMapping = {
         easy: 'JSS 1',
         medium: 'JSS 2',
         hard: 'JSS 3'
     };
     const classLevel = classMapping[selectedDifficulty] || 'JSS 2';
-    saveScoreToServer(studentName, score, classLevel, currentQuiz.length);
+
+    // Save to Firebase and wait for completion
+    try {
+        console.log('[FINISH-QUIZ] Saving to Firebase...');
+        await saveScoreToServer(studentName, score, classLevel, currentQuiz.length);
+        console.log('[FINISH-QUIZ] Firebase save completed successfully');
+    } catch (error) {
+        console.error('[FINISH-QUIZ] Firebase save failed, showing results anyway:', error);
+        // Continue to results screen even if Firebase fails
+    }
+
+    // Transition to results screen
+    console.log('[FINISH-QUIZ] Transitioning to results screen');
     showScreen('results');
+
+    antiCheatSystem.disable();
+    antiCheatSystem.reset();
+    antiCheatSystem.cleanup();
 }
+// === END ADD ===
 
 function calculateScore() {
     score = 0;
@@ -1180,27 +1533,32 @@ function calculateScore() {
 
 // === ADD THIS ===
 function saveScoreToServer(name, score, classLevel, totalQuestions) {
-    if (!window.db || !window.addDoc || !window.collection) {
-        console.warn('Firebase not ready');
-        return;
-    }
+    return new Promise((resolve, reject) => {
+        if (!window.db || !window.addDoc || !window.collection) {
+            console.warn('Firebase not ready');
+            resolve(); // Resolve anyway to continue
+            return;
+        }
 
-    const scoreOver60 = Math.round((score / totalQuestions) * 60);
-    const percentage = Math.round((score / totalQuestions) * 100);
+        const scoreOver60 = Math.round((score / totalQuestions) * 60);
+        const percentage = Math.round((score / totalQuestions) * 100);
 
-    window.addDoc(window.collection(window.db, 'cbt_scores'), {
-        name: name,
-        class: classLevel,
-        subject: selectedTopic,
-        score: score,
-        scoreOver60: scoreOver60,
-        percentage: percentage,
-        totalQuestions: totalQuestions,
-        timestamp: new Date()
-    }).then(() => {
-        console.log('✅ Score saved successfully');
-    }).catch((error) => {
-        console.error('❌ Error saving score:', error);
+        window.addDoc(window.collection(window.db, 'cbt_scores'), {
+            name: name,
+            class: classLevel,
+            subject: selectedTopic,
+            score: score,
+            scoreOver60: scoreOver60,
+            percentage: percentage,
+            totalQuestions: totalQuestions,
+            timestamp: new Date()
+        }).then(() => {
+            console.log('✅ Score saved successfully');
+            resolve();
+        }).catch((error) => {
+            console.error('❌ Error saving score:', error);
+            reject(error);
+        });
     });
 }
 // View saved scores in Firebase Console → Firestore → cbt_scores
@@ -1214,6 +1572,10 @@ function quitQuiz() {
 }
 
 function restartQuiz() {
+    // === CLEANUP ANTI-CHEAT FIRST ===
+    antiCheatSystem.cleanup();
+    antiCheatSystem.reset();
+
     studentName = '';
     tabSwitchCount = 0;
     examSubmitted = false;
