@@ -194,19 +194,6 @@ select:focus {
     width: 120px;
 }
 
-@media (max-width: 520px) {
-    .question-jump {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .question-jump label {
-        min-width: auto;
-    }
-    .question-jump input[type="number"] {
-        width: 100%;
-    }
-}
-
 .progress-bar-container {
     width: 100%;
     margin: 0 auto 0.5em auto;
@@ -563,10 +550,6 @@ hr.scrMsg2 {
     .container {
         padding: 20px;
         margin: 10px;
-    }
-  
-    #questionSlider {
-        width: 100%;
     }
     
     .question-text {
