@@ -1301,6 +1301,7 @@ function startQuiz() {
         alert('Please enter your name!');
         return;
     }
+    document.getElementById('studentNameDisplay').textContent = studentName;
 
     if (!selectedTopic) {
         alert('Please Select a Subject')
@@ -1624,6 +1625,7 @@ function restartQuiz() {
     antiCheatSystem.reset();
 
     studentName = '';
+    document.getElementById('studentNameDisplay').textContent = '';
     tabSwitchCount = 0;
     examSubmitted = false;
     examStarted = false;

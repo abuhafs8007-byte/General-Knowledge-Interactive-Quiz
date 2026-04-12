@@ -233,6 +233,14 @@ select:focus {
 .progress {
     color: #667eea;
     font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#studentNameDisplay {
+    color: #667eea;
+    font-weight: 600;
 }
 
 .timer {
@@ -680,6 +688,9 @@ input[type="radio"] + label {
 
     .progress {
         font-size: 11px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .timer {
