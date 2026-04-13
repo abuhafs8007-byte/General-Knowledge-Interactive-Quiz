@@ -173,7 +173,6 @@ const quizData = {
             { q: "Which of these is NOT a compound?", opts: ["Water", "Carbon dioxide", "Oxygen", "Salt"], ans: 2 },
             { q: "Pouring dirty engine oil on the ground leads to?", opts: ["Air pollution", "Water pollution", "Land pollution", "Noise pollution"], ans: 2 },
             { q: "Which situation best shows water pollution?", opts: ["Clean rain falling", "Throwing plastics in river", "Boiling water", "Using tap water"], ans: 1 },
-            [
                 {
                     q: "What is pollution?",
                     opts: [
@@ -214,7 +213,6 @@ const quizData = {
                     ],
                     ans: 2
                 }
-            ]
         ],
 
         medium: [
@@ -301,7 +299,7 @@ const quizData = {
             ],
             ans: 2
         }
-        ]
+    ]
     },
 
     Basic_Technology: {
