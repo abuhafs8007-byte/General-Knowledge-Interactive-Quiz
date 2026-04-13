@@ -1427,7 +1427,7 @@ function displayQuestion() {
         optionsContainer.appendChild(optionWrapper);
     });
 
-    nextBtn.textContent = 'Next';
+    nextBtn.textContent = 'Next Question';
     selectedClassDisplay.textContent = classMapping[selectedDifficulty] || 'JSS 2';
 
     // Previous button control

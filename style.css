@@ -970,3 +970,20 @@ input[type="radio"] + label {
         opacity: 1;
     }
 }
+
+
+
+.submit-btn {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+}
+.submit-btn:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 6px 15px rgba(220, 38, 38, 0.5);
+}
