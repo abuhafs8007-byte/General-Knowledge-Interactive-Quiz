@@ -220,14 +220,98 @@ select:focus {
 .progress {
     color: #667eea;
     font-weight: 600;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
+    gap: 12px;
+}
+
+.progress-item {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.progress-question {
+    text-align: left;
+}
+
+.progress-class {
+    text-align: center;
+}
+
+.progress-student {
+    text-align: right;
 }
 
 #studentNameDisplay {
-    color: #667eea;
-    font-weight: 600;
+    color: inherit;
+    font-weight: inherit;
+}
+
+.quiz-message {
+    color: #4f46e5;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 8px 0 0;
+    min-height: 20px;
+}
+
+.cheat-modal-content,
+.modal-box {
+    background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+    color: white;
+    padding: 28px 26px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: fadeInScale 0.35s ease;
+}
+
+.cheat-warning-modal .modal-box,
+.cheat-warning-modal .cheat-modal-content {
+    max-width: 420px;
+}
+
+.cheat-modal-content h2,
+.modal-box h2 {
+    margin-bottom: 12px;
+}
+
+.cheat-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.cheat-message {
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.cheat-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.cheat-progress {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    width: 100%;
+    height: 10px;
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+.cheat-progress-bar {
+    height: 100%;
+    width: 0;
+    background: #fbbf24;
+    transition: width 0.3s ease;
 }
 
 .timer {

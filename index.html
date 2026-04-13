@@ -122,8 +122,9 @@
         <div id="quizScreen" class="screen">
             <div class="quiz-header">
                 <div class="progress">
-                    <span>Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
-                    <span id="studentNameDisplay"></span>
+                    <span class="progress-item progress-question">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
+                    <span class="progress-item progress-class" id="selectedClassDisplay">JSS 2</span>
+                    <span class="progress-item progress-student" id="studentNameDisplay"></span>
                 </div>
                 <div class="progress-bar-container">
                     <div class="progress-bar-bg">
@@ -147,8 +148,9 @@
                 <button id="prevBtn" class="btn btn-prev">Previous Question</button>
                 <button id="nextBtn" class="btn">Next Question</button>
             </div>
+            <div id="quizMessage" class="quiz-message"></div>
 
-            <button class="btn btn-secondary" id="quitBtn" disabled>Cancel Exam</button>
+            <button class="btn btn-secondary" id="quitBtn">Submit Exam</button>
         </div>
 
         <!-- Results Screen -->
