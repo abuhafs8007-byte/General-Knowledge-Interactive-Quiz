@@ -173,46 +173,46 @@ const quizData = {
             { q: "Which of these is NOT a compound?", opts: ["Water", "Carbon dioxide", "Oxygen", "Salt"], ans: 2 },
             { q: "Pouring dirty engine oil on the ground leads to?", opts: ["Air pollution", "Water pollution", "Land pollution", "Noise pollution"], ans: 2 },
             { q: "Which situation best shows water pollution?", opts: ["Clean rain falling", "Throwing plastics in river", "Boiling water", "Using tap water"], ans: 1 },
-                {
-                    q: "What is pollution?",
-                    opts: [
-                        "The introduction of harmful substances into the environment",
-                        "The natural recycling of materials in ecosystems",
-                        "The process of growing crops in farms",
-                        "The movement of animals from one place to another"
-                    ],
-                    ans: 0
-                },
-                {
-                    q: "Which of the following best defines an atom?",
-                    opts: [
-                        "The smallest particle of an element that retains its chemical properties",
-                        "The smallest visible particle of matter under a microscope",
-                        "A combination of different compounds forming a mixture",
-                        "A cell structure found in living organisms"
-                    ],
-                    ans: 0
-                },
-                {
-                    q: "The symbol for Helium is ________",
-                    opts: ["H", "He", "Hl", "Hm"],
-                    ans: 1
-                },
-                {
-                    q: "Planting of trees is a prevention for _________ types of pollution",
-                    opts: ["Water pollution", "Noise pollution", "Air pollution", "Soil pollution"],
-                    ans: 2
-                },
-                {
-                    q: "Which of the following is an example of thermal energy?",
-                    opts: [
-                        "Light from a torch",
-                        "Sound from a bell",
-                        "Heat from boiling water",
-                        "Electric current in a wire"
-                    ],
-                    ans: 2
-                }
+            {
+                q: "What is pollution?",
+                opts: [
+                    "The introduction of harmful substances into the environment",
+                    "The natural recycling of materials in ecosystems",
+                    "The process of growing crops in farms",
+                    "The movement of animals from one place to another"
+                ],
+                ans: 0
+            },
+            {
+                q: "Which of the following best defines an atom?",
+                opts: [
+                    "The smallest particle of an element that retains its chemical properties",
+                    "The smallest visible particle of matter under a microscope",
+                    "A combination of different compounds forming a mixture",
+                    "A cell structure found in living organisms"
+                ],
+                ans: 0
+            },
+            {
+                q: "The symbol for Helium is ________",
+                opts: ["H", "He", "Hl", "Hm"],
+                ans: 1
+            },
+            {
+                q: "Planting of trees is a prevention for _________ types of pollution",
+                opts: ["Water pollution", "Noise pollution", "Air pollution", "Soil pollution"],
+                ans: 2
+            },
+            {
+                q: "Which of the following is an example of thermal energy?",
+                opts: [
+                    "Light from a torch",
+                    "Sound from a bell",
+                    "Heat from boiling water",
+                    "Electric current in a wire"
+                ],
+                ans: 2
+            }
         ],
 
         medium: [
@@ -257,49 +257,68 @@ const quizData = {
             { q: "Which of the following is not a sign of puberty in males?", opts: ["Deepening of the voice", "Growth of facial hair", "Broadening of shoulders", "Development of hips"], ans: 3 }
         ],
 
-        hard: [{ q: "Which trait is most likely inherited from parents?", opts: ["Tattoo", "Eye color", "Scar", "Language"], ans: 1 }, { q: "Why do siblings look different despite same parents?", opts: ["Same genes", "Different gene combinations", "Same DNA", "No inheritance"], ans: 1 }, { q: "Which is a dominant trait?", opts: ["Hidden trait", "Trait always expressed", "Weak gene", "Environmental trait"], ans: 1 }, { q: "In the activity series, which metal is most reactive?", opts: ["Gold", "Copper", "Potassium", "Silver"], ans: 2 }, { q: "Recessive traits appear only when:", opts: ["Both genes are dominant", "One gene is present", "Both genes are recessive", "No gene is present"], ans: 2 }, { q: "Which metal cannot displace copper from its compound?", opts: ["Zinc", "Iron", "Silver", "Magnesium"], ans: 2 }, { q: "Acids turn blue litmus paper to:", opts: ["Green", "Red", "Yellow", "Black"], ans: 1 }, { q: "Which substance is a base?", opts: ["HCl", "NaOH", "H2SO4", "CO2"], ans: 1 }, { q: "Bases feel:", opts: ["Rough", "Slippery", "Dry", "Hard"], ans: 1 }, { q: "A salt is formed when:", opts: ["Acid reacts with metal", "Acid reacts with base", "Base reacts with water", "Metal reacts with air"], ans: 1 }, { q: "Which is a neutral substance?", opts: ["Vinegar", "Water", "Lime juice", "Soap"], ans: 1 }, { q: "Which device uses electrical energy to produce motion?", opts: ["Heater", "Motor", "Bulb", "Battery"], ans: 1 }, { q: "Electrical energy is produced mainly from:", opts: ["Wind only", "Water only", "Energy conversion", "Light only"], ans: 2 }, { q: "Which device converts electrical energy to heat?", opts: ["Fan", "Bulb", "Electric iron", "Generator"], ans: 2 }, { q: "Which material is a good conductor of electricity?", opts: ["Plastic", "Rubber", "Copper", "Wood"], ans: 2 }, { q: "A material that does not allow current to pass is called:", opts: ["Conductor", "Insulator", "Resistor", "Generator"], ans: 1 }, { q: "Which of these is an insulator?", opts: ["Aluminium", "Iron", "Glass", "Gold"], ans: 2 }, { q: "Radioactivity involves the release of:", opts: ["Light only", "Heat only", "Radiation from nucleus", "Sound waves"], ans: 2 }, { q: "Which element is radioactive?", opts: ["Oxygen", "Uranium", "Iron", "Carbon"], ans: 1 }, { q: "Exposure to radiation can cause:", opts: ["Stronger bones", "Cell damage", "Better vision", "Faster growth"], ans: 1 }, { q: "Ozone layer protects us from:", opts: ["Infrared rays", "Ultraviolet rays", "X-rays", "Gamma rays"], ans: 1 }, { q: "Which gas mainly depletes ozone layer?", opts: ["Oxygen", "Nitrogen", "CFCs", "Hydrogen"], ans: 2 }, { q: "A result of ozone depletion is:", opts: ["Less sunlight", "Skin cancer", "Cold weather", "More rain"], ans: 1 }, { q: "Which acid is found in car batteries?", opts: ["Nitric acid", "Sulfuric acid", "Hydrochloric acid", "Acetic acid"], ans: 1 }, { q: "Which base is used in soap making?", opts: ["NaOH", "HCl", "CO2", "H2"], ans: 0 }, { q: "Which metal reacts fastest with water?", opts: ["Calcium", "Sodium", "Iron", "Copper"], ans: 1 }, { q: "Which trait is NOT inherited?", opts: ["Blood group", "Height", "Tribal marks", "Skin color"], ans: 2 }, { q: "Electric current is the flow of:", opts: ["Protons", "Neutrons", "Electrons", "Ions only"], ans: 2 }, { q: "Which material is used to cover electric wires?", opts: ["Copper", "Silver", "Rubber", "Iron"], ans: 2 }, { q: "Burning of CFCs leads to:", opts: ["Ozone formation", "Ozone depletion", "Cloud formation", "Rainfall"], ans: 1 }, { q: "Which parent trait combination can produce a recessive trait in a child?", opts: ["One dominant and one recessive", "Two dominant", "Two recessive", "No genes"], ans: 2 }, { q: "In the activity series, a metal will displace another metal if it is:", opts: ["Less reactive", "More reactive", "Equal reactive", "Heavier"], ans: 1 }, { q: "Which type of radiation has the lowest penetrating power?", opts: ["Alpha", "Beta", "Gamma", "X-ray"], ans: 0 }, { q: "Which situation increases the risk of ozone layer depletion?", opts: ["Using natural fertilizers", "Release of CFC gases", "Planting trees", "Using solar panels"], ans: 1 }, { q: "Which of the following best describes a conductor?", opts: ["Material that blocks heat", "Material that allows electric current easily", "Material that stores electricity", "Material that produces light"], ans: 1 },
-
-        {
-            q: "The least reactive element in the activity series is ____",
-            opts: ["Gold (Au)", "Potassium (K)", "Calcium (Ca)", "Zinc (Zn)"],
-            ans: 0
-        },
-        {
-            q: "The most reactive element in the activity series is ___",
-            opts: ["Copper (Cu)", "Iron (Fe)", "Potassium (K)", "Silver (Ag)"],
-            ans: 2
-        },
-        {
-            q: "What is variation?",
-            opts: [
-                "The exact resemblance between parents and offspring",
-                "Differences that exist among individuals of the same species",
-                "Changes that occur only due to environmental pollution",
-                "The inability of organisms to adapt to their environment"
-            ],
-            ans: 1
-        },
-        {
-            q: "Which of the following best defines a gene?",
-            opts: [
-                "A unit of heredity made of DNA that controls specific traits",
-                "A visible characteristic only found in adults",
-                "A cell organelle responsible for respiration",
-                "A chemical substance found only in plants"
-            ],
-            ans: 0
-        },
-        {
-            q: "Which of the following is NOT true about family traits?",
-            opts: [
-                "They can be inherited from parents to offspring",
-                "They are controlled by genes",
-                "They are always identical in all siblings",
-                "They can be influenced by both heredity and environment"
-            ],
-            ans: 2
-        }
-    ]
+        hard: [
+            { q: "Which of the following is a characteristic of living things?", opts: ["Movement", "Rusting", "Burning", "Melting"], ans: 0 },
+            { q: "Which organ is responsible for pumping blood around the body?", opts: ["Liver", "Heart", "Kidney", "Lung"], ans: 1 },
+            { q: "Which nutrient helps the body to grow and repair tissues?", opts: ["Carbohydrate", "Protein", "Vitamin", "Water"], ans: 1 },
+            { q: "Fertilization in humans occurs when?", opts: ["A baby is born", "The egg is released", "A sperm joins an egg", "Puberty begins"], ans: 2 },
+            { q: "Which disease can be prevented by immunization?", opts: ["Malaria", "Typhoid", "Polio", "Ulcer"], ans: 2 },
+            { q: "Cutting down trees without replacing them leads to?", opts: ["Afforestation", "Deforestation", "Irrigation", "Pollination"], ans: 1 },
+            { q: "What is the ability to do work called?", opts: ["Power", "Motion", "Energy", "Force"], ans: 2 },
+            { q: "A force that pulls objects toward the Earth is called?", opts: ["Friction", "Gravity", "Magnetism", "Pressure"], ans: 1 },
+            { q: "Which simple machine is used to lift a bucket from a well?", opts: ["Pulley", "Wheel", "Wedge", "Lever"], ans: 0 },
+            { q: "The SI unit of work is?", opts: ["Newton", "Joule", "Watt", "Pascal"], ans: 1 },
+            { q: "Heat is transferred through solids mainly by?", opts: ["Radiation", "Evaporation", "Conduction", "Condensation"], ans: 2 },
+            { q: "Which object can produce its own light?", opts: ["Mirror", "Moon", "Book", "Sun"], ans: 3 },
+            { q: "Sound travels fastest through?", opts: ["Air", "Water", "Vacuum", "Steel"], ans: 3 },
+            { q: "Which device is used to measure electric current?", opts: ["Voltmeter", "Thermometer", "Ammeter", "Barometer"], ans: 2 },
+            { q: "A material attracted by a magnet is?", opts: ["Wood", "Plastic", "Glass", "Iron"], ans: 3 },
+            { q: "Which gas forms the largest percentage of air?", opts: ["Nitrogen", "Oxygen", "Carbon dioxide", "Hydrogen"], ans: 0 },
+            { q: "Water changes into vapour through?", opts: ["Freezing", "Evaporation", "Condensation", "Melting"], ans: 1 },
+            { q: "Which type of soil is best for growing crops?", opts: ["Sandy soil", "Loamy soil", "Clay soil", "Rocky soil"], ans: 1 },
+            { q: "The Earth revolves around the?", opts: ["Moon", "Mars", "Sun", "Jupiter"], ans: 2 },
+            { q: "Computers are examples of?", opts: ["Traditional tools", "Simple machines", "Modern technology", "Natural resources"], ans: 2 },
+            { q: "Which of the following causes water pollution?", opts: ["Planting trees", "Proper waste disposal", "Industrial waste", "Recycling"], ans: 2 },
+            { q: "Which part of the digestive system absorbs digested food?", opts: ["Mouth", "Stomach", "Large intestine", "Small intestine"], ans: 3 },
+            { q: "A balanced diet contains?", opts: ["Only carbohydrates", "All necessary nutrients", "Only proteins", "Only vitamins"], ans: 1 },
+            { q: "The stage of life between childhood and adulthood is?", opts: ["Infancy", "Adolescence", "Old age", "Toddlerhood"], ans: 1 },
+            { q: "Which of the following helps maintain personal hygiene?", opts: ["Regular bathing", "Littering", "Sharing toothbrushes", "Sleeping late"], ans: 0 },
+            { q: "Plants make their food through?", opts: ["Respiration", "Photosynthesis", "Digestion", "Excretion"], ans: 1 },
+            { q: "The force that opposes motion is called?", opts: ["Gravity", "Magnetism", "Friction", "Pressure"], ans: 2 },
+            { q: "A seesaw is an example of a?", opts: ["Pulley", "Wheel and axle", "Wedge", "Lever"], ans: 3 },
+            { q: "Power is the rate of doing?", opts: ["Energy", "Force", "Motion", "Work"], ans: 3 },
+            { q: "The boiling point of pure water is?", opts: ["0°C", "50°C", "100°C", "150°C"], ans: 2 },
+            { q: "Which material is transparent?", opts: ["Glass", "Wood", "Metal", "Cardboard"], ans: 0 },
+            { q: "The loudness of a sound depends on its?", opts: ["Pitch", "Amplitude", "Frequency", "Echo"], ans: 1 },
+            { q: "Which of these is a conductor of electricity?", opts: ["Rubber", "Plastic", "Copper", "Wood"], ans: 2 },
+            { q: "The two ends of a magnet are called?", opts: ["Edges", "Sides", "Poles", "Faces"], ans: 2 },
+            { q: "Which gas is necessary for respiration?", opts: ["Nitrogen", "Hydrogen", "Carbon dioxide", "Oxygen"], ans: 3 },
+            { q: "Rainwater reaches rivers through?", opts: ["Photosynthesis", "Evaporation", "Infiltration", "Runoff"], ans: 3 },
+            { q: "Soil erosion can be reduced by?", opts: ["Bush burning", "Deforestation", "Planting trees", "Overgrazing"], ans: 2 },
+            { q: "The natural satellite of the Earth is the?", opts: ["Sun", "Moon", "Mars", "Venus"], ans: 1 },
+            { q: "Which invention is used for communication over long distances?", opts: ["Telephone", "Wheelbarrow", "Cutlass", "Hoe"], ans: 0 },
+            { q: "The process of reusing waste materials is called?", opts: ["Burning", "Recycling", "Dumping", "Polluting"], ans: 1 },
+            { q: "Which organ removes waste from the blood?", opts: ["Heart", "Kidney", "Lung", "Brain"], ans: 1 },
+            { q: "Deficiency of vitamin C causes?", opts: ["Rickets", "Scurvy", "Kwashiorkor", "Goitre"], ans: 1 },
+            { q: "The male reproductive cell is called?", opts: ["Ovum", "Egg", "Sperm", "Embryo"], ans: 2 },
+            { q: "Which disease is spread by mosquitoes?", opts: ["Cholera", "Tuberculosis", "Measles", "Malaria"], ans: 3 },
+            { q: "Which environmental factor is necessary for plant growth?", opts: ["Sunlight", "Plastic", "Glass", "Metal"], ans: 0 },
+            { q: "The movement of an object from one place to another is called?", opts: ["Motion", "Heat", "Energy", "Force"], ans: 0 },
+            { q: "Which simple machine has a sharp edge for cutting?", opts: ["Pulley", "Wheel and axle", "Wedge", "Lever"], ans: 2 },
+            { q: "The SI unit of power is?", opts: ["Joule", "Newton", "Pascal", "Watt"], ans: 3 },
+            { q: "Which of these is a poor conductor of heat?", opts: ["Copper", "Iron", "Wood", "Aluminium"], ans: 2 },
+            { q: "A rainbow is formed due to?", opts: ["Reflection only", "Refraction and dispersion", "Magnetism", "Conduction"], ans: 1 },
+            { q: "The pitch of a sound depends on?", opts: ["Frequency", "Amplitude", "Echo", "Noise"], ans: 0 },
+            { q: "Electricity flows through a closed?", opts: ["Cell", "Wire", "Circuit", "Bulb"], ans: 2 },
+            { q: "Which material can be magnetized?", opts: ["Plastic", "Iron", "Wood", "Paper"], ans: 1 },
+            { q: "Which layer of air surrounds the Earth?", opts: ["Hydrosphere", "Lithosphere", "Atmosphere", "Biosphere"], ans: 2 },
+            { q: "The process by which water vapour turns into liquid is?", opts: ["Evaporation", "Melting", "Condensation", "Freezing"], ans: 2 },
+            { q: "Earthworms improve soil by?", opts: ["Destroying roots", "Adding fertility", "Removing water", "Increasing erosion"], ans: 1 },
+            { q: "Which planet is closest to the Sun?", opts: ["Mercury", "Venus", "Earth", "Mars"], ans: 0 },
+            { q: "The internet is an example of?", opts: ["Transportation", "Communication technology", "Agriculture", "Mining"], ans: 1 },
+            { q: "Planting more trees helps to?", opts: ["Increase pollution", "Cause erosion", "Conserve the environment", "Reduce rainfall"], ans: 2 },
+            { q: "Which system controls activities of the body?", opts: ["Digestive system", "Respiratory system", "Nervous system", "Circulatory system"], ans: 2 }
+        ]
     },
 
     Basic_Technology: {
@@ -1312,8 +1331,8 @@ function startQuiz() {
     }
 
     const numQuestion = parseInt(numQuestionsInput.value)
-    if (numQuestion < 5 || numQuestion > 40) {
-        alert('Please enter a number between 5 and 40!');
+    if (numQuestion < 5 || numQuestion > 60) {
+        alert('Please enter a number between 5 and 60!');
         return;
     }
 
@@ -1653,7 +1672,7 @@ function restartQuiz() {
     topicBtns.forEach(btn => btn.classList.remove('selected'));
     difficultyBtns.forEach(btn => btn.classList.remove('selected'));
     difficultyBtns[1].classList.add('selected');
-    numQuestionsInput.value = '40';
+    numQuestionsInput.value = '60';
     document.getElementById('studentName').value = '';
     // === END ADD ===
 
