@@ -703,26 +703,85 @@ const quizData = {
             { q: "What is an adaptation?", opts: ["Random behavior", "Inherited survival trait", "Temporary change", "Learned skill"], ans: 1 }
         ],
         hard: [
-            { q: "Which phase of the cell cycle involves DNA replication?", opts: ["G1 phase", "S phase", "G2 phase", "M phase"], ans: 1 },
-            { q: "What is the function of tRNA in protein synthesis?", opts: ["Store DNA", "Carry amino acids", "Form ribosomes", "Break proteins"], ans: 1 },
-            { q: "Which blood type is known as the universal donor?", opts: ["A", "B", "AB", "O negative"], ans: 3 },
-            { q: "What is genetic drift?", opts: ["Gene mutation by radiation", "Random allele frequency change", "Migration of species", "Natural selection"], ans: 1 },
-            { q: "Which structure regulates substances entering and leaving the cell?", opts: ["Cell wall", "Nucleus", "Cell membrane", "Cytoskeleton"], ans: 2 },
-            { q: "Which enzyme unzips DNA during replication?", opts: ["Ligase", "Helicase", "Polymerase", "Amylase"], ans: 1 },
-            { q: "What type of immunity results from vaccination?", opts: ["Passive natural", "Passive artificial", "Active artificial", "Active natural"], ans: 2 },
-            { q: "Which ecological pyramid is always upright?", opts: ["Numbers", "Biomass", "Energy", "Population"], ans: 2 },
-            { q: "Which hormone triggers ovulation?", opts: ["FSH", "LH", "Progesterone", "Testosterone"], ans: 1 },
-            { q: "What is the Hardy-Weinberg principle used to measure?", opts: ["Mutation rate", "Population genetic equilibrium", "Speciation speed", "Ecosystem growth"], ans: 1 },
-            { q: "Which organelle modifies and packages proteins?", opts: ["Golgi apparatus", "Lysosome", "Mitochondrion", "Vacuole"], ans: 0 },
-            { q: "Which disease is caused by HIV?", opts: ["Tuberculosis", "AIDS", "Malaria", "Hepatitis"], ans: 1 },
-            { q: "What is coevolution?", opts: ["Extinction event", "Species evolving independently", "Mutual evolutionary influence", "Migration pattern"], ans: 2 },
-            { q: "Which type of RNA forms part of the ribosome?", opts: ["mRNA", "tRNA", "rRNA", "siRNA"], ans: 2 },
-            { q: "What is the main function of stomata?", opts: ["Photosynthesis", "Gas exchange", "Water storage", "Support"], ans: 1 },
-            { q: "Which process increases genetic variation during meiosis?", opts: ["Binary fission", "Crossing over", "Budding", "Cloning"], ans: 1 },
-            { q: "Which biomolecule is the main component of cell membranes?", opts: ["Proteins", "Carbohydrates", "Lipids", "Nucleic acids"], ans: 2 },
-            { q: "What is antibiotic resistance?", opts: ["Body rejects drugs", "Bacteria survive antibiotics", "Virus mutation", "Immune weakness"], ans: 1 },
-            { q: "Which cycle describes movement of carbon through ecosystems?", opts: ["Nitrogen cycle", "Water cycle", "Carbon cycle", "Oxygen cycle"], ans: 2 },
-            { q: "What mechanism drives evolution by favoring beneficial traits?", opts: ["Mutation", "Natural selection", "Genetic drift", "Gene flow"], ans: 1 }
+            { q: "The study of textile will enable students to ____", opts: ["select colours", "plan meals properly", "handle fabrics properly", "lay their beds properly"], ans: 2 },
+
+            { q: "Laundry solution used to stiffen fabric is ____", opts: ["detergent", "bleach", "starch", "blue"], ans: 2 },
+
+            { q: "The items that should be stored in plastic food containers are ____", opts: ["fruits", "vegetables", "fresh tomatoes", "dried grains"], ans: 3 },
+
+            { q: "Which of the following is NOT a sense organ?", opts: ["Hair", "Eye", "Skin", "Ear"], ans: 0 },
+
+            { q: "The food best stored by freezing is ____", opts: ["lettuce", "orange", "fish", "yam"], ans: 2 },
+
+            { q: "The process of turning dry grains into flour is ____", opts: ["drying", "milling", "canning", "freezing"], ans: 1 },
+
+            { q: "Tricycle and ball are examples of children's ____ play materials.", opts: ["role", "creative", "muscular", "show"], ans: 2 },
+
+            { q: "Which one of the following is a way of achieving food safety?", opts: ["Keeping meals uncovered", "Storing fresh vegetables in baskets", "Unwashed hands before handling foods", "Portioning foods with bare hands"], ans: 1 },
+
+            { q: "Which is NOT mainly used for decoration?", opts: ["Hemming", "Stain stitch", "Chain stitch", "French knots"], ans: 0 },
+
+            { q: "What genotype determines a human male offspring?", opts: ["XX", "XY", "XC", "YC"], ans: 1 },
+
+            { q: "Belts, jewelry and wristwatches are typical examples of clothing ____", opts: ["accessories", "articles", "fabrics", "designers"], ans: 0 },
+
+            { q: "Overcasting and pinking prevents the edges of an article of garment from ____", opts: ["fastening", "folding", "fraying", "flying"], ans: 2 },
+
+            { q: "Weakness of the bones and teeth could be as a result of deficiency in one of the food nutrients.", opts: ["Vitamins", "Carbohydrates", "Water", "Mineral"], ans: 3 },
+
+            { q: "Coffee acts as a mild stimulant due to its ____ content.", opts: ["cocaine", "codeine", "caffeine", "cocoa"], ans: 2 },
+
+            { q: "Placemat is an example of ____ linen used for individual place setting.", opts: ["bed", "table", "bathroom", "kitchen"], ans: 1 },
+
+            { q: "____ is used to identify metal ions by observing the characteristic colour.", opts: ["Litmus test", "Heat test", "Flame test", "Colour test"], ans: 2 },
+
+            { q: "Administration of vaccines to children to prevent some ailments is known as ____", opts: ["child protection", "immunization", "configuration", "application"], ans: 1 },
+
+            { q: "A small cap-like metal or plastic worn on the finger to protect it when sewing is called ____", opts: ["needle", "cashin", "thimble", "cushion"], ans: 2 },
+
+            { q: "The units which bear hereditary factors in our body cells are called ____", opts: ["motivating factor", "development factor", "genetic factor", "general factor"], ans: 2 },
+
+            { q: "Stale perspiration is one of the major causes of ____ in humans.", opts: ["growth", "sexuality", "body odour", "maturation"], ans: 2 },
+
+            { q: "What is the purpose of notches to the garment maker?", opts: ["outline pattern", "place pattern piece on the grain", "show matching point on the pattern", "guides for matching seams and edges"], ans: 3 },
+
+            { q: "____ is the yarn that runs crosswise in a fabric.", opts: ["Grain", "Selvedge", "Warp", "Weft"], ans: 3 },
+
+            { q: "Fabrics used in decorating windows and doors are curtains and ____", opts: ["blankets", "bedspread", "draperies", "mattresses"], ans: 2 },
+
+            { q: "The process of caring for the hand and nails is ____", opts: ["pedicure", "manicure", "hand care", "hand and nail care"], ans: 1 },
+
+            { q: "One of the following is NOT considered when selecting household linen.", opts: ["Durability of fabrics", "Money availability", "Size of the house", "Family needs"], ans: 2 },
+
+            { q: "Rough dry skin around the sole of the feet is best removed by ____", opts: ["rubbing petroleum jelly on the feet", "wearing socks frequently", "wearing a tight fitting pair of shoes", "rubbing the feet with a pumice stone"], ans: 3 },
+
+            { q: "Furniture in the home includes one of the following.", opts: ["Centre table", "Gas cooker", "Kitchen cabinet", "Curtains and draperies"], ans: 0 },
+
+            { q: "Conditions may arise from treatment of disease/ailment when an individual practices ____", opts: ["self denial", "self medication", "self appraisal", "self justification"], ans: 1 },
+
+            { q: "Sugars, starches and cellulose are typical examples of ____", opts: ["carbohydrates", "fats and oils", "vitamins", "proteins"], ans: 0 },
+
+            { q: "Which of the following does NOT belong to the group?", opts: ["Darts", "Pleats", "Stitches", "Tucks"], ans: 0 },
+
+            { q: "Where should a used sanitary towel or pad not be dropped?", opts: ["Pit latrine", "Water closet", "Water stored", "Buck latrine"], ans: 2 },
+
+            { q: "Which of these items is NOT required for table setting?", opts: ["Plates", "Clock", "Cutlery", "Flower"], ans: 1 },
+
+            { q: "To prevent accident in the kitchen the best floor to use is ____", opts: ["cement", "wooden", "terrazzo", "mud"], ans: 1 },
+
+            { q: "Which of these should NOT be done while taking body measurement?", opts: ["Put on flat wears", "Adopt a good posture", "Record each measurement as soon as it is made", "Use a measuring tape that does not stretch"], ans: 0 },
+
+            { q: "When the skin is opened, torn or punctured by sharp objects, it results to the term ____", opts: ["bruise", "burn", "cuts", "bite"], ans: 2 },
+
+            { q: "The person who is entertained is the ____", opts: ["host", "hostages", "guest", "entertainer"], ans: 2 },
+
+            { q: "Fatigue reduces the performance of a worker because a fatigued person is a/an ____ person.", opts: ["lucrative", "energetic", "tired", "restless"], ans: 2 },
+
+            { q: "The style of meal service in which each person's plate is filled with food in the kitchen and the filled plates are handed over to guests by hand is called ____", opts: ["tray service", "plate service", "buffet service", "canteen service"], ans: 1 },
+
+            { q: "The household linen that provides privacy for the family is the ____", opts: ["muslin", "blankets", "curtains", "dry/rolley"], ans: 2 },
+
+            { q: "The process of keeping kitchen appliances clean and ensuring they are protected from harmful bacteria is known as ____", opts: ["food technology", "food science", "food and nutrition", "sanitation"], ans: 3 }
         ]
     },
     chemistry: {
