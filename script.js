@@ -1605,7 +1605,7 @@ function calculateScore() {
         message = `❌ Fail.<br>Grade: F`;
         passed = false;
     }
-    document.getElementById('finalScore').textContent = `${scaledScore}/60`;
+    document.getElementById('finalScore').textContent = `${scaledScore}/20`;
     document.getElementById('scoreMessage').innerHTML = message;
     document.getElementById('correctCount').textContent = score;
     document.getElementById('wrongCount').textContent = currentQuiz.length - score;
@@ -1654,7 +1654,7 @@ function saveScoreToServer(name, score, classLevel, totalQuestions) {
             return;
         }
 
-        const scoreOver60 = Math.round((score / totalQuestions) * 60);
+        const scoreOver60 = Math.round((score / totalQuestions) * 20);
         const percentage = Math.round((score / totalQuestions) * 100);
 
         window.addDoc(collection(db, 'cbt_scores_english'), {
