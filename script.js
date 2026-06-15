@@ -1578,7 +1578,7 @@ function calculateScore() {
         }
     });
 
-    const scaledScore = Math.round((score / currentQuiz.length) * 60);
+    const scaledScore = Math.round((score / currentQuiz.length) * 20);
     const percentage = Math.round((score / currentQuiz.length) * 100);
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
     const minutes = Math.floor(timeTaken / 60);
