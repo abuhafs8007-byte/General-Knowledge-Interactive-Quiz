@@ -1654,7 +1654,7 @@ function saveScoreToServer(name, score, classLevel, totalQuestions) {
             return;
         }
 
-        const scoreOver60 = Math.round((score / totalQuestions) * 20);
+        const scoreOver20 = Math.round((score / totalQuestions) * 20);
         const percentage = Math.round((score / totalQuestions) * 100);
 
         window.addDoc(collection(db, 'cbt_scores_english'), {
@@ -1662,7 +1662,7 @@ function saveScoreToServer(name, score, classLevel, totalQuestions) {
             class: classLevel,
             subject: selectedTopic,
             score: score,
-            scoreOver60: scoreOver60,
+            scoreOver20: scoreOver20,
             percentage: percentage,
             totalQuestions: totalQuestions,
             timestamp: new Date()
