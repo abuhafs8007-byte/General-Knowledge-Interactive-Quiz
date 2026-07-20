@@ -197,8 +197,8 @@ const quizData = {
             { q: "Which fuel is obtained from crude oil?", opts: ["Petrol", "Firewood", "Biogas", "Sunlight"], ans: 0 },
             { q: "A goalkeeper catches a fast-moving ball. Which effect of force is shown?", opts: ["Force changes motion", "Force changes colour", "Force creates energy", "Force changes mass"], ans: 0 },
             { q: "Friction is a force that", opts: ["Opposes motion", "Produces light", "Increases mass", "Creates water"], ans: 0 },
-            { q: "A body has a mass of 8 kg. What is its weight if g = 10 m/s²?", opts: ["80 N", "18 N", "800 N", "10 N"], ans: 0 },
-        ]
+            { q: "Which movement of the Earth causes day and night?", opts: ["Rotation", "Revolution", "Orbit", "Tilting"], ans: 0 },
+      ]
         ,
 
         medium: [
@@ -1555,7 +1555,7 @@ function calculateScore() {
         }
     });
 
-    const scaledScore = Math.round((score / currentQuiz.length) * 20);
+    const scaledScore = Math.round((score / currentQuiz.length) * 60);
     const percentage = Math.round((score / currentQuiz.length) * 100);
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
     const minutes = Math.floor(timeTaken / 60);
@@ -1582,7 +1582,7 @@ function calculateScore() {
         message = `❌ Fail.<br>Grade: F`;
         passed = false;
     }
-    document.getElementById('finalScore').textContent = `${scaledScore}/20`;
+    document.getElementById('finalScore').textContent = `${scaledScore}/60`;
     document.getElementById('scoreMessage').innerHTML = message;
     document.getElementById('correctCount').textContent = score;
     document.getElementById('wrongCount').textContent = currentQuiz.length - score;
@@ -1631,7 +1631,7 @@ function saveScoreToServer(name, score, classLevel, totalQuestions) {
             return;
         }
 
-        const scoreOver20 = Math.round((score / totalQuestions) * 20);
+        const scoreOver20 = Math.round((score / totalQuestions) * 60);
         const percentage = Math.round((score / totalQuestions) * 100);
 
         window.addDoc(collection(db, 'cbt_scores_english'), {
