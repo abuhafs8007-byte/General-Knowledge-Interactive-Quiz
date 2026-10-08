@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,31 +32,6 @@
     <meta name="twitter:image"
         content="https://raw.githubusercontent.com/abuhafs8007-byte/General-Knowledge-Interactive-Quiz/refs/heads/main/eng%20img.png">
 
-    <!-- Firebase CDN -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        // Placeholder Firebase config - replace with your actual config
-        const firebaseConfig = {
-            apiKey: "AIzaSyAJaem6_icKmg04_SoiSyWrWBAiLC7TSPU",
-            authDomain: "cbt-exam-eng.firebaseapp.com",
-            projectId: "cbt-exam-eng",
-            storageBucket: "cbt-exam-eng.firebasestorage.app",
-            messagingSenderId: "138024431357",
-            appId: "1:138024431357:web:0347c448991e28fc6fd894",
-            measurementId: "G-FYBM55P9JD"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        window.db = db;
-
-        window.addDoc = addDoc;
-        window.collection = collection;
-
-
-    </script>
 </head>
 
 <body>
@@ -64,11 +40,12 @@
         <div class="modal-box">
             <h2>📘 Exam Guidelines</h2>
             <ul>
-                <li>Select your Subject and Class before starting the examination.</li>
-                <li>You are allotted 25 minutes to answer all questions.</li>
+                <li>Enter your registered Student ID, then select a subject.</li>
+                <li>Your registered class determines the exam duration.</li>
                 <li>The timer starts immediately after the 'START' Button is Clicked.</li>
                 <li>Questions and answer options are shuffled each time.</li>
                 <li>If time runs out, the question will be marked as unanswered.</li>
+                <li>Leaving the exam page may submit your current attempt.</li>
                 <li>Your final score and performance summary will be shown at the end.</li>
             </ul>
             <button id="confirmGuidelines" class="btn">I Understand</button>
@@ -79,7 +56,18 @@
         <div id="startScreen" class="screen active">
             <h1>📝 Computer-Based Test (CBT) Platform</h1>
             <p class="subtitle">Complete your exams with accuracy and discipline.</p>
+            <p id="schoolNameDisplay" class="field-hint"></p>
+            <button id="openAdminBtn" class="admin-entry-btn" type="button">Administrator Login</button>
 
+            <form id="studentLoginForm" class="form-group">
+                <label for="studentId">Student ID (Required):</label>
+                <input type="text" id="studentId" placeholder="Enter your registered Student ID" autocomplete="username" required>
+                <button class="btn" id="verifyStudentBtn" type="submit" style="margin-top: 10px;">Verify Student ID</button>
+                <p id="studentLoginMessage" class="field-hint" role="status" aria-live="polite"></p>
+                <p id="verifiedStudentSummary" class="field-hint" aria-live="polite" hidden></p>
+            </form>
+
+            <div id="studentExamOptions" hidden>
             <div class="form-group">
                 <label>Select Subject:</label>
                 <div class="topic-grid">
@@ -94,28 +82,26 @@
                     <button class="topic-btn" data-topic="chemistry">🎓 G.N.S.</button>
                     <button class="topic-btn" data-topic="physics">🔬 Physics</button>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="studentName">Student Name (Required):</label>
-                <input type="text" id="studentName" placeholder="Enter your full name" required>
+                <p id="subjectInstructions" class="field-hint" aria-live="polite"></p>
             </div>
 
             <div class="form-group">
                 <label for="numQuestions">Number of Questions (5-40):</label>
                 <input type="number" id="numQuestions" min="5" max="40" value="40">
+                <p id="durationPreview" class="field-hint" aria-live="polite"></p>
             </div>
 
             <div class="form-group">
                 <label>Class:</label>
                 <div class="difficulty-options">
-                    <button class="difficulty-btn" data-difficulty="easy">JSS 1</button>
-                    <button class="difficulty-btn selected" data-difficulty="medium">JSS 2</button>
-                    <button class="difficulty-btn" data-difficulty="hard">JSS 3</button>
+                    <button class="difficulty-btn" data-difficulty="easy" disabled>JSS 1</button>
+                    <button class="difficulty-btn selected" data-difficulty="medium" disabled>JSS 2</button>
+                    <button class="difficulty-btn" data-difficulty="hard" disabled>JSS 3</button>
                 </div>
             </div>
 
             <button class="btn" id="startbtn">START</button>
+            </div>
         </div>
 
         <!-- Quiz Screen -->
@@ -187,6 +173,7 @@
                     <span class="result-value" id="topicResult">Science</span>
                 </div>
             </div>
+            <p id="saveStatus" class="save-status" role="status" aria-live="polite"></p>
 
             <button class="btn" id="restartBtn">Take Another Exam</button>
 
@@ -199,6 +186,7 @@
     </div>
     </div>
 
+    <main id="adminPortal" class="admin-portal" hidden></main>
     <div id="celebrationContainer"></div>
     <canvas id="confettiCanvas"></canvas>
 
@@ -215,6 +203,7 @@
         });
     </script>
     <script src="script.js" defer></script>
+    <script src="admin.js" defer></script>
 </body>
 
 </html>

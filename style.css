@@ -640,6 +640,28 @@ input[type="radio"] + label {
   font-weight: 500;
 }
 
+.field-hint,
+.save-status {
+    margin-top: 8px;
+    color: #596579;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.save-status {
+    min-height: 22px;
+    color: #176b50;
+    font-weight: 600;
+}
+
+.results-hidden .score-display,
+.results-hidden .score-message,
+.results-hidden .results-details,
+.results-hidden #toggleReviewBtn,
+.results-hidden #quizReview {
+    display: none !important;
+}
+
 
 .nav-buttons {
     display: flex;
