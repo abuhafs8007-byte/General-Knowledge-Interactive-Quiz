@@ -1247,6 +1247,58 @@ function updateProgressBar(current, total) {
     }
 }
 
+function formatTimerDisplay(totalSeconds) {
+    const safeSeconds = Math.max(0, Number(totalSeconds) || 0);
+    const minutes = Math.floor(safeSeconds / 60);
+    const seconds = safeSeconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function updateExamStats() {
+    const subject = getSubjectSettings(selectedTopic);
+    const totalQuestions = currentQuiz.length || 0;
+    const answeredCount = selectedAnswers.filter(answer => answer !== null && answer !== undefined).length;
+    const unansweredCount = totalQuestions - answeredCount;
+
+    if (currentSubjectDisplay) {
+        currentSubjectDisplay.textContent = subject ? subject.name : (selectedTopic || '—');
+    }
+    if (totalQuestionsStat) totalQuestionsStat.textContent = String(totalQuestions);
+    if (answeredQuestionsStat) answeredQuestionsStat.textContent = String(answeredCount);
+    if (unansweredQuestionsStat) unansweredQuestionsStat.textContent = String(unansweredCount);
+    if (timeRemainingStat) timeRemainingStat.textContent = formatTimerDisplay(timeRemaining);
+}
+
+function renderQuestionPalette() {
+    if (!questionPalette || !Array.isArray(currentQuiz)) return;
+
+    questionPalette.innerHTML = '';
+    currentQuiz.forEach((question, index) => {
+        const button = document.createElement('button');
+        const isCurrent = index === currentQuestion;
+        const isAnswered = selectedAnswers[index] !== null && selectedAnswers[index] !== undefined;
+        const isVisited = visitedQuestions[index] === true;
+        button.type = 'button';
+        button.className = 'question-number-btn';
+        if (isCurrent) button.classList.add('current');
+        else if (isAnswered) button.classList.add('answered');
+        else if (isVisited) button.classList.add('unanswered');
+        button.textContent = String(index + 1);
+        const status = isCurrent ? 'current question' : isAnswered ? 'answered' : isVisited ? 'visited, unanswered' : 'not visited, unanswered';
+        button.title = `Go to question ${index + 1} (${status})`;
+        button.dataset.index = String(index);
+        button.setAttribute('aria-label', `Question ${index + 1}, ${status}`);
+        button.addEventListener('click', () => {
+            if (index >= 0 && index < currentQuiz.length) {
+                currentQuestion = index;
+                displayQuestion();
+                persistInProgressAttempt();
+            }
+        });
+        questionPalette.appendChild(button);
+    });
+}
+
 // Elements
 const startScreen = document.getElementById('startScreen');
 const quizScreen = document.getElementById('quizScreen');
@@ -1266,7 +1318,46 @@ const quitBtn = document.getElementById('quitBtn');
 const restartBtn = document.getElementById('restartBtn');
 const questionSlider = document.getElementById('questionSlider');
 const selectedClassDisplay = document.getElementById('selectedClassDisplay');
+const currentSubjectDisplay = document.getElementById('currentSubjectDisplay');
+const totalQuestionsStat = document.getElementById('totalQuestionsStat');
+const answeredQuestionsStat = document.getElementById('answeredQuestionsStat');
+const unansweredQuestionsStat = document.getElementById('unansweredQuestionsStat');
+const timeRemainingStat = document.getElementById('timeRemainingStat');
+const questionPalette = document.getElementById('questionPalette');
 const quizMessageEl = document.getElementById('quizMessage');
+const clearAnswerBtn = document.getElementById('clearAnswerBtn');
+const themeToggle = document.getElementById('themeToggle');
+const studentInterface = document.querySelector('.container');
+
+function setStudentTheme(theme, persist = false) {
+    const isDark = theme === 'dark';
+    studentInterface.classList.toggle('theme-dark', isDark);
+    themeToggle.textContent = isDark ? '☀ Light mode' : '☾ Dark mode';
+    themeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+    themeToggle.setAttribute('aria-pressed', String(isDark));
+
+    if (persist) {
+        try {
+            localStorage.setItem('cbt_theme', theme);
+        } catch (error) {
+            console.error('Unable to save the student theme preference in local storage.', error);
+        }
+    }
+}
+
+let savedStudentTheme = 'light';
+try {
+    const storedTheme = localStorage.getItem('cbt_theme');
+    if (storedTheme === 'dark' || storedTheme === 'light') {
+        savedStudentTheme = storedTheme;
+    }
+} catch (error) {
+    console.error('Unable to load the student theme preference from local storage.', error);
+}
+setStudentTheme(savedStudentTheme);
+themeToggle.addEventListener('click', () => {
+    setStudentTheme(studentInterface.classList.contains('theme-dark') ? 'light' : 'dark', true);
+});
 
 function findStudentSubjectAttempt(studentId, subjectId, status) {
     const studentKey = getStudentKey(studentId);
@@ -1454,6 +1545,16 @@ quitBtn.addEventListener('click', quitQuiz);
 restartBtn.addEventListener('click', restartQuiz);
 const prevBtn = document.getElementById('prevBtn');
 prevBtn.addEventListener('click', prevQuestion);
+clearAnswerBtn.addEventListener('click', () => {
+    selectedAnswers[currentQuestion] = null;
+    document.querySelectorAll('#options .option').forEach(option => option.classList.remove('selected'));
+    document.querySelectorAll('#options input[name="answer"]').forEach(radio => {
+        radio.checked = false;
+    });
+    updateExamStats();
+    renderQuestionPalette();
+    persistInProgressAttempt();
+});
 
 // Question slider navigation
 questionSlider.addEventListener('input', (e) => {
@@ -1940,12 +2041,13 @@ function startTimer() {
         timeRemaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
         const minutes = Math.floor(timeRemaining / 60);
         const seconds = timeRemaining % 60;
-        timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        if (timerEl) timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        updateExamStats();
 
         if (timeRemaining <= 30) {
-            timerEl.classList.add('warning');
+            if (timerEl) timerEl.classList.add('warning');
         } else {
-            timerEl.classList.remove('warning');
+            if (timerEl) timerEl.classList.remove('warning');
         }
 
         if (timeRemaining <= 0) {
@@ -1958,12 +2060,15 @@ function startTimer() {
 
 function displayQuestion() {
     const question = currentQuiz[currentQuestion];
+    if (!question) return;
     visitedQuestions[currentQuestion] = true;
 
     document.getElementById('questionText').textContent = question.q;
     document.getElementById('currentQuestion').textContent = currentQuestion + 1;
     document.getElementById('totalQuestions').textContent = currentQuiz.length;
     updateProgressBar(currentQuestion + 1, currentQuiz.length);
+    updateExamStats();
+    renderQuestionPalette();
 
     // Sync slider
     questionSlider.value = currentQuestion + 1;
@@ -1972,7 +2077,7 @@ function displayQuestion() {
     const optionsContainer = document.getElementById('options');
     optionsContainer.innerHTML = '';
 
-    const shuffledOptions = question.shuffledOptions;
+    const shuffledOptions = question.shuffledOptions || question.opts.map((option, index) => ({ option, originalIndex: index }));
 
     shuffledOptions.forEach(({ option, originalIndex }) => {
         const optionWrapper = document.createElement('label');
@@ -1995,6 +2100,8 @@ function displayQuestion() {
             });
 
             optionWrapper.classList.add('selected');
+            updateExamStats();
+            renderQuestionPalette();
             persistInProgressAttempt();
         });
 
@@ -2009,6 +2116,10 @@ function displayQuestion() {
 
     nextBtn.textContent = 'Next Question';
     selectedClassDisplay.textContent = currentStudentClass || classMapping[selectedDifficulty] || 'JSS 2';
+    const subject = getSubjectSettings(selectedTopic);
+    if (currentSubjectDisplay) {
+        currentSubjectDisplay.textContent = subject ? subject.name : (selectedTopic || '—');
+    }
     persistInProgressAttempt();
 
     // Previous button control
@@ -2048,8 +2159,8 @@ function finishQuiz() {
     calculateScore();
     const resultSaved = saveCompletedAttempt();
     document.getElementById('saveStatus').textContent = resultSaved
-        ? 'Your result was saved on this device.'
-        : 'Unable to save your result in browser storage. Please contact an administrator.';
+        ? 'Exam submission successful.'
+        : 'Unable to save your result. Please contact an administrator.';
     restartBtn.disabled = false;
     resultsScreen.classList.toggle('results-hidden', !cbtSettings.allowResults);
     showScreen('results');
@@ -2065,48 +2176,69 @@ function calculateScore() {
         }
     });
 
-    const scaledScore = Math.round((score / currentQuiz.length) * 60);
-    const percentage = Math.round((score / currentQuiz.length) * 100);
+    const totalQuestions = currentQuiz.length || 0;
+    const percentage = totalQuestions ? Math.round((score / totalQuestions) * 100) : 0;
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
     const minutes = Math.floor(timeTaken / 60);
     const seconds = timeTaken % 60;
-
-    let message = '';
-    let passed = false;
-    if (percentage === 100) {
-        message = `🌟 Excellent Performance!<br>Grade: A (Distinction)`;
-        passed = true;
-    } else if (percentage >= 80) {
-        message = `🎉 Very Good Performance.<br>Grade: A`;
-        passed = true;
-    } else if (percentage >= 70) {
-        message = `👍 Good Performance.<br>Grade: B`;
-        passed = true;
-    } else if (percentage >= 60) {
-        message = `✔ Fair Performance.<br>Grade: C`;
-        passed = true;
-    } else if (percentage >= 50) {
-        message = `⚠ Pass.<br>Grade: D`;
-        passed = true;
-    } else {
-        message = `❌ Fail.<br>Grade: F`;
-        passed = false;
-    }
+    const answeredCount = selectedAnswers.filter(answer => answer !== null && answer !== undefined).length;
+    const unansweredCount = totalQuestions - answeredCount;
+    const wrongCount = Math.max(0, totalQuestions - score);
     const passingScore = Number.isFinite(Number(cbtSettings.passingScore))
         ? Number(cbtSettings.passingScore)
         : 50;
+
+    let grade = 'F';
+    let message = '❌ Fail.<br>Grade: F';
+    let passed = false;
+    if (percentage === 100) {
+        grade = 'A';
+        message = '🌟 Excellent Performance!<br>Grade: A (Distinction)';
+        passed = true;
+    } else if (percentage >= 80) {
+        grade = 'A';
+        message = '🎉 Very Good Performance.<br>Grade: A';
+        passed = true;
+    } else if (percentage >= 70) {
+        grade = 'B';
+        message = '👍 Good Performance.<br>Grade: B';
+        passed = true;
+    } else if (percentage >= 60) {
+        grade = 'C';
+        message = '✔ Fair Performance.<br>Grade: C';
+        passed = true;
+    } else if (percentage >= 50) {
+        grade = 'D';
+        message = '⚠ Pass.<br>Grade: D';
+        passed = true;
+    }
+
     passed = percentage >= passingScore;
-    if (!passed) message = '❌ Fail.<br>Grade: F';
-    else if (percentage < 50) message = '⚠ Pass.<br>Grade: D';
-    document.getElementById('finalScore').textContent = `${scaledScore}/60`;
+    if (!passed) {
+        grade = 'F';
+        message = '❌ Fail.<br>Grade: F';
+    } else if (percentage < 50) {
+        grade = 'D';
+        message = '⚠ Pass.<br>Grade: D';
+    }
+
+    const subject = getSubjectSettings(selectedTopic);
+    const displayScore = `${score}/${totalQuestions}`;
+    document.getElementById('finalScore').textContent = displayScore;
+    document.getElementById('scoreOutOf').textContent = displayScore;
+    document.getElementById('totalMarksResult').textContent = String(totalQuestions);
+    document.getElementById('gradeResult').textContent = grade;
+    document.getElementById('passStatus').textContent = passed ? 'Passed' : 'Failed';
     document.getElementById('scoreMessage').innerHTML = message;
     document.getElementById('correctCount').textContent = score;
-    document.getElementById('wrongCount').textContent = currentQuiz.length - score;
+    document.getElementById('wrongCount').textContent = wrongCount;
+    document.getElementById('answeredCountResult').textContent = answeredCount;
+    document.getElementById('unansweredCountResult').textContent = unansweredCount;
     document.getElementById('percentage').textContent = `${percentage}%`;
     document.getElementById('timeTaken').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    const subject = getSubjectSettings(selectedTopic);
     document.getElementById('topicResult').textContent = subject ? subject.name : selectedTopic;
     document.getElementById('studentNameResult').textContent = studentName || 'N/A';
+    document.getElementById('studentIdResult').textContent = currentStudentId || 'N/A';
     document.getElementById('classResult').textContent = currentStudentClass || classMapping[selectedDifficulty] || 'JSS 2';
 
     // Play sound and show effect
@@ -2270,18 +2402,15 @@ const toggleReviewBtn = document.getElementById('toggleReviewBtn');
 const quizReview = document.getElementById('quizReview');
 
 toggleReviewBtn.addEventListener('click', () => {
-
     const isVisible = quizReview.style.display === 'block';
-
-    if (quizReview.style.display === 'none') {
-        renderQuizReview(); // Render each time user opens it
+    if (!isVisible) {
+        renderQuizReview();
         quizReview.style.display = 'block';
+        toggleReviewBtn.textContent = '⬆ Hide Question Review ⬆';
     } else {
         quizReview.style.display = 'none';
+        toggleReviewBtn.textContent = '⬇ Show Question Review ⬇';
     }
-
-    quizReview.style.display = isVisible ? 'none' : 'block';
-    toggleReviewBtn.textContent = isVisible ? '⬇ Show Question Review ⬇' : '⬆ Hide Question Review ⬆';
 });
 
 
@@ -2290,11 +2419,10 @@ function renderQuizReview() {
 
     currentQuiz.forEach((question, qIndex) => {
         const questionWrapper = document.createElement('div');
+        questionWrapper.className = 'review-question';
         questionWrapper.style.marginBottom = '15px';
         questionWrapper.style.padding = '8px';
         questionWrapper.style.borderRadius = '5px';
-        questionWrapper.style.backgroundColor = '#f9f9f9'; // subtle background
-        questionWrapper.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
 
         const questionTitle = document.createElement('div');
         questionTitle.textContent = `${qIndex + 1}. ${question.q}`;
@@ -2302,8 +2430,18 @@ function renderQuizReview() {
         questionTitle.style.marginBottom = '6px';
         questionWrapper.appendChild(questionTitle);
 
+        const selected = selectedAnswers[qIndex];
+        const correct = question.ans;
+        const wasAnswered = selected !== null && selected !== undefined;
+        const statusText = wasAnswered && selected === correct ? 'Correct' : wasAnswered ? 'Incorrect' : 'Unanswered';
+        const statusBadge = document.createElement('div');
+        statusBadge.className = `review-status ${wasAnswered && selected === correct ? 'correct' : wasAnswered ? 'incorrect' : 'unanswered'}`;
+        statusBadge.textContent = statusText;
+        questionWrapper.appendChild(statusBadge);
+
         question.opts.forEach((option, oIndex) => {
             const optionDiv = document.createElement('div');
+            optionDiv.className = 'review-option';
             optionDiv.textContent = option;
             optionDiv.style.padding = '4px 8px';
             optionDiv.style.borderRadius = '4px';
@@ -2311,18 +2449,13 @@ function renderQuizReview() {
             optionDiv.style.fontSize = '0.95rem';
             optionDiv.style.transition = 'background 0.3s';
 
-            const selected = selectedAnswers[qIndex];
-            const correct = question.ans;
-
             if (oIndex === correct) {
-                // correct answer, soft highlight
-                optionDiv.style.backgroundColor = '#e0f2f1'; // soft greenish
+                optionDiv.classList.add('correct');
                 optionDiv.style.fontWeight = '500';
             }
 
-            if (selected !== undefined && oIndex === selected && selected !== correct) {
-                // user chose wrong, subtle highlight
-                optionDiv.style.backgroundColor = '#fce4ec'; // soft pinkish
+            if (wasAnswered && oIndex === selected && selected !== correct) {
+                optionDiv.classList.add('incorrect');
             }
 
             questionWrapper.appendChild(optionDiv);

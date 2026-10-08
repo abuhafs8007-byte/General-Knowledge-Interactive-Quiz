@@ -185,8 +185,8 @@ function showAdminLogin(message = '') {
             <button type="button" class="admin-back-link" data-action="close-admin">← Back to student exam</button>
             <p class="admin-eyebrow">School CBT System</p>
             <h1>Administrator Login</h1>
-            <p class="admin-muted">Use the sample credentials configured in admin.js.</p>
-            <div class="admin-security-note">This is only a frontend gate. It does not provide secure authentication.</div>
+            <p class="admin-muted">Sign in to access the administrator dashboard and manage your school’s CBT system</p>
+            <div class="admin-security-note">This section is exclusively for school administrators. Please use your authorized login credentials to continue.</div>
             <p class="admin-login-error" role="alert">${escapeAdminText(message)}</p>
             <form data-form="login" class="admin-form">
                 <label>Username<input name="username" autocomplete="username" required></label>
