@@ -2,11 +2,15 @@ const adminRoot = document.getElementById('adminPortal');
 const studentApp = document.querySelector('.container');
 const adminEntryButton = document.getElementById('openAdminBtn');
 
-// CHANGE ADMIN LOGIN DETAILS HERE. This frontend-only gate is not secure authentication.
+// Temporary frontend-only gate; Firebase Authentication is also required.
 const ADMIN_USERNAME = 'ABU HAFS IZZUL-ARAB';
 const ADMIN_PASSWORD = '1234567890';
 
 let adminLoggedIn = false;
+let adminFirebaseUid = null;
+let firebaseAuthUser = null;
+let firebaseAuthStateError = '';
+let adminLoginErrorMessage = '';
 let adminSection = 'Dashboard';
 let studentSearch = '';
 let questionSearch = '';
@@ -179,7 +183,8 @@ function showAdminNotice(message, isError = false) {
     }, 4500);
 }
 
-function showAdminLogin(message = '') {
+function showAdminLogin(message = '', status = '') {
+    adminLoginErrorMessage = message;
     adminRoot.innerHTML = `
         <section class="admin-login-card">
             <button type="button" class="admin-back-link" data-action="close-admin">← Back to student exam</button>
@@ -189,10 +194,13 @@ function showAdminLogin(message = '') {
             <div class="admin-security-note">This section is exclusively for school administrators. Please use your authorized login credentials to continue.</div>
             <p class="admin-login-error" role="alert">${escapeAdminText(message)}</p>
             <form data-form="login" class="admin-form">
-                <label>Username<input name="username" autocomplete="username" required></label>
-                <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+                <label>Firebase email<input name="email" type="email" autocomplete="username" required></label>
+                <label>Firebase password<input name="firebasePassword" type="password" autocomplete="current-password" required></label>
+                <label>Temporary panel username<input name="panelUsername" autocomplete="off" required></label>
+                <label>Temporary panel password<input name="panelPassword" type="password" autocomplete="off" required></label>
                 <button class="admin-primary-button" type="submit">Log in</button>
             </form>
+            <p class="admin-security-note" role="status">${escapeAdminText(status || 'Firebase sign-in and the existing temporary frontend credentials are both required. The frontend check is not secure administrator authorization.')}</p>
         </section>`;
 }
 
@@ -219,7 +227,8 @@ function adminShell(content) {
                             <span></span><span></span><span></span>
                         </button>
                         <div><span class="admin-eyebrow">School examination management</span>
-                            <h1>${escapeAdminText(adminSection)}</h1></div>
+                            <h1>${escapeAdminText(adminSection)}</h1>
+                            <small class="admin-muted">Signed in as ${escapeAdminText(firebaseAuthUser?.email || '')} (Firebase)</small></div>
                     </div>
                     <button type="button" class="admin-mobile-logout" data-action="logout">Log out</button>
                 </header>
@@ -670,7 +679,7 @@ function renderSettings() {
             <label class="admin-check-label"><input name="allowResults" type="checkbox" ${settings.allowResults ? 'checked' : ''}> Show results to students after submission</label>
             <button class="admin-primary-button" type="submit">Save Settings</button>
         </form>
-        <div class="admin-security-note">Admin username and password are editable constants in admin.js. Because this is frontend-only, they are not secure.</div>`;
+        <div class="admin-security-note">A temporary frontend username/password check remains in addition to Firebase Authentication. It is not secure administrator authorization.</div>`;
 }
 
 function formatAdminDate(value) {
@@ -705,15 +714,74 @@ function openAdmin() {
     studentApp.hidden = true;
     studentApp.style.display = 'none';
     adminRoot.hidden = false;
-    showAdminLogin();
+    const status = firebaseAuthStateError ||
+        (firebaseAuthUser
+            ? `Firebase account ${firebaseAuthUser.email || firebaseAuthUser.uid} is signed in. Complete both login checks to continue.`
+            : '');
+    showAdminLogin('', status);
 }
 
 function closeAdmin(logout = false) {
-    if (logout) adminLoggedIn = false;
+    if (logout) {
+        adminLoggedIn = false;
+        adminFirebaseUid = null;
+    }
     adminRoot.hidden = true;
     studentApp.hidden = false;
     studentApp.style.display = '';
     window.cbtApp.refreshStudentSubjects();
+}
+
+function formatFirebaseError(error) {
+    const code = typeof error?.code === 'string' ? error.code : 'unknown';
+    const message = typeof error?.message === 'string' ? error.message : String(error);
+    return `Firebase Authentication error (${code}): ${message}`;
+}
+
+async function signInAdmin(values) {
+    try {
+        const firebase = await window.cbtFirebaseReady;
+        const credential = await firebase.signInWithEmailAndPassword(
+            firebase.auth,
+            String(values.get('email') || '').trim(),
+            String(values.get('firebasePassword') || '')
+        );
+
+        if (!credential.user) {
+            throw new Error('Firebase sign-in succeeded without returning an authenticated user.');
+        }
+
+        if (values.get('panelUsername') !== ADMIN_USERNAME ||
+            values.get('panelPassword') !== ADMIN_PASSWORD) {
+            try {
+                await firebase.signOut(firebase.auth);
+            } catch (error) {
+                console.error('Firebase Authentication sign-out failed after panel credential rejection:', error);
+                return showAdminLogin(`Temporary panel credentials were incorrect. ${formatFirebaseError(error)}`);
+            }
+            return showAdminLogin('Firebase sign-in succeeded, but the temporary panel credentials were incorrect.');
+        }
+
+        firebaseAuthUser = credential.user;
+        adminFirebaseUid = credential.user.uid;
+        adminLoggedIn = true;
+        adminSection = 'Dashboard';
+        renderAdminPage();
+    } catch (error) {
+        console.error('Firebase Authentication sign-in failed:', error);
+        showAdminLogin(formatFirebaseError(error));
+    }
+}
+
+async function signOutAdmin() {
+    try {
+        const firebase = await window.cbtFirebaseReady;
+        await firebase.signOut(firebase.auth);
+        closeAdmin(true);
+    } catch (error) {
+        console.error('Firebase Authentication sign-out failed:', error);
+        showAdminNotice(formatFirebaseError(error), true);
+    }
 }
 
 function removeAttempt(attemptId) {
@@ -743,7 +811,7 @@ adminRoot.addEventListener('click', event => {
     const id = button.dataset.id;
 
     if (action === 'close-admin') return closeAdmin();
-    if (action === 'logout') return closeAdmin(true);
+    if (action === 'logout') return void signOutAdmin();
     if (action === 'toggle-sidebar') {
         const layout = button.closest('.admin-layout');
         if (!layout) return;
@@ -1106,13 +1174,7 @@ adminRoot.addEventListener('submit', event => {
     const values = new FormData(form);
 
     if (form.dataset.form === 'login') {
-        if (values.get('username') === ADMIN_USERNAME && values.get('password') === ADMIN_PASSWORD) {
-            adminLoggedIn = true;
-            adminSection = 'Dashboard';
-            renderAdminPage();
-        } else {
-            showAdminLogin('Incorrect username or password.');
-        }
+        void signInAdmin(values);
         return;
     }
     if (form.dataset.form === 'student') {
@@ -1263,4 +1325,35 @@ adminRoot.addEventListener('submit', event => {
         renderAdminPage();
         showAdminNotice('Settings saved.');
     }
+});
+
+window.cbtFirebaseReady.then(firebase => {
+    firebase.onAuthStateChanged(firebase.auth, user => {
+        firebaseAuthUser = user;
+        firebaseAuthStateError = '';
+
+        if (adminLoggedIn && (!user || user.uid !== adminFirebaseUid)) {
+            adminLoggedIn = false;
+            adminFirebaseUid = null;
+            if (!adminRoot.hidden) {
+                showAdminLogin('Firebase authentication state changed. Please sign in again.');
+            }
+            return;
+        }
+
+        if (!adminLoggedIn && !adminRoot.hidden) {
+            const status = user
+                ? `Firebase account ${user.email || user.uid} is signed in. Complete both login checks to continue.`
+                : '';
+            showAdminLogin(adminLoginErrorMessage, status);
+        }
+    }, error => {
+        firebaseAuthStateError = formatFirebaseError(error);
+        console.error('Firebase Authentication state listener failed:', error);
+        if (!adminRoot.hidden) showAdminLogin(firebaseAuthStateError);
+    });
+}).catch(error => {
+    firebaseAuthStateError = formatFirebaseError(error);
+    console.error('Firebase Authentication is unavailable:', error);
+    if (!adminRoot.hidden) showAdminLogin(firebaseAuthStateError);
 });
