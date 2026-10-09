@@ -1,0 +1,92 @@
+name: Deploy CBT website and Firestore rules
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-github-pages:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Check out approved source
+        uses: actions/checkout@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Prepare static website
+        run: |
+          test -s firebase-config.js || {
+            echo "firebase-config.js must be included in the deployment source."
+            exit 1
+          }
+          mkdir -p _site
+          cp -- *.html *.css *.js *.mp3 *.mpeg *.aac *.png *.jpeg _site/
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Publish GitHub Pages site
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-vercel:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out approved source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify public Firebase client config is present
+        run: test -s firebase-config.js
+      - name: Install Vercel CLI
+        run: npm install --global vercel
+      - name: Link and deploy existing Vercel project
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          test -n "$VERCEL_TOKEN"
+          test -n "$VERCEL_ORG_ID"
+          test -n "$VERCEL_PROJECT_ID"
+          vercel link --yes --project "$VERCEL_PROJECT_ID" --scope "$VERCEL_ORG_ID" --token "$VERCEL_TOKEN"
+          vercel deploy --prod --yes --scope "$VERCEL_ORG_ID" --token "$VERCEL_TOKEN"
+
+  deploy-firestore-rules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
+    steps:
+      - name: Check out approved source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Firebase CLI
+        run: npm install --global firebase-tools
+      - name: Configure Firebase deployment credentials
+        run: |
+          test -n "$FIREBASE_SERVICE_ACCOUNT_JSON"
+          umask 077
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON" > "$GOOGLE_APPLICATION_CREDENTIALS"
+          node -e "JSON.parse(require('node:fs').readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'utf8'))"
+      - name: Deploy Firestore rules only
+        run: firebase deploy --only firestore:rules --project school-cbt-examination-system --non-interactive
+      - name: Remove temporary credentials
+        if: always()
+        run: rm -f "$GOOGLE_APPLICATION_CREDENTIALS"
