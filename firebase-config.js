@@ -7,5 +7,5 @@ window.CBT_FIREBASE_CONFIG = {
     messagingSenderId: '16218410712',
     appId: '1:16218410712:web:3121bab678b5b56de591ad',
     appCheckSiteKey: '6Les2-UtAAAAABYAGsLKigE6FIRlALx9uRoWvgDS',
-    functionsRegion: 'us-central1'
+    functionsRegion: 'nam5'
 };
