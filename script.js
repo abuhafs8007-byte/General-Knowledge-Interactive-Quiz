@@ -1042,12 +1042,13 @@ const cloudBaselines = {};
 function makeDefaultSubjects() {
     cbtSubjects = Object.keys(quizData).map(id => {
         const button = document.querySelector(`.topic-btn[data-topic="${id}"]`);
+        const existingSubject = cbtSubjects && cbtSubjects.find(subject => subject.id === id);
         return {
             id,
             name: topicNames[id] || id,
             durationMinutes: cbtSettings.defaultDuration,
             timers: {},
-            isEnabled: Boolean(button && !button.disabled),
+            isEnabled: existingSubject ? existingSubject.isEnabled : Boolean(button && !button.disabled),
             instructions: cbtSettings.examInstructions
         };
     });
