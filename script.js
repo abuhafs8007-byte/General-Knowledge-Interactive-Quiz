@@ -1016,16 +1016,6 @@ const classMapping = {
     hard: 'JSS 3'
 };
 
-const CBT_STORAGE_KEYS = {
-    students: 'cbt_students',
-    subjects: 'cbt_subjects',
-    questions: 'cbt_questions',
-    attempts: 'cbt_attempts',
-    results: 'cbt_results',
-    settings: 'cbt_settings',
-    removedSubjects: 'cbt_removed_subjects'
-};
-
 const defaultCbtSettings = {
     schoolName: '',
     platformName: 'Computer-Based Test (CBT) Platform',
@@ -1036,52 +1026,20 @@ const defaultCbtSettings = {
     examInstructions: 'Read each question carefully and choose one answer.'
 };
 
-function loadCbtData(key, fallback) {
-    try {
-        const value = localStorage.getItem(CBT_STORAGE_KEYS[key]);
-        return value === null ? fallback : JSON.parse(value);
-    } catch (error) {
-        console.error(`Unable to load CBT ${key} from local storage.`, error);
-        return fallback;
-    }
-}
-
-function saveCbtData(key, value) {
-    try {
-        localStorage.setItem(CBT_STORAGE_KEYS[key], JSON.stringify(value));
-        return true;
-    } catch (error) {
-        console.error(`Unable to save CBT ${key} to local storage.`, error);
-        return false;
-    }
-}
-
 const topicNames = {};
 document.querySelectorAll('.topic-btn[data-topic]').forEach(button => {
     topicNames[button.dataset.topic] = button.textContent.trim();
 });
 
-let cbtStudents = loadCbtData('students', []);
-let cbtSubjects = loadCbtData('subjects', null);
-let cbtAttempts = loadCbtData('attempts', []);
-let cbtResults = loadCbtData('results', []);
-let cbtSettings = { ...defaultCbtSettings, ...(loadCbtData('settings', {}) || {}) };
-let cbtRemovedSubjects = loadCbtData('removedSubjects', []);
+let cbtStudents = [];
+let cbtSubjects = null;
+let cbtAttempts = [];
+let cbtResults = [];
+let cbtSettings = { ...defaultCbtSettings };
+let cbtRemovedSubjects = [];
+const cloudBaselines = {};
 
-if (!Number.isInteger(Number(cbtSettings.defaultDuration)) || Number(cbtSettings.defaultDuration) < 1 || Number(cbtSettings.defaultDuration) > 300) {
-    cbtSettings.defaultDuration = defaultCbtSettings.defaultDuration;
-}
-if (!Number.isInteger(Number(cbtSettings.numberOfQuestions)) || Number(cbtSettings.numberOfQuestions) < 5 || Number(cbtSettings.numberOfQuestions) > 40) {
-    cbtSettings.numberOfQuestions = defaultCbtSettings.numberOfQuestions;
-}
-if (!Number.isFinite(Number(cbtSettings.passingScore)) || Number(cbtSettings.passingScore) < 0 || Number(cbtSettings.passingScore) > 100) {
-    cbtSettings.passingScore = defaultCbtSettings.passingScore;
-}
-if (!Array.isArray(cbtStudents)) cbtStudents = [];
-if (!Array.isArray(cbtAttempts)) cbtAttempts = [];
-if (!Array.isArray(cbtResults)) cbtResults = [];
-if (!Array.isArray(cbtRemovedSubjects)) cbtRemovedSubjects = [];
-if (!Array.isArray(cbtSubjects)) {
+function makeDefaultSubjects() {
     cbtSubjects = Object.keys(quizData).map(id => {
         const button = document.querySelector(`.topic-btn[data-topic="${id}"]`);
         return {
@@ -1095,7 +1053,21 @@ if (!Array.isArray(cbtSubjects)) {
     });
 }
 
-cbtSubjects = cbtSubjects.filter(subject => subject && typeof subject.id === 'string').map(subject => {
+function normalizeCbtSettings(settings) {
+    cbtSettings = { ...defaultCbtSettings, ...(settings || {}) };
+    if (!Number.isInteger(Number(cbtSettings.defaultDuration)) || Number(cbtSettings.defaultDuration) < 1 || Number(cbtSettings.defaultDuration) > 300) {
+        cbtSettings.defaultDuration = defaultCbtSettings.defaultDuration;
+    }
+    if (!Number.isInteger(Number(cbtSettings.numberOfQuestions)) || Number(cbtSettings.numberOfQuestions) < 5 || Number(cbtSettings.numberOfQuestions) > 40) {
+        cbtSettings.numberOfQuestions = defaultCbtSettings.numberOfQuestions;
+    }
+    if (!Number.isFinite(Number(cbtSettings.passingScore)) || Number(cbtSettings.passingScore) < 0 || Number(cbtSettings.passingScore) > 100) {
+        cbtSettings.passingScore = defaultCbtSettings.passingScore;
+    }
+}
+
+function normalizeCbtSubjects(subjects) {
+    return subjects.filter(subject => subject && typeof subject.id === 'string').map(subject => {
     const durationMinutes = Number(subject.durationMinutes) || Number(cbtSettings.defaultDuration) || 25;
     const timers = subject.timers && typeof subject.timers === 'object' ? { ...subject.timers } : {};
     Object.keys(classMapping).forEach(difficulty => {
@@ -1111,17 +1083,11 @@ cbtSubjects = cbtSubjects.filter(subject => subject && typeof subject.id === 'st
         isEnabled: subject.isEnabled !== false,
         instructions: subject.instructions || cbtSettings.examInstructions
     };
-});
-
-const savedQuestions = loadCbtData('questions', null);
-if (savedQuestions && typeof savedQuestions === 'object' && !Array.isArray(savedQuestions)) {
-    Object.entries(savedQuestions).forEach(([subjectId, levels]) => {
-        if (!quizData[subjectId]) quizData[subjectId] = {};
-        Object.entries(levels || {}).forEach(([difficulty, questions]) => {
-            if (Array.isArray(questions)) quizData[subjectId][difficulty] = questions;
-        });
     });
 }
+
+makeDefaultSubjects();
+cbtSubjects = normalizeCbtSubjects(cbtSubjects);
 
 function normalizeStudentId(value) {
     return String(value || '').trim().toUpperCase();
@@ -1130,13 +1096,6 @@ function normalizeStudentId(value) {
 function normalizeClassName(value) {
     const normalized = String(value || '').trim().replace(/\s+/g, ' ').toUpperCase();
     return ({ 'JSS1': 'JSS 1', 'JSS 1': 'JSS 1', 'JSS2': 'JSS 2', 'JSS 2': 'JSS 2', 'JSS3': 'JSS 3', 'JSS 3': 'JSS 3' })[normalized] || '';
-}
-
-function findRegisteredStudent(studentId) {
-    const savedStudents = loadCbtData('students', cbtStudents);
-    if (Array.isArray(savedStudents)) cbtStudents = savedStudents;
-    const key = normalizeStudentId(studentId);
-    return key ? cbtStudents.find(student => normalizeStudentId(student.studentId || student.id) === key) || null : null;
 }
 
 function getStudentKey(studentId) {
@@ -1211,28 +1170,168 @@ function refreshCbtBranding() {
     if (schoolName) schoolName.textContent = cbtSettings.schoolName || '';
 }
 
+const cloudCollections = {
+    students: 'cbtStudents',
+    subjects: 'cbtSubjects',
+    questions: 'cbtQuestions',
+    attempts: 'cbtAttempts',
+    removedSubjects: 'cbtRemovedSubjects'
+};
+
+function cloudRecordId(key, record) {
+    if (key === 'questions') return `${record.subjectId}--${record.difficulty}`;
+    if (key === 'removedSubjects') return String(record.id || record);
+    return String(record.id || record.studentId || '');
+}
+
+function cloudCopy(value) {
+    return JSON.parse(JSON.stringify(value));
+}
+
+function questionGroups() {
+    return Object.entries(quizData).flatMap(([subjectId, levels]) =>
+        Object.entries(levels || {}).map(([difficulty, questions]) => ({
+            id: `${subjectId}--${difficulty}`,
+            subjectId,
+            difficulty,
+            questions: Array.isArray(questions) ? questions : []
+        }))
+    );
+}
+
+function applyQuestionGroups(groups) {
+    groups.forEach(group => {
+        if (typeof group.subjectId !== 'string' ||
+            !['easy', 'medium', 'hard'].includes(group.difficulty) ||
+            !Array.isArray(group.questions)) {
+            throw new Error(`Invalid Firestore question group: ${group.id || 'unknown'}.`);
+        }
+        if (!quizData[group.subjectId]) quizData[group.subjectId] = {};
+        quizData[group.subjectId][group.difficulty] = group.questions;
+    });
+}
+
+function applyCloudCatalog({ subjects, questions, settings, removedSubjects }) {
+    normalizeCbtSettings(settings);
+    numQuestionsInput.value = String(cbtSettings.numberOfQuestions || 40);
+    if (subjects.length) {
+        cbtSubjects = normalizeCbtSubjects(subjects);
+    } else {
+        makeDefaultSubjects();
+        cbtSubjects = normalizeCbtSubjects(cbtSubjects);
+    }
+    cbtRemovedSubjects = removedSubjects.map(record => record.id);
+    cbtSubjects = cbtSubjects.filter(subject => !cbtRemovedSubjects.includes(subject.id));
+    applyQuestionGroups(questions);
+    refreshStudentSubjects();
+    refreshCbtBranding();
+    updateDurationPreview();
+}
+
+async function loadStudentCloudCatalog() {
+    const firebase = await window.cbtFirebaseReady;
+    const [subjects, questions, settings, removedSubjects] = await Promise.all([
+        firebase.listDocuments(cloudCollections.subjects),
+        firebase.listDocuments(cloudCollections.questions),
+        firebase.getDocument('cbtSettings', 'platform'),
+        firebase.listDocuments(cloudCollections.removedSubjects)
+    ]);
+    applyCloudCatalog({
+        subjects,
+        questions,
+        settings,
+        removedSubjects
+    });
+}
+
+async function loadAdminCloudData() {
+    const firebase = await window.cbtFirebaseReady;
+    const [students, subjects, questions, attempts, settings, removedSubjects] = await Promise.all([
+        firebase.listDocuments(cloudCollections.students),
+        firebase.listDocuments(cloudCollections.subjects),
+        firebase.listDocuments(cloudCollections.questions),
+        firebase.listDocuments(cloudCollections.attempts),
+        firebase.listDocuments('cbtSettings'),
+        firebase.listDocuments(cloudCollections.removedSubjects)
+    ]);
+    cbtStudents = students;
+    cbtAttempts = attempts;
+    cbtResults = attempts;
+    applyCloudCatalog({
+        subjects,
+        questions,
+        settings: settings.find(record => record.id === 'platform'),
+        removedSubjects
+    });
+    Object.entries({ students, subjects, questions, attempts, removedSubjects }).forEach(([key, records]) => {
+        cloudBaselines[key] = cloudCopy(records);
+    });
+    cloudBaselines.settings = cloudCopy(cbtSettings);
+}
+
+async function saveCloudData(key) {
+    const firebase = await window.cbtFirebaseReady;
+    if (key === 'results') return true;
+    if (key === 'settings') {
+        await firebase.setDocument('cbtSettings', 'platform', cbtSettings);
+        cloudBaselines.settings = cloudCopy(cbtSettings);
+        return true;
+    }
+
+    const records = key === 'questions'
+        ? questionGroups()
+        : key === 'removedSubjects'
+            ? cbtRemovedSubjects.map(id => ({ id }))
+            : window.cbtApp[key];
+    const collectionName = cloudCollections[key];
+    if (!collectionName || !Array.isArray(records)) {
+        throw new Error(`Unsupported CBT data collection: ${key}.`);
+    }
+
+    const previous = cloudBaselines[key] || [];
+    const previousById = new Map(previous.map(record => [cloudRecordId(key, record), record]));
+    const currentById = new Map(records.map(record => [cloudRecordId(key, record), record]));
+    const operations = [];
+    currentById.forEach((record, id) => {
+        if (!id || id.includes('/')) {
+            throw new Error(`A valid document ID is required to save ${key}.`);
+        }
+        const cleanRecord = JSON.parse(JSON.stringify(record));
+        if (JSON.stringify(previousById.get(id)) !== JSON.stringify(cleanRecord)) {
+            operations.push({ type: 'set', collection: collectionName, id, data: cleanRecord });
+        }
+    });
+    previousById.forEach((record, id) => {
+        if (!currentById.has(id)) operations.push({ type: 'delete', collection: collectionName, id });
+    });
+
+    await firebase.writeDocuments(operations);
+    cloudBaselines[key] = cloudCopy(records);
+    return true;
+}
+
 window.cbtApp = {
-    storageKeys: CBT_STORAGE_KEYS,
     get students() { return cbtStudents; },
-    set students(value) { cbtStudents = value; saveCbtData('students', value); },
+    set students(value) { cbtStudents = value; },
     get subjects() { return cbtSubjects; },
-    set subjects(value) { cbtSubjects = value; saveCbtData('subjects', value); },
+    set subjects(value) { cbtSubjects = value; },
     get attempts() { return cbtAttempts; },
-    set attempts(value) { cbtAttempts = value; saveCbtData('attempts', value); },
+    set attempts(value) { cbtAttempts = value; },
     get results() { return cbtResults; },
-    set results(value) { cbtResults = value; saveCbtData('results', value); },
+    set results(value) { cbtResults = value; },
     get removedSubjects() { return cbtRemovedSubjects; },
-    set removedSubjects(value) { cbtRemovedSubjects = value; saveCbtData('removedSubjects', value); },
+    set removedSubjects(value) { cbtRemovedSubjects = value; },
     get settings() { return cbtSettings; },
-    set settings(value) { cbtSettings = value; saveCbtData('settings', value); },
+    set settings(value) { cbtSettings = value; },
     questions: quizData,
     topicNames,
     save(key) {
-        return saveCbtData(key, this[key]);
+        return saveCloudData(key);
     },
     saveQuestions() {
-        return saveCbtData('questions', quizData);
+        return saveCloudData('questions');
     },
+    loadAdminData: loadAdminCloudData,
     refreshStudentSubjects,
     refreshDurationPreview: updateDurationPreview,
     refreshBranding: refreshCbtBranding
@@ -1368,44 +1467,43 @@ function findStudentSubjectAttempt(studentId, subjectId, status) {
     );
 }
 
-function verifyStudentId() {
-    const student = findRegisteredStudent(studentIdInput.value);
-    if (!student) {
-        studentVerified = false;
-        studentName = '';
-        currentStudentId = '';
-        currentStudentKey = '';
-        currentStudentClass = '';
-        studentExamOptions.hidden = true;
-        verifiedStudentSummary.hidden = true;
-        studentLoginMessage.textContent = studentIdInput.value.trim()
-            ? 'Student ID not found. Please contact an administrator.'
-            : 'Enter your registered Student ID.';
-        refreshStudentSubjects();
+async function verifyStudentId() {
+    studentVerified = false;
+    studentName = '';
+    currentStudentId = '';
+    currentStudentKey = '';
+    currentStudentClass = '';
+    studentExamOptions.hidden = true;
+    verifiedStudentSummary.hidden = true;
+    studentLoginMessage.textContent = 'Loading shared exam data…';
+    try {
+        if (!await window.cbtAppReady) return false;
+    } catch (error) {
+        console.error('Unable to load shared exam data:', error);
+        studentLoginMessage.textContent = `Unable to connect to the shared exam data. ${error.message || 'Please try again later.'}`;
         return false;
     }
 
-    const className = normalizeClassName(student.className || student.class);
-    if (!student.name || !className) {
-        studentVerified = false;
-        studentExamOptions.hidden = true;
-        refreshStudentSubjects();
-        studentLoginMessage.textContent = 'This student record is incomplete. Please contact an administrator.';
+    const studentId = normalizeStudentId(studentIdInput.value);
+    if (!studentId || studentId.length > 100 || studentId.includes('/')) {
+        studentLoginMessage.textContent = studentId
+            ? 'Enter a Student ID with no more than 100 characters or slashes.'
+            : 'Enter your Student ID.';
         return false;
     }
 
     studentVerified = true;
-    studentName = String(student.name).trim();
-    currentStudentId = String(student.studentId || student.id).trim();
-    currentStudentKey = getStudentKey(currentStudentId);
-    currentStudentClass = className;
-    selectedDifficulty = Object.keys(classMapping).find(level => classMapping[level] === className);
+    studentName = studentId;
+    currentStudentId = studentId;
+    currentStudentKey = getStudentKey(studentId);
+    currentStudentClass = 'JSS 2';
+    selectedDifficulty = 'medium';
     difficultyBtns.forEach(button => {
         button.classList.toggle('selected', button.dataset.difficulty === selectedDifficulty);
     });
     studentExamOptions.hidden = false;
-    studentLoginMessage.textContent = '';
-    verifiedStudentSummary.textContent = `${studentName} — ${currentStudentId} — ${className}`;
+    studentLoginMessage.textContent = 'Student ID is unverified; all exams use JSS 2. Duplicate attempts from another device are not blocked.';
+    verifiedStudentSummary.textContent = `${currentStudentId} — JSS 2`;
     verifiedStudentSummary.hidden = false;
     selectedTopic = '';
     document.querySelectorAll('.topic-btn').forEach(button => button.classList.remove('selected'));
@@ -1434,14 +1532,9 @@ function persistInProgressAttempt() {
     };
     cbtAttempts = cbtAttempts.map(entry => entry.id === currentAttemptId ? updated : entry);
     cbtResults = cbtResults.map(entry => entry.id === currentAttemptId ? updated : entry);
-    const attemptsSaved = saveCbtData('attempts', cbtAttempts);
-    const resultsSaved = saveCbtData('results', cbtResults);
-    if (!attemptsSaved || !resultsSaved) {
-        showTemporaryQuizMessage('Unable to save your latest answers on this device. Please contact an administrator.');
-    }
 }
 
-function saveCompletedAttempt() {
+async function saveCompletedAttempt() {
     const totalQuestions = currentQuiz.length;
     const timeTaken = Math.max(0, Math.floor((Date.now() - startTime) / 1000));
     const answeredCount = selectedAnswers.filter(answer => answer !== null && answer !== undefined).length;
@@ -1471,9 +1564,33 @@ function saveCompletedAttempt() {
         timestamp: completedAt,
         dateCompleted: completedAt
     };
-    cbtAttempts = cbtAttempts.map(attempt => attempt.id === currentAttemptId ? record : attempt);
-    cbtResults = cbtResults.filter(result => result.id !== currentAttemptId).concat(record);
-    return saveCbtData('attempts', cbtAttempts) && saveCbtData('results', cbtResults);
+    const firebase = await window.cbtFirebaseReady;
+    const cloudRecord = {
+        id: record.id,
+        studentId: record.studentId,
+        studentName: record.studentName,
+        name: record.name,
+        className: record.className,
+        class: record.class,
+        subjectId: record.subjectId,
+        subjectName: record.subjectName,
+        subject: record.subject,
+        status: record.status,
+        score: record.score,
+        percentage: record.percentage,
+        totalQuestions: record.totalQuestions,
+        answeredCount: record.answeredCount,
+        unansweredCount: record.unansweredCount,
+        timeUsed: record.timeUsed,
+        timestamp: record.timestamp,
+        dateStarted: record.dateStarted,
+        dateCompleted: record.dateCompleted,
+        durationMinutes: record.durationMinutes
+    };
+    await firebase.setDocument('cbtAttempts', record.id, cloudRecord);
+    cbtAttempts = cbtAttempts.filter(attempt => attempt.id !== record.id).concat(record);
+    cbtResults = cbtResults.filter(result => result.id !== record.id).concat(record);
+    return true;
 }
 
 function finalizeInterruptedAttempt(attempt) {
@@ -1494,14 +1611,12 @@ function finalizeInterruptedAttempt(attempt) {
     };
     cbtAttempts = cbtAttempts.map(entry => entry.id === attempt.id ? completed : entry);
     cbtResults = cbtResults.filter(result => result.id !== attempt.id).concat(completed);
-    const attemptsSaved = saveCbtData('attempts', cbtAttempts);
-    const resultsSaved = saveCbtData('results', cbtResults);
-    return attemptsSaved && resultsSaved;
+    return true;
 }
 
 studentLoginForm.addEventListener('submit', event => {
     event.preventDefault();
-    verifyStudentId();
+    void verifyStudentId();
 });
 
 studentIdInput.addEventListener('input', () => {
@@ -1530,13 +1645,10 @@ numQuestionsInput.value = String(cbtSettings.numberOfQuestions || 40);
 refreshCbtBranding();
 refreshStudentSubjects();
 updateDurationPreview();
-
-difficultyBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        difficultyBtns.forEach(b => b.classList.remove('selected'))
-        btn.classList.add('selected')
-        selectedDifficulty = btn.dataset.difficulty
-    });
+window.cbtAppReady = loadStudentCloudCatalog().catch(error => {
+    console.error('Unable to initialize shared exam data:', error);
+    studentLoginMessage.textContent = `Unable to connect to the shared exam data. ${error.message || 'Please try again later.'}`;
+    return false;
 });
 
 startBtn.addEventListener('click', startQuiz);
@@ -1900,15 +2012,23 @@ const antiCheatSystem = {
     }
 };
 
-function startQuiz() {
+async function startQuiz() {
     antiCheatSystem.cleanup();
     antiCheatSystem.reset();
 
-    const registeredStudent = studentVerified ? findRegisteredStudent(currentStudentId) : null;
-    if (!registeredStudent || normalizeStudentId(studentIdInput.value) !== normalizeStudentId(currentStudentId)) {
+    try {
+        if (!await window.cbtAppReady) return;
+    } catch (error) {
+        console.error('Shared exam data is unavailable:', error);
+        studentLoginMessage.textContent = `Unable to start without shared exam data. ${error.message || 'Please try again later.'}`;
+        return;
+    }
+
+    if (!studentVerified || !currentStudentId ||
+        normalizeStudentId(studentIdInput.value) !== normalizeStudentId(currentStudentId)) {
         studentVerified = false;
         studentExamOptions.hidden = true;
-        studentLoginMessage.textContent = 'Verify a registered Student ID before starting an exam.';
+        studentLoginMessage.textContent = 'Enter your Student ID before starting an exam.';
         refreshStudentSubjects();
         return;
     }
@@ -2015,13 +2135,6 @@ function startQuiz() {
     };
     cbtAttempts = cbtAttempts.concat(pendingAttempt);
     cbtResults = cbtResults.filter(result => result.id !== currentAttemptId).concat(pendingAttempt);
-    if (!saveCbtData('attempts', cbtAttempts) || !saveCbtData('results', cbtResults)) {
-        cbtAttempts = cbtAttempts.filter(attempt => attempt.id !== currentAttemptId);
-        cbtResults = cbtResults.filter(result => result.id !== currentAttemptId);
-        currentAttemptId = '';
-        alert('Unable to save this exam attempt in browser storage. Check available storage and try again.');
-        return;
-    }
 
     tabSwitchCount = 0;
     examStarted = true;
@@ -2147,7 +2260,7 @@ function nextQuestion() {
     }
 }
 
-function finishQuiz() {
+async function finishQuiz() {
     if (!examStarted || examSubmitted || !currentQuiz.length) return;
     examSubmitted = true;
     antiCheatSystem.disable();
@@ -2157,10 +2270,14 @@ function finishQuiz() {
     examStarted = false;
 
     calculateScore();
-    const resultSaved = saveCompletedAttempt();
-    document.getElementById('saveStatus').textContent = resultSaved
-        ? 'Exam submission successful.'
-        : 'Unable to save your result. Please contact an administrator.';
+    let resultStatus = 'Exam submission successful.';
+    try {
+        await saveCompletedAttempt();
+    } catch (error) {
+        console.error('Unable to submit the exam to Firestore:', error);
+        resultStatus = `Unable to submit your result to the shared database. ${error.message || 'Please contact an administrator.'}`;
+    }
+    document.getElementById('saveStatus').textContent = resultStatus;
     restartBtn.disabled = false;
     resultsScreen.classList.toggle('results-hidden', !cbtSettings.allowResults);
     showScreen('results');

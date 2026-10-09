@@ -2,10 +2,6 @@ const adminRoot = document.getElementById('adminPortal');
 const studentApp = document.querySelector('.container');
 const adminEntryButton = document.getElementById('openAdminBtn');
 
-// Temporary frontend-only gate; Firebase Authentication is also required.
-const ADMIN_USERNAME = 'ABU HAFS IZZUL-ARAB';
-const ADMIN_PASSWORD = '1234567890';
-
 let adminLoggedIn = false;
 let adminFirebaseUid = null;
 let firebaseAuthUser = null;
@@ -156,13 +152,17 @@ function hasDuplicateStudentId(studentId, ignoredRecordId = '') {
     );
 }
 
-function saveAdminData(key) {
-    const saved = key === 'questions'
-        ? window.cbtApp.saveQuestions()
-        : window.cbtApp.save(key);
-    if (!saved) {
+async function saveAdminData(key) {
+    try {
+        if (key === 'questions') {
+            await window.cbtApp.saveQuestions();
+        } else {
+            await window.cbtApp.save(key);
+        }
+    } catch (error) {
+        console.error(`Unable to save ${key} to Firestore:`, error);
         adminStorageError = true;
-        showAdminNotice('Could not save changes. Check available browser storage and try again.', true);
+        showAdminNotice(`Could not save ${key} to the shared database. ${formatFirebaseError(error)}`, true);
         return false;
     }
     adminStorageError = false;
@@ -173,7 +173,7 @@ function showAdminNotice(message, isError = false) {
     const notice = adminRoot.querySelector('.admin-notice');
     if (!notice) return;
     notice.textContent = adminStorageError
-        ? 'Could not save changes. Check available browser storage and try again.'
+        ? 'Could not save changes to the shared database. Check your connection and administrator access.'
         : message;
     notice.classList.toggle('error', isError || adminStorageError);
     notice.hidden = false;
@@ -196,11 +196,9 @@ function showAdminLogin(message = '', status = '') {
             <form data-form="login" class="admin-form">
                 <label>Firebase email<input name="email" type="email" autocomplete="username" required></label>
                 <label>Firebase password<input name="firebasePassword" type="password" autocomplete="current-password" required></label>
-                <label>Temporary panel username<input name="panelUsername" autocomplete="off" required></label>
-                <label>Temporary panel password<input name="panelPassword" type="password" autocomplete="off" required></label>
                 <button class="admin-primary-button" type="submit">Log in</button>
             </form>
-            <p class="admin-security-note" role="status">${escapeAdminText(status || 'Firebase sign-in and the existing temporary frontend credentials are both required. The frontend check is not secure administrator authorization.')}</p>
+            <p class="admin-security-note" role="status">${escapeAdminText(status || 'Sign in with a Firebase account that has the administrator custom claim.')}</p>
         </section>`;
 }
 
@@ -232,7 +230,7 @@ function adminShell(content) {
                     </div>
                     <button type="button" class="admin-mobile-logout" data-action="logout">Log out</button>
                 </header>
-                <p class="admin-notice ${adminStorageError ? 'error' : ''}" role="status" ${adminStorageError ? '' : 'hidden'}>${adminStorageError ? 'Could not save changes. Check available browser storage and try again.' : ''}</p>
+                <p class="admin-notice ${adminStorageError ? 'error' : ''}" role="status" ${adminStorageError ? '' : 'hidden'}>${adminStorageError ? 'Could not save changes to the shared database. Check your connection and administrator access.' : ''}</p>
                 <section class="admin-content">${content}</section>
             </div>
         </div>`;
@@ -260,8 +258,8 @@ function renderDashboard() {
         <article class="admin-stat-card"><span>${title}</span><strong>${value}</strong><small>${caption}</small></article>
     `).join('')}</div>
     <div class="admin-welcome-card"><h2>Welcome to the school CBT dashboard</h2>
-        <p>Manage students, question banks, subject timers, attempts, and local result records from the navigation.</p>
-        <p class="admin-local-warning">All records are stored in this browser only. Clearing browser data removes them.</p>
+        <p>Manage students, question banks, subject timers, attempts, and shared result records from the navigation.</p>
+        <p class="admin-local-warning">Student IDs are self-reported and all exams currently use JSS 2. Students cannot securely verify their roster identity or check a previous attempt from another device; submitted records are shared here.</p>
     </div>`;
 }
 
@@ -270,7 +268,7 @@ function renderStudents() {
         const text = `${student.name} ${student.studentId} ${student.className}`.toLowerCase();
         return text.includes(studentSearch.toLowerCase());
     });
-    return `<div class="admin-section-heading"><div><h2>Students</h2><p>Add and maintain local student records.</p></div>
+    return `<div class="admin-section-heading"><div><h2>Students</h2><p>Add and maintain shared student records.</p></div>
         <div class="admin-section-actions">
             <button class="admin-light-button" type="button" data-action="download-student-template">Download Student Template</button>
             <button class="admin-light-button" type="button" data-action="import-students">Import Students</button>
@@ -622,7 +620,7 @@ function renderAttempts() {
     const attempts = window.cbtApp.attempts.slice().sort((a, b) =>
         String(b.dateCompleted || b.dateStarted || '').localeCompare(String(a.dateCompleted || a.dateStarted || ''))
     );
-    return `<div class="admin-section-heading"><div><h2>Attempts</h2><p>Inspect, edit, reset, or remove a student's attempt.</p></div></div>
+    return `<div class="admin-section-heading"><div><h2>Attempts</h2><p>Completed submissions shared through Firestore. Active attempts are not saved.</p></div></div>
         <div class="admin-table-wrap"><table><thead><tr><th>Student ID</th><th>Student</th><th>Class</th><th>Subject</th><th>Status</th><th>Score</th><th>Date</th><th>Time used</th><th>Actions</th></tr></thead>
         <tbody>${attempts.length ? attempts.map(attempt => `<tr>
             <td>${escapeAdminText(attempt.studentId || '--')}</td><td>${escapeAdminText(attempt.studentName)}</td><td>${escapeAdminText(attempt.className)}</td>
@@ -649,7 +647,7 @@ function renderResults() {
     });
     const students = [...new Set(window.cbtApp.results.map(result => result.studentName || result.name).filter(Boolean))];
     const classes = [...new Set(window.cbtApp.results.map(result => result.className).filter(Boolean))];
-    return `<div class="admin-section-heading"><div><h2>Results</h2><p>Student score records saved on this device.</p></div></div>
+    return `<div class="admin-section-heading"><div><h2>Results</h2><p>Student score records saved to the shared database.</p></div></div>
         <div class="admin-filter-grid">
             <input data-result-filter="search" value="${escapeAdminText(resultFilters.search)}" placeholder="Search results">
             <select data-result-filter="student"><option value="">All students</option>${students.map(name => `<option ${resultFilters.student === name ? 'selected' : ''} value="${escapeAdminText(name)}">${escapeAdminText(name)}</option>`).join('')}</select>
@@ -668,7 +666,7 @@ function renderResults() {
 
 function renderSettings() {
     const settings = window.cbtApp.settings;
-    return `<div class="admin-section-heading"><div><h2>Settings</h2><p>Simple platform defaults for this browser.</p></div></div>
+    return `<div class="admin-section-heading"><div><h2>Settings</h2><p>Shared platform defaults.</p></div></div>
         <form data-form="settings" class="admin-form">
             <label>School name<input name="schoolName" value="${escapeAdminText(settings.schoolName)}"></label>
             <label>Exam platform name<input name="platformName" value="${escapeAdminText(settings.platformName)}" required></label>
@@ -679,7 +677,7 @@ function renderSettings() {
             <label class="admin-check-label"><input name="allowResults" type="checkbox" ${settings.allowResults ? 'checked' : ''}> Show results to students after submission</label>
             <button class="admin-primary-button" type="submit">Save Settings</button>
         </form>
-        <div class="admin-security-note">A temporary frontend username/password check remains in addition to Firebase Authentication. It is not secure administrator authorization.</div>`;
+        <div class="admin-security-note">Administrator access requires a Firebase Authentication account with the administrator custom claim.</div>`;
 }
 
 function formatAdminDate(value) {
@@ -716,7 +714,7 @@ function openAdmin() {
     adminRoot.hidden = false;
     const status = firebaseAuthStateError ||
         (firebaseAuthUser
-            ? `Firebase account ${firebaseAuthUser.email || firebaseAuthUser.uid} is signed in. Complete both login checks to continue.`
+            ? `Firebase account ${firebaseAuthUser.email || firebaseAuthUser.uid} is signed in.`
             : '');
     showAdminLogin('', status);
 }
@@ -735,7 +733,7 @@ function closeAdmin(logout = false) {
 function formatFirebaseError(error) {
     const code = typeof error?.code === 'string' ? error.code : 'unknown';
     const message = typeof error?.message === 'string' ? error.message : String(error);
-    return `Firebase Authentication error (${code}): ${message}`;
+    return `Firebase error (${code}): ${message}`;
 }
 
 async function signInAdmin(values) {
@@ -751,17 +749,14 @@ async function signInAdmin(values) {
             throw new Error('Firebase sign-in succeeded without returning an authenticated user.');
         }
 
-        if (values.get('panelUsername') !== ADMIN_USERNAME ||
-            values.get('panelPassword') !== ADMIN_PASSWORD) {
-            try {
-                await firebase.signOut(firebase.auth);
-            } catch (error) {
-                console.error('Firebase Authentication sign-out failed after panel credential rejection:', error);
-                return showAdminLogin(`Temporary panel credentials were incorrect. ${formatFirebaseError(error)}`);
-            }
-            return showAdminLogin('Firebase sign-in succeeded, but the temporary panel credentials were incorrect.');
+        const token = await credential.user.getIdTokenResult(true);
+        if (token.claims.admin !== true) {
+            await firebase.signOut(firebase.auth);
+            firebaseAuthUser = null;
+            return showAdminLogin('This Firebase account does not have administrator access.');
         }
 
+        await window.cbtApp.loadAdminData();
         firebaseAuthUser = credential.user;
         adminFirebaseUid = credential.user.uid;
         adminLoggedIn = true;
@@ -784,10 +779,11 @@ async function signOutAdmin() {
     }
 }
 
-function removeAttempt(attemptId) {
+async function removeAttempt(attemptId) {
     window.cbtApp.attempts = window.cbtApp.attempts.filter(attempt => attempt.id !== attemptId);
     window.cbtApp.results = window.cbtApp.results.filter(result => result.id !== attemptId);
-    return saveAdminData('attempts') && saveAdminData('results');
+    if (!await saveAdminData('attempts')) return false;
+    return saveAdminData('results');
 }
 
 function buildResultFromAttempt(attempt) {
@@ -804,7 +800,7 @@ function buildResultFromAttempt(attempt) {
 
 adminEntryButton.addEventListener('click', openAdmin);
 
-adminRoot.addEventListener('click', event => {
+adminRoot.addEventListener('click', async event => {
     const button = event.target.closest('[data-action]');
     if (!button) return;
     const action = button.dataset.action;
@@ -913,7 +909,7 @@ adminRoot.addEventListener('click', event => {
                     ans: row.answerIndex
                 });
             });
-            saveAdminData('questions');
+            if (!await saveAdminData('questions')) return;
             window.cbtApp.refreshStudentSubjects();
             adminImportState = null;
             renderAdminPage();
@@ -935,7 +931,7 @@ adminRoot.addEventListener('click', event => {
                     });
                 }
             });
-            saveAdminData('students');
+            if (!await saveAdminData('students')) return;
             adminImportState = null;
             renderAdminPage();
             showAdminNotice('Student records imported successfully.');
@@ -984,7 +980,7 @@ adminRoot.addEventListener('click', event => {
         const selectedAttempt = related[Number(selection) - 1];
         if (!selectedAttempt) return showAdminNotice('Enter a valid attempt number.', true);
         if (!confirm(`Reset ${student.name}'s ${selectedAttempt.subjectName || 'exam'} attempt?`)) return;
-        removeAttempt(selectedAttempt.id);
+        if (!await removeAttempt(selectedAttempt.id)) return;
         renderAdminPage();
         return;
     }
@@ -992,7 +988,7 @@ adminRoot.addEventListener('click', event => {
         const student = window.cbtApp.students.find(entry => String(entry.id) === id);
         if (!student || !confirm(`Remove ${student.name} from the student list? Existing result history will remain.`)) return;
         window.cbtApp.students = window.cbtApp.students.filter(entry => String(entry.id) !== id);
-        saveAdminData('students');
+        if (!await saveAdminData('students')) return;
         renderAdminPage();
         return;
     }
@@ -1022,7 +1018,7 @@ adminRoot.addEventListener('click', event => {
         const list = window.cbtApp.questions[button.dataset.subject]?.[button.dataset.level];
         if (!Array.isArray(list)) return;
         list.splice(Number(button.dataset.index), 1);
-        saveAdminData('questions');
+        if (!await saveAdminData('questions')) return;
         renderAdminPage();
         return;
     }
@@ -1060,7 +1056,7 @@ adminRoot.addEventListener('click', event => {
         window.cbtApp.subjects = window.cbtApp.subjects.map(subject =>
             subject.id === id ? { ...subject, isEnabled: !subject.isEnabled } : subject
         );
-        saveAdminData('subjects');
+        if (!await saveAdminData('subjects')) return;
         window.cbtApp.refreshStudentSubjects();
         renderAdminPage();
         return;
@@ -1072,9 +1068,9 @@ adminRoot.addEventListener('click', event => {
         window.cbtApp.removedSubjects = [...new Set(window.cbtApp.removedSubjects.concat(id))];
         delete window.cbtApp.questions[id];
         delete window.cbtApp.topicNames[id];
-        saveAdminData('subjects');
-        saveAdminData('removedSubjects');
-        saveAdminData('questions');
+        if (!await saveAdminData('subjects')) return;
+        if (!await saveAdminData('removedSubjects')) return;
+        if (!await saveAdminData('questions')) return;
         window.cbtApp.refreshStudentSubjects();
         renderAdminPage();
         return;
@@ -1087,7 +1083,7 @@ adminRoot.addEventListener('click', event => {
     if (action === 'attempt-reset' || action === 'attempt-delete') {
         const attempt = window.cbtApp.attempts.find(entry => entry.id === id);
         if (!attempt || !confirm(`${action === 'attempt-reset' ? 'Reset' : 'Delete'} ${attempt.studentName}'s ${attempt.subjectName || 'exam'} attempt?`)) return;
-        removeAttempt(id);
+        if (!await removeAttempt(id)) return;
         renderAdminPage();
         return;
     }
@@ -1097,8 +1093,8 @@ adminRoot.addEventListener('click', event => {
         const completedAttempt = { ...attempt, status: 'Completed', dateCompleted: new Date().toISOString() };
         window.cbtApp.attempts = window.cbtApp.attempts.map(entry => entry.id === id ? completedAttempt : entry);
         window.cbtApp.results = window.cbtApp.results.filter(result => result.id !== id).concat(buildResultFromAttempt(completedAttempt));
-        saveAdminData('attempts');
-        saveAdminData('results');
+        if (!await saveAdminData('attempts')) return;
+        if (!await saveAdminData('results')) return;
         renderAdminPage();
         return;
     }
@@ -1123,8 +1119,8 @@ adminRoot.addEventListener('click', event => {
         };
         window.cbtApp.attempts = window.cbtApp.attempts.map(entry => entry.id === id ? editedAttempt : entry);
         window.cbtApp.results = window.cbtApp.results.filter(result => result.id !== id).concat(buildResultFromAttempt(editedAttempt));
-        saveAdminData('attempts');
-        saveAdminData('results');
+        if (!await saveAdminData('attempts')) return;
+        if (!await saveAdminData('results')) return;
         renderAdminPage();
         return;
     }
@@ -1168,7 +1164,7 @@ adminRoot.addEventListener('change', event => {
     }
 });
 
-adminRoot.addEventListener('submit', event => {
+adminRoot.addEventListener('submit', async event => {
     event.preventDefault();
     const form = event.target;
     const values = new FormData(form);
@@ -1193,7 +1189,7 @@ adminRoot.addEventListener('submit', event => {
         window.cbtApp.students = originalId
             ? window.cbtApp.students.map(entry => String(entry.id) === originalId ? student : entry)
             : window.cbtApp.students.concat(student);
-        saveAdminData('students');
+        if (!await saveAdminData('students')) return;
         if (previousStudent) {
             const previousKey = `id:${String(previousStudent.studentId || previousStudent.id).toLowerCase()}`;
             const updatedKey = `id:${student.studentId.toLowerCase()}`;
@@ -1216,8 +1212,8 @@ adminRoot.addEventListener('submit', event => {
             window.cbtApp.results = window.cbtApp.results.map(result =>
                 matchesPreviousStudent(result) ? updateStudentIdentity(result) : result
             );
-            saveAdminData('attempts');
-            saveAdminData('results');
+            if (!await saveAdminData('attempts')) return;
+            if (!await saveAdminData('results')) return;
         }
         renderAdminPage();
         showAdminNotice('Student saved.');
@@ -1255,7 +1251,7 @@ adminRoot.addEventListener('submit', event => {
         if (!window.cbtApp.questions[subjectId]) window.cbtApp.questions[subjectId] = {};
         if (!Array.isArray(window.cbtApp.questions[subjectId][difficulty])) window.cbtApp.questions[subjectId][difficulty] = [];
         window.cbtApp.questions[subjectId][difficulty].push(question);
-        saveAdminData('questions');
+        if (!await saveAdminData('questions')) return;
         window.cbtApp.refreshStudentSubjects();
         renderAdminPage();
         showAdminNotice('Question saved.');
@@ -1290,10 +1286,10 @@ adminRoot.addEventListener('submit', event => {
             window.cbtApp.removedSubjects = window.cbtApp.removedSubjects.filter(removedId => removedId !== id);
         }
         window.cbtApp.topicNames[id] = name;
-        saveAdminData('subjects');
+        if (!await saveAdminData('subjects')) return;
         if (!originalId) {
-            saveAdminData('questions');
-            saveAdminData('removedSubjects');
+            if (!await saveAdminData('questions')) return;
+            if (!await saveAdminData('removedSubjects')) return;
         }
         window.cbtApp.refreshStudentSubjects();
         renderAdminPage();
@@ -1318,7 +1314,7 @@ adminRoot.addEventListener('submit', event => {
             allowResults: values.get('allowResults') === 'on',
             examInstructions: String(values.get('examInstructions')).trim()
         };
-        saveAdminData('settings');
+        if (!await saveAdminData('settings')) return;
         document.getElementById('numQuestions').value = String(numberOfQuestions);
         window.cbtApp.refreshBranding();
         window.cbtApp.refreshDurationPreview();
@@ -1343,7 +1339,7 @@ window.cbtFirebaseReady.then(firebase => {
 
         if (!adminLoggedIn && !adminRoot.hidden) {
             const status = user
-                ? `Firebase account ${user.email || user.uid} is signed in. Complete both login checks to continue.`
+                ? `Firebase account ${user.email || user.uid} is signed in.`
                 : '';
             showAdminLogin(adminLoginErrorMessage, status);
         }

@@ -6,8 +6,73 @@ service cloud.firestore {
       return request.auth != null && request.auth.token.admin == true;
     }
 
-    match /{document=**} {
+    function validStudentSubmission(attemptId) {
+      let data = request.resource.data;
+      return data.keys().hasAll([
+          'id', 'studentId', 'studentName', 'name', 'className', 'class',
+          'subjectId', 'subjectName', 'subject', 'status', 'score',
+          'percentage', 'totalQuestions', 'answeredCount', 'unansweredCount',
+          'timeUsed', 'timestamp', 'dateStarted', 'dateCompleted', 'durationMinutes'
+        ]) &&
+        data.keys().hasOnly([
+          'id', 'studentId', 'studentName', 'name', 'className', 'class',
+          'subjectId', 'subjectName', 'subject', 'status', 'score',
+          'percentage', 'totalQuestions', 'answeredCount', 'unansweredCount',
+          'timeUsed', 'timestamp', 'dateStarted', 'dateCompleted', 'durationMinutes'
+        ]) &&
+        data.id == attemptId &&
+        data.studentId is string && data.studentId.size() > 0 && data.studentId.size() <= 100 &&
+        data.studentName is string && data.studentName.size() <= 100 &&
+        data.name is string && data.name.size() <= 100 &&
+        data.className == 'JSS 2' && data.class == 'JSS 2' &&
+        data.subjectId is string && data.subjectId.size() > 0 && data.subjectId.size() <= 150 &&
+        data.subjectName is string && data.subjectName.size() <= 150 &&
+        data.subject is string && data.subject.size() <= 150 &&
+        data.status == 'Completed' &&
+        data.score is int && data.totalQuestions is int &&
+        data.totalQuestions >= 1 && data.totalQuestions <= 40 &&
+        data.score >= 0 && data.score <= data.totalQuestions &&
+        data.percentage is int && data.percentage >= 0 && data.percentage <= 100 &&
+        data.answeredCount is int && data.answeredCount >= 0 && data.answeredCount <= data.totalQuestions &&
+        data.unansweredCount is int && data.unansweredCount == data.totalQuestions - data.answeredCount &&
+        data.timeUsed is string && data.timeUsed.size() <= 10 &&
+        data.timestamp is string && data.timestamp.size() <= 40 &&
+        data.dateStarted is string && data.dateStarted.size() <= 40 &&
+        data.dateCompleted is string && data.dateCompleted.size() <= 40 &&
+        data.durationMinutes is int && data.durationMinutes >= 1 && data.durationMinutes <= 300;
+    }
+
+    match /cbtStudents/{studentId} {
       allow read, write: if isAdministrator();
+    }
+
+    match /cbtAttempts/{attemptId} {
+      allow create: if validStudentSubmission(attemptId);
+      allow read, update, delete: if isAdministrator();
+    }
+
+    match /cbtSubjects/{subjectId} {
+      allow read: if true;
+      allow write: if isAdministrator();
+    }
+
+    match /cbtQuestions/{questionGroupId} {
+      allow read: if true;
+      allow write: if isAdministrator();
+    }
+
+    match /cbtSettings/{settingId} {
+      allow get: if settingId == 'platform' || isAdministrator();
+      allow list, write: if isAdministrator();
+    }
+
+    match /cbtRemovedSubjects/{subjectId} {
+      allow read: if true;
+      allow write: if isAdministrator();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }
