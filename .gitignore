@@ -8,3 +8,6 @@ firebase-debug.*.log
 # Public Firebase web-client settings used by the static site; never put service-account keys here.
 firebase-config.js
 !firebase-config.js
+serviceAccountKey.json
+functions/serviceAccountKey.jsonserviceAccountKey.json
+functions/serviceAccountKey.json
