@@ -1775,11 +1775,17 @@ const antiCheatSystem = {
     activeWarningModal: null,
     activeWarningInterval: null,
     tabSwitchPending: false,
+    incidentDebounceMs: 500,
+    lastIncidentTimestamp: 0,
+    pendingWarning: null,
     handlers: {
         popstate: null,
         beforeunload: null,
         pagehide: null,
         visibilitychange: null,
+        blur: null,
+        focus: null,
+        fullscreenchange: null,
         contextmenu: null,
         keydown: null
     },
@@ -1789,6 +1795,10 @@ const antiCheatSystem = {
      */
     init() {
         if (examStarted && !examSubmitted) {
+            // Reset the anti-cheat strike counter only when a new exam session officially starts
+            this.navigationAttemptCount = 0;
+            this.pendingWarning = null;
+            this.lastIncidentTimestamp = 0;
             this.navigationPreventionActive = true;
             this.attachGlobalListeners();
             this.blockBrowserNavigation();
@@ -1803,11 +1813,17 @@ const antiCheatSystem = {
         this.handlers.beforeunload = () => this.handleBeforeUnload();
         this.handlers.pagehide = () => this.handlePageHide();
         this.handlers.visibilitychange = () => this.handleVisibilityChange();
+        this.handlers.blur = () => this.handleWindowBlur();
+        this.handlers.focus = () => this.handleWindowFocus();
+        this.handlers.fullscreenchange = () => this.handleFullscreenChange();
 
         window.addEventListener('popstate', this.handlers.popstate);
         window.addEventListener('beforeunload', this.handlers.beforeunload);
         window.addEventListener('pagehide', this.handlers.pagehide);
         document.addEventListener('visibilitychange', this.handlers.visibilitychange);
+        window.addEventListener('blur', this.handlers.blur);
+        window.addEventListener('focus', this.handlers.focus);
+        document.addEventListener('fullscreenchange', this.handlers.fullscreenchange);
     },
 
     /**
@@ -1817,15 +1833,7 @@ const antiCheatSystem = {
         if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
 
         history.pushState(null, null, window.location.href);
-        this.navigationAttemptCount++;
-
-        const attemptsLeft = Math.max(0, this.maxAttemptsBeforeAutoSubmit - this.navigationAttemptCount);
-        if (this.navigationAttemptCount >= this.maxAttemptsBeforeAutoSubmit) {
-            this.autoSubmitExam('Too many navigation attempts detected');
-            return;
-        }
-
-        this.showCheatWarningModal(`Navigation attempt detected: ${source}`, attemptsLeft);
+        this.recordIncident(source);
     },
 
     /**
@@ -1842,11 +1850,89 @@ const antiCheatSystem = {
     },
 
     /**
+     * Unified incident recorder with debouncing.
+     * All "leaving the exam" events funnel through here so that a single
+     * incident (e.g. blur + visibilitychange firing together when the
+     * browser is minimized) only increments the strike counter once
+     * within the debounce window.
+     */
+    recordIncident(source) {
+        if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
+
+        const now = Date.now();
+        // Debounce: ignore events that belong to the same incident.
+        if (now - this.lastIncidentTimestamp < this.incidentDebounceMs) {
+            return;
+        }
+        this.lastIncidentTimestamp = now;
+
+        this.navigationAttemptCount++;
+
+        const attemptsLeft = Math.max(0, this.maxAttemptsBeforeAutoSubmit - this.navigationAttemptCount);
+        if (this.navigationAttemptCount >= this.maxAttemptsBeforeAutoSubmit) {
+            this.pendingWarning = null;
+            this.autoSubmitExam('Too many attempts to leave the exam window detected');
+            return;
+        }
+
+        const message = `Leaving the exam window or tab is prohibited. (${source})`;
+
+        // If the student is actively viewing the exam right now (e.g. pressed Esc
+        // out of fullscreen while still on the tab), warn immediately. Otherwise
+        // they are away from the tab, so queue the warning and reveal it only when
+        // they return to the exam tab/window.
+        if (document.visibilityState === 'visible' && document.hasFocus()) {
+            this.showCheatWarningModal(message, attemptsLeft);
+        } else {
+            this.pendingWarning = { message, attemptsLeft };
+        }
+    },
+
+    /**
+     * Reveal a queued warning once the student is back on the exam tab.
+     */
+    flushPendingWarning() {
+        if (!this.pendingWarning) return;
+        // Only reveal the warning while the exam tab is actually visible.
+        if (document.visibilityState !== 'visible') return;
+
+        const { message, attemptsLeft } = this.pendingWarning;
+        this.pendingWarning = null;
+        this.showCheatWarningModal(message, attemptsLeft);
+    },
+
+    /**
+     * Handle window losing focus (defocus)
+     */
+    handleWindowBlur() {
+        if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
+        this.recordIncident('Window lost focus');
+    },
+
+    /**
+     * Handle window regaining focus (student returned to the exam)
+     */
+    handleWindowFocus() {
+        if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
+        this.flushPendingWarning();
+    },
+
+    /**
+     * Handle exiting/entering fullscreen mode
+     */
+    handleFullscreenChange() {
+        if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
+        if (!document.fullscreenElement) this.recordIncident('Exited fullscreen mode');
+        else this.flushPendingWarning();
+    },
+
+    /**
      * Handle tab/window visibility changes
      */
     handleVisibilityChange() {
         if (!examStarted || examSubmitted || !this.navigationPreventionActive) return;
-        if (document.visibilityState === 'hidden') finishQuiz();
+        if (document.visibilityState === 'hidden') this.recordIncident('Tab switched or window minimized');
+        else if (document.visibilityState === 'visible') this.flushPendingWarning();
     },
 
     /**
@@ -2071,6 +2157,21 @@ const antiCheatSystem = {
             this.handlers.visibilitychange = null;
         }
 
+        if (this.handlers.blur) {
+            window.removeEventListener('blur', this.handlers.blur);
+            this.handlers.blur = null;
+        }
+
+        if (this.handlers.focus) {
+            window.removeEventListener('focus', this.handlers.focus);
+            this.handlers.focus = null;
+        }
+
+        if (this.handlers.fullscreenchange) {
+            document.removeEventListener('fullscreenchange', this.handlers.fullscreenchange);
+            this.handlers.fullscreenchange = null;
+        }
+
         if (this.handlers.contextmenu) {
             document.removeEventListener('contextmenu', this.handlers.contextmenu);
             this.handlers.contextmenu = null;
@@ -2094,6 +2195,8 @@ const antiCheatSystem = {
         this.navigationPreventionActive = false;
         this.warningMessages = [];
         this.tabSwitchPending = false;
+        this.pendingWarning = null;
+        this.lastIncidentTimestamp = 0;
     }
 };
 
