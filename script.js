@@ -1009,6 +1009,8 @@ let currentStudentClass = '';
 let studentVerified = false;
 let currentAttemptId = '';
 let visitedQuestions = [];
+let studentCatalogLoadError = null;
+let startQuizInProgress = false;
 
 const classMapping = {
     easy: 'JSS 1',
@@ -1692,12 +1694,21 @@ refreshCbtBranding();
 refreshStudentSubjects();
 updateDurationPreview();
 window.cbtAppReady = loadStudentCloudCatalog().catch(error => {
+    studentCatalogLoadError = error;
     console.error('Unable to initialize shared exam data:', error);
     studentLoginMessage.textContent = `Unable to connect to the shared exam data. ${error.message || 'Please try again later.'}`;
     return false;
 });
 
-startBtn.addEventListener('click', startQuiz);
+startBtn.addEventListener('click', async () => {
+    if (startQuizInProgress || examStarted) return;
+    startQuizInProgress = true;
+    try {
+        await startQuiz();
+    } finally {
+        startQuizInProgress = false;
+    }
+});
 nextBtn.addEventListener('click', nextQuestion);
 quitBtn.addEventListener('click', quitQuiz);
 restartBtn.addEventListener('click', restartQuiz);
@@ -2059,11 +2070,17 @@ const antiCheatSystem = {
 };
 
 async function startQuiz() {
+    if (examStarted) return;
+
     antiCheatSystem.cleanup();
     antiCheatSystem.reset();
 
     try {
-        if (!await window.cbtAppReady) return;
+        if (!await window.cbtAppReady) {
+            console.error('Shared exam data is unavailable:', studentCatalogLoadError);
+            studentLoginMessage.textContent = `Unable to start without shared exam data. ${studentCatalogLoadError?.message || 'Please reload the page and try again.'}`;
+            return;
+        }
     } catch (error) {
         console.error('Shared exam data is unavailable:', error);
         studentLoginMessage.textContent = `Unable to start without shared exam data. ${error.message || 'Please try again later.'}`;
@@ -2105,7 +2122,7 @@ async function startQuiz() {
     }
 
     let numQuestion = Number.parseInt(numQuestionsInput.value, 10);
-    if (!Number.isInteger(numQuestion) || numQuestion < 5 || numQuestion > 40) {
+    if (!Number.isInteger(numQuestion) || numQuestion < 5 || numQuestion > 60) {
         alert('Please enter a number between 5 and 40.');
         return;
     }
