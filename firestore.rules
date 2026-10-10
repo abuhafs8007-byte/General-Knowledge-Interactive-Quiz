@@ -46,6 +46,25 @@ service cloud.firestore {
       allow read, write: if isAdministrator();
     }
 
+    match /cbtStudentIdLookup/{studentId} {
+      allow get: if !exists(/databases/$(database)/documents/cbtStudentIdLookup/$(studentId)) ||
+        (resource.data.keys().hasOnly(['studentId']) &&
+          resource.data.keys().hasAll(['studentId']) &&
+          resource.data.studentId is string &&
+          resource.data.studentId.size() > 0 &&
+          resource.data.studentId.size() <= 100 &&
+          resource.data.studentId == studentId);
+      allow list: if isAdministrator();
+      allow create, update: if isAdministrator() &&
+        request.resource.data.keys().hasOnly(['studentId']) &&
+        request.resource.data.keys().hasAll(['studentId']) &&
+        request.resource.data.studentId is string &&
+        request.resource.data.studentId.size() > 0 &&
+        request.resource.data.studentId.size() <= 100 &&
+        request.resource.data.studentId == studentId;
+      allow delete: if isAdministrator();
+    }
+
     match /cbtAttempts/{attemptId} {
       allow create: if validStudentSubmission(attemptId);
       allow read, update, delete: if isAdministrator();

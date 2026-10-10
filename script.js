@@ -1247,8 +1247,9 @@ async function loadStudentCloudCatalog() {
 
 async function loadAdminCloudData() {
     const firebase = await window.cbtFirebaseReady;
-    const [students, subjects, questions, attempts, settings, removedSubjects] = await Promise.all([
+    const [students, studentIdLookup, subjects, questions, attempts, settings, removedSubjects] = await Promise.all([
         firebase.listDocuments(cloudCollections.students),
+        firebase.listDocuments('cbtStudentIdLookup'),
         firebase.listDocuments(cloudCollections.subjects),
         firebase.listDocuments(cloudCollections.questions),
         firebase.listDocuments(cloudCollections.attempts),
@@ -1264,7 +1265,7 @@ async function loadAdminCloudData() {
         settings: settings.find(record => record.id === 'platform'),
         removedSubjects
     });
-    Object.entries({ students, subjects, questions, attempts, removedSubjects }).forEach(([key, records]) => {
+    Object.entries({ students, studentIdLookup, subjects, questions, attempts, removedSubjects }).forEach(([key, records]) => {
         cloudBaselines[key] = cloudCopy(records);
     });
     cloudBaselines.settings = cloudCopy(cbtSettings);
@@ -1306,8 +1307,46 @@ async function saveCloudData(key) {
         if (!currentById.has(id)) operations.push({ type: 'delete', collection: collectionName, id });
     });
 
+    if (key === 'students') {
+        const previousLookupById = new Map(
+            (cloudBaselines.studentIdLookup || []).map(record => [record.id, record])
+        );
+        const currentLookupById = new Map(
+            records.map(student => {
+                const studentId = normalizeStudentId(student.studentId || student.id);
+                return [studentId, { id: studentId, studentId }];
+            }).filter(([studentId]) => studentId)
+        );
+        currentLookupById.forEach((record, id) => {
+            if (!id || id.includes('/')) {
+                throw new Error('A valid Student ID is required to save the public ID lookup.');
+            }
+            if (JSON.stringify(previousLookupById.get(id)) !== JSON.stringify(record)) {
+                operations.push({
+                    type: 'set',
+                    collection: 'cbtStudentIdLookup',
+                    id,
+                    data: { studentId: id }
+                });
+            }
+        });
+        previousLookupById.forEach((record, id) => {
+            if (!currentLookupById.has(id)) {
+                operations.push({ type: 'delete', collection: 'cbtStudentIdLookup', id });
+            }
+        });
+    }
+
     await firebase.writeDocuments(operations);
     cloudBaselines[key] = cloudCopy(records);
+    if (key === 'students') {
+        cloudBaselines.studentIdLookup = Array.from(new Map(
+            records.map(student => {
+                const studentId = normalizeStudentId(student.studentId || student.id);
+                return [studentId, { id: studentId, studentId }];
+            }).filter(([studentId]) => studentId)
+        ).values());
+    }
     return true;
 }
 
@@ -1476,15 +1515,6 @@ async function verifyStudentId() {
     currentStudentClass = '';
     studentExamOptions.hidden = true;
     verifiedStudentSummary.hidden = true;
-    studentLoginMessage.textContent = 'Loading shared exam data…';
-    try {
-        if (!await window.cbtAppReady) return false;
-    } catch (error) {
-        console.error('Unable to load shared exam data:', error);
-        studentLoginMessage.textContent = `Unable to connect to the shared exam data. ${error.message || 'Please try again later.'}`;
-        return false;
-    }
-
     const studentId = normalizeStudentId(studentIdInput.value);
     if (!studentId || studentId.length > 100 || studentId.includes('/')) {
         studentLoginMessage.textContent = studentId
@@ -1493,18 +1523,33 @@ async function verifyStudentId() {
         return false;
     }
 
-    studentVerified = true;
-    studentName = studentId;
-    currentStudentId = studentId;
-    currentStudentKey = getStudentKey(studentId);
-    currentStudentClass = 'JSS 2';
-    selectedDifficulty = 'medium';
+    studentLoginMessage.textContent = 'Verifying Student ID…';
+    try {
+        const firebase = await window.cbtFirebaseReady;
+        const lookup = await firebase.getDocument('cbtStudentIdLookup', studentId);
+        if (!lookup || normalizeStudentId(lookup.studentId) !== studentId) {
+            studentLoginMessage.textContent = 'Student ID not found. Check the ID or contact an administrator.';
+            return false;
+        }
+
+        studentVerified = true;
+        studentName = studentId;
+        currentStudentId = studentId;
+        currentStudentKey = getStudentKey(studentId);
+        currentStudentClass = 'JSS 2';
+        selectedDifficulty = 'medium';
+    } catch (error) {
+        console.error('Unable to verify Student ID:', error);
+        studentLoginMessage.textContent = `Unable to verify Student ID. ${error.message || 'Please try again later.'}`;
+        return false;
+    }
+
     difficultyBtns.forEach(button => {
         button.classList.toggle('selected', button.dataset.difficulty === selectedDifficulty);
     });
     studentExamOptions.hidden = false;
-    studentLoginMessage.textContent = 'Student ID is unverified; all exams use JSS 2. Duplicate attempts from another device are not blocked.';
-    verifiedStudentSummary.textContent = `${currentStudentId} — JSS 2`;
+    studentLoginMessage.textContent = 'Student ID found. Student names and registered classes are private; JSS 2 exam settings will be used.';
+    verifiedStudentSummary.textContent = `${currentStudentId} — ${currentStudentClass}`;
     verifiedStudentSummary.hidden = false;
     selectedTopic = '';
     document.querySelectorAll('.topic-btn').forEach(button => button.classList.remove('selected'));
