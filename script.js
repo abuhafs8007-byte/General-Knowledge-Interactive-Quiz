@@ -1245,6 +1245,7 @@ async function loadStudentCloudCatalog() {
         settings,
         removedSubjects
     });
+    return true;
 }
 
 async function loadAdminCloudData() {
