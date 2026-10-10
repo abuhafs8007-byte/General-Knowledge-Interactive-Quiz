@@ -1101,6 +1101,15 @@ function normalizeClassName(value) {
     return ({ 'JSS1': 'JSS 1', 'JSS 1': 'JSS 1', 'JSS2': 'JSS 2', 'JSS 2': 'JSS 2', 'JSS3': 'JSS 3', 'JSS 3': 'JSS 3' })[normalized] || '';
 }
 
+function getDifficultyForClass(className) {
+    const normalized = normalizeClassName(className);
+    return {
+        'JSS 1': 'easy',
+        'JSS 2': 'medium',
+        'JSS 3': 'hard'
+    }[normalized] || 'medium';
+}
+
 function getStudentKey(studentId) {
     return `id:${normalizeStudentId(studentId).toLowerCase()}`;
 }
@@ -1539,8 +1548,19 @@ async function verifyStudentId() {
         studentName = studentId;
         currentStudentId = studentId;
         currentStudentKey = getStudentKey(studentId);
-        currentStudentClass = 'JSS 2';
-        selectedDifficulty = 'medium';
+
+        const studentRecord = await firebase.getDocument('cbtStudents', studentId).catch(() => null);
+        const secureClass = studentRecord
+            ? normalizeClassName(studentRecord.className || studentRecord.class)
+            : '';
+
+        if (secureClass) {
+            currentStudentClass = secureClass;
+            selectedDifficulty = getDifficultyForClass(secureClass);
+        } else {
+            selectedDifficulty = '';
+            currentStudentClass = '';
+        }
     } catch (error) {
         console.error('Unable to verify Student ID:', error);
         studentLoginMessage.textContent = `Unable to verify Student ID. ${error.message || 'Please try again later.'}`;
@@ -1548,11 +1568,14 @@ async function verifyStudentId() {
     }
 
     difficultyBtns.forEach(button => {
+        button.disabled = !studentVerified;
         button.classList.toggle('selected', button.dataset.difficulty === selectedDifficulty);
     });
     studentExamOptions.hidden = false;
-    studentLoginMessage.textContent = 'Student ID found. Student names and registered classes are private; JSS 2 exam settings will be used.';
-    verifiedStudentSummary.textContent = `${currentStudentId} — ${currentStudentClass}`;
+    studentLoginMessage.textContent = currentStudentClass
+        ? 'Student ID verified. Your class is ready; select a subject and continue.'
+        : 'Student ID verified. Your class could not be confirmed from the public lookup, so please choose a valid class for this session.';
+    verifiedStudentSummary.textContent = `${currentStudentId}${currentStudentClass ? ` — ${currentStudentClass}` : ''}`;
     verifiedStudentSummary.hidden = false;
     selectedTopic = '';
     document.querySelectorAll('.topic-btn').forEach(button => button.classList.remove('selected'));
@@ -1678,6 +1701,10 @@ studentIdInput.addEventListener('input', () => {
     studentExamOptions.hidden = true;
     verifiedStudentSummary.hidden = true;
     studentLoginMessage.textContent = '';
+    difficultyBtns.forEach(button => {
+        button.disabled = true;
+        button.classList.remove('selected');
+    });
     refreshStudentSubjects();
 });
 
@@ -2506,8 +2533,22 @@ function showScreen(screen) {
 
 }
 
-// Initialize
-difficultyBtns[1].classList.add('selected');
+difficultyBtns.forEach(button => {
+    button.disabled = true;
+    button.addEventListener('click', () => {
+        if (!studentVerified) return;
+        const difficulty = button.dataset.difficulty;
+        if (!classMapping[difficulty]) return;
+        selectedDifficulty = difficulty;
+        currentStudentClass = classMapping[selectedDifficulty];
+        difficultyBtns.forEach(item => item.classList.toggle('selected', item.dataset.difficulty === selectedDifficulty));
+        if (selectedClassDisplay) selectedClassDisplay.textContent = currentStudentClass;
+        refreshStudentSubjects();
+        updateDurationPreview();
+    });
+});
+
+difficultyBtns.forEach(button => button.classList.remove('selected'));
 
 
 

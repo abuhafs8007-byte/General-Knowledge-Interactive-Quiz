@@ -6,6 +6,10 @@ service cloud.firestore {
       return request.auth != null && request.auth.token.admin == true;
     }
 
+    function validClassName(className) {
+      return className == 'JSS 1' || className == 'JSS 2' || className == 'JSS 3';
+    }
+
     function validStudentSubmission(attemptId) {
       let data = request.resource.data;
       return data.keys().hasAll([
@@ -22,9 +26,11 @@ service cloud.firestore {
         ]) &&
         data.id == attemptId &&
         data.studentId is string && data.studentId.size() > 0 && data.studentId.size() <= 100 &&
+        exists(/databases/$(database)/documents/cbtStudentIdLookup/$(data.studentId)) &&
         data.studentName is string && data.studentName.size() <= 100 &&
         data.name is string && data.name.size() <= 100 &&
-        data.className == 'JSS 2' && data.class == 'JSS 2' &&
+        data.className is string && validClassName(data.className) &&
+        data.class is string && data.class == data.className && validClassName(data.class) &&
         data.subjectId is string && data.subjectId.size() > 0 && data.subjectId.size() <= 150 &&
         data.subjectName is string && data.subjectName.size() <= 150 &&
         data.subject is string && data.subject.size() <= 150 &&
