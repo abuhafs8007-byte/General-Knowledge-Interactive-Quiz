@@ -16,7 +16,7 @@ let adminStorageError = false;
 let adminImportState = null;
 
 const adminSections = ['Dashboard', 'Students', 'Questions', 'Subjects / Exams', 'Attempts', 'Results', 'Settings'];
-const adminClassOptions = ['JSS 1', 'JSS 2', 'JSS 3'];
+const adminClassOptions = window.cbtApp.classLevels.map(level => level.className);
 
 function normalizeAdminText(value) {
     return String(value ?? '').trim().replace(/\s+/g, ' ');
@@ -24,11 +24,8 @@ function normalizeAdminText(value) {
 
 function normalizeAdminClass(className) {
     const canonical = normalizeAdminText(className).replace(/\s+/g, ' ');
-    const upper = canonical.toUpperCase();
-    if (upper === 'JSS1' || upper === 'JSS 1') return 'JSS 1';
-    if (upper === 'JSS2' || upper === 'JSS 2') return 'JSS 2';
-    if (upper === 'JSS3' || upper === 'JSS 3') return 'JSS 3';
-    return canonical;
+    const normalized = window.cbtApp.normalizeClassName(canonical);
+    return normalized || canonical;
 }
 
 function parseAdminCsv(text) {
@@ -303,14 +300,11 @@ function subjectSelectOptions(selected = '') {
 
 function questionDifficultyFromClass(classValue) {
     const normalized = normalizeAdminClass(classValue);
-    if (normalized === 'JSS 1') return 'easy';
-    if (normalized === 'JSS 2') return 'medium';
-    if (normalized === 'JSS 3') return 'hard';
-    return '';
+    return window.cbtApp.difficultyByClass[normalized] || '';
 }
 
 function questionClassLabelFromDifficulty(difficulty) {
-    return { easy: 'JSS 1', medium: 'JSS 2', hard: 'JSS 3' }[difficulty] || '';
+    return window.cbtApp.classMapping[difficulty] || '';
 }
 
 function getSubjectTimerMap(subject) {
@@ -395,7 +389,7 @@ function buildQuestionImportPreview(csvText) {
         });
         if (!answerValue.valid) errors.push(answerValue.message);
         if (!subject) errors.push('Subject does not exist.');
-        if (!classValue || !difficulty) errors.push('Class is invalid. Expected JSS 1, JSS 2, or JSS 3.');
+        if (!classValue || !difficulty) errors.push(`Class is invalid. Expected ${adminClassOptions.join(', ')}.`);
 
         const duplicateKey = `${subject ? subject.id : ''}|${difficulty}|${questionText.toLowerCase()}`;
         const duplicateQuestion = seenQuestionKeys.has(duplicateKey);
@@ -455,7 +449,7 @@ function buildStudentImportPreview(csvText) {
         if (values.length !== requiredHeaders.length) errors.push('Expected exactly three columns.');
         if (!studentId) errors.push('Student ID is empty.');
         if (!name) errors.push('Student Name is empty.');
-        if (!adminClassOptions.includes(className)) errors.push('Class is invalid. Expected JSS 1, JSS 2, or JSS 3.');
+        if (!adminClassOptions.includes(className)) errors.push(`Class is invalid. Expected ${adminClassOptions.join(', ')}.`);
 
         if (studentId) {
             if (studentIdsInFile.has(studentId.toUpperCase())) {
@@ -564,7 +558,7 @@ function renderQuestions() {
             </div>
             <div class="admin-two-column">
                 <label>Subject<select name="subjectId" required>${subjectSelectOptions()}</select></label>
-                <label>Class<select name="difficulty"><option value="easy">JSS 1</option><option value="medium">JSS 2</option><option value="hard">JSS 3</option></select></label>
+                <label>Class<select name="difficulty">${window.cbtApp.classLevels.map(level => `<option value="${escapeAdminText(level.difficulty)}">${escapeAdminText(level.className)}</option>`).join('')}</select></label>
                 <label>Correct answer<select name="answer"><option value="0">Option A</option><option value="1">Option B</option><option value="2">Option C</option><option value="3">Option D</option></select></label>
             </div>
             <div class="admin-form-actions"><button class="admin-primary-button" type="submit">Save Question</button>
@@ -574,7 +568,7 @@ function renderQuestions() {
         <tbody>${matches.length ? matches.map(item => `<tr>
             <td>${escapeAdminText(item.question.q)}</td>
             <td>${escapeAdminText((window.cbtApp.subjects.find(subject => subject.id === item.subjectId) || {}).name || item.subjectId)}</td>
-            <td>${escapeAdminText({ easy: 'JSS 1', medium: 'JSS 2', hard: 'JSS 3' }[item.difficulty] || item.difficulty)}</td>
+            <td>${escapeAdminText(questionClassLabelFromDifficulty(item.difficulty) || item.difficulty)}</td>
             <td>${escapeAdminText(item.question.opts[item.question.ans])}</td>
             <td class="admin-actions">
                 <button data-action="question-edit" data-subject="${escapeAdminText(item.subjectId)}" data-level="${escapeAdminText(item.difficulty)}" data-index="${item.index}">Edit</button>
@@ -1282,7 +1276,10 @@ adminRoot.addEventListener('submit', async event => {
             ? window.cbtApp.subjects.map(entry => entry.id === id ? subject : entry)
             : window.cbtApp.subjects.concat(subject);
         if (!originalId) {
-            window.cbtApp.questions[id] = { easy: [], medium: [], hard: [] };
+            window.cbtApp.questions[id] = window.cbtApp.allClassDifficulties.reduce((banks, difficulty) => {
+                banks[difficulty] = [];
+                return banks;
+            }, {});
             window.cbtApp.removedSubjects = window.cbtApp.removedSubjects.filter(removedId => removedId !== id);
         }
         window.cbtApp.topicNames[id] = name;

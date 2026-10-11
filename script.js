@@ -1012,11 +1012,31 @@ let visitedQuestions = [];
 let studentCatalogLoadError = null;
 let startQuizInProgress = false;
 
-const classMapping = {
-    easy: 'JSS 1',
-    medium: 'JSS 2',
-    hard: 'JSS 3'
-};
+// Single source of truth for class levels and their question banks (difficulty).
+// To add a class, add one entry here; the student UI, admin panel, timers,
+// and Firestore question groups all derive from this automatically.
+const classLevels = [
+    { className: 'JSS 1', difficulty: 'easy' },
+    { className: 'JSS 2', difficulty: 'medium' },
+    { className: 'JSS 3', difficulty: 'hard' },
+    { className: 'BASIC 4', difficulty: 'basic4' },
+    { className: 'BASIC 5', difficulty: 'basic5' },
+    { className: 'SS 1', difficulty: 'ss1' },
+    { className: 'SS 2', difficulty: 'ss2' },
+    { className: 'SS 3', difficulty: 'ss3' }
+];
+
+const classMapping = classLevels.reduce((map, level) => {
+    map[level.difficulty] = level.className;
+    return map;
+}, {});
+
+const difficultyByClass = classLevels.reduce((map, level) => {
+    map[level.className] = level.difficulty;
+    return map;
+}, {});
+
+const allClassDifficulties = classLevels.map(level => level.difficulty);
 
 const defaultCbtSettings = {
     schoolName: '',
@@ -1098,16 +1118,18 @@ function normalizeStudentId(value) {
 
 function normalizeClassName(value) {
     const normalized = String(value || '').trim().replace(/\s+/g, ' ').toUpperCase();
-    return ({ 'JSS1': 'JSS 1', 'JSS 1': 'JSS 1', 'JSS2': 'JSS 2', 'JSS 2': 'JSS 2', 'JSS3': 'JSS 3', 'JSS 3': 'JSS 3' })[normalized] || '';
+    if (!normalized) return '';
+    const compact = normalized.replace(/\s+/g, '');
+    const match = classLevels.find(level =>
+        level.className.toUpperCase() === normalized ||
+        level.className.toUpperCase().replace(/\s+/g, '') === compact
+    );
+    return match ? match.className : '';
 }
 
 function getDifficultyForClass(className) {
     const normalized = normalizeClassName(className);
-    return {
-        'JSS 1': 'easy',
-        'JSS 2': 'medium',
-        'JSS 3': 'hard'
-    }[normalized] || 'medium';
+    return difficultyByClass[normalized] || 'medium';
 }
 
 function getStudentKey(studentId) {
@@ -1214,7 +1236,7 @@ function questionGroups() {
 function applyQuestionGroups(groups) {
     groups.forEach(group => {
         if (typeof group.subjectId !== 'string' ||
-            !['easy', 'medium', 'hard'].includes(group.difficulty) ||
+            !allClassDifficulties.includes(group.difficulty) ||
             !Array.isArray(group.questions)) {
             throw new Error(`Invalid Firestore question group: ${group.id || 'unknown'}.`);
         }
@@ -1376,6 +1398,11 @@ window.cbtApp = {
     get settings() { return cbtSettings; },
     set settings(value) { cbtSettings = value; },
     questions: quizData,
+    classLevels,
+    classMapping,
+    difficultyByClass,
+    allClassDifficulties,
+    normalizeClassName,
     topicNames,
     save(key) {
         return saveCloudData(key);
