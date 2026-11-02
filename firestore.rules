@@ -72,12 +72,6 @@ service cloud.firestore {
         validVerifiedStudentLookupRecord(lookup, lookupDocumentId, get(studentRecordPath).data);
     }
 
-    function validVerifiedStudentIdLookupDataAfter(lookup, lookupDocumentId) {
-      let studentRecordPath = /databases/$(database)/documents/cbtStudents/$(lookup.studentRecordId);
-      return existsAfter(studentRecordPath) &&
-        validVerifiedStudentLookupRecord(lookup, lookupDocumentId, getAfter(studentRecordPath).data);
-    }
-
     function validVerifiedStudentIdLookup(lookupDocumentId) {
       return validVerifiedStudentIdLookupData(resource.data, lookupDocumentId);
     }
@@ -143,18 +137,7 @@ service cloud.firestore {
           resource.data.studentId == studentId) ||
         validVerifiedStudentIdLookup(studentId);
       allow list: if isAdministrator();
-      allow create, update: if isAdministrator() &&
-        (
-          (
-            request.resource.data.keys().hasOnly(['studentId']) &&
-            request.resource.data.keys().hasAll(['studentId']) &&
-            request.resource.data.studentId is string &&
-            request.resource.data.studentId.size() > 0 &&
-            request.resource.data.studentId.size() <= 100 &&
-            request.resource.data.studentId == studentId
-          ) ||
-          validVerifiedStudentIdLookupDataAfter(request.resource.data, studentId)
-        );
+      allow create, update: if isAdministrator();
       allow delete: if isAdministrator();
     }
 
