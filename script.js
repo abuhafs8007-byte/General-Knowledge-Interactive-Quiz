@@ -1136,6 +1136,10 @@ function getStudentKey(studentId) {
     return `id:${normalizeStudentId(studentId).toLowerCase()}`;
 }
 
+function getStudentLookupDocumentId(studentId) {
+    return encodeURIComponent(normalizeStudentId(studentId));
+}
+
 function getSubjectSettings(subjectId) {
     return cbtSubjects.find(subject => subject.id === subjectId) || null;
 }
@@ -1220,6 +1224,36 @@ function cloudRecordId(key, record) {
 
 function cloudCopy(value) {
     return JSON.parse(JSON.stringify(value));
+}
+
+function studentLookupRecords(students) {
+    const recordsByStudentId = new Map();
+    const seenStudentIds = new Set();
+    students.forEach(student => {
+        const recordStudentId = String(student.studentId || student.id || '');
+        const studentId = normalizeStudentId(recordStudentId);
+        const lookupDocumentId = getStudentLookupDocumentId(studentId);
+        const studentRecordId = String(student.id || '');
+        const name = String(student.name || '');
+        const className = String(student.className || student.class || '');
+        if (!studentId || !lookupDocumentId || lookupDocumentId.includes('/')) return;
+        if (seenStudentIds.has(lookupDocumentId)) {
+            recordsByStudentId.delete(lookupDocumentId);
+            return;
+        }
+        seenStudentIds.add(lookupDocumentId);
+        if (!studentRecordId || studentRecordId.includes('/') || !name.trim()) return;
+        recordsByStudentId.set(lookupDocumentId, {
+            id: lookupDocumentId,
+            lookupId: lookupDocumentId,
+            studentId,
+            recordStudentId,
+            studentRecordId,
+            name,
+            className
+        });
+    });
+    return recordsByStudentId;
 }
 
 function questionGroups() {
@@ -1345,12 +1379,7 @@ async function saveCloudData(key) {
         const previousLookupById = new Map(
             (cloudBaselines.studentIdLookup || []).map(record => [record.id, record])
         );
-        const currentLookupById = new Map(
-            records.map(student => {
-                const studentId = normalizeStudentId(student.studentId || student.id);
-                return [studentId, { id: studentId, studentId }];
-            }).filter(([studentId]) => studentId)
-        );
+        const currentLookupById = studentLookupRecords(records);
         currentLookupById.forEach((record, id) => {
             if (!id || id.includes('/')) {
                 throw new Error('A valid Student ID is required to save the public ID lookup.');
@@ -1360,13 +1389,15 @@ async function saveCloudData(key) {
                     type: 'set',
                     collection: 'cbtStudentIdLookup',
                     id,
-                    data: { studentId: id }
+                    data: {
+                        lookupId: record.lookupId,
+                        studentId: record.studentId,
+                        recordStudentId: record.recordStudentId,
+                        studentRecordId: record.studentRecordId,
+                        name: record.name,
+                        className: record.className
+                    }
                 });
-            }
-        });
-        previousLookupById.forEach((record, id) => {
-            if (!currentLookupById.has(id)) {
-                operations.push({ type: 'delete', collection: 'cbtStudentIdLookup', id });
             }
         });
     }
@@ -1374,12 +1405,7 @@ async function saveCloudData(key) {
     await firebase.writeDocuments(operations);
     cloudBaselines[key] = cloudCopy(records);
     if (key === 'students') {
-        cloudBaselines.studentIdLookup = Array.from(new Map(
-            records.map(student => {
-                const studentId = normalizeStudentId(student.studentId || student.id);
-                return [studentId, { id: studentId, studentId }];
-            }).filter(([studentId]) => studentId)
-        ).values());
+        cloudBaselines.studentIdLookup = Array.from(studentLookupRecords(records).values());
     }
     return true;
 }
@@ -1406,6 +1432,11 @@ window.cbtApp = {
     topicNames,
     save(key) {
         return saveCloudData(key);
+    },
+    async syncStudentIdLookup() {
+        if (!cbtStudents.length) return false;
+        await saveCloudData('students');
+        return true;
     },
     saveQuestions() {
         return saveCloudData('questions');
@@ -1554,10 +1585,14 @@ async function verifyStudentId() {
     currentStudentClass = '';
     studentExamOptions.hidden = true;
     verifiedStudentSummary.hidden = true;
+    difficultyBtns.forEach(button => {
+        button.disabled = true;
+        button.classList.remove('selected');
+    });
     const studentId = normalizeStudentId(studentIdInput.value);
-    if (!studentId || studentId.length > 100 || studentId.includes('/')) {
+    if (!studentId || studentId.length > 100) {
         studentLoginMessage.textContent = studentId
-            ? 'Enter a Student ID with no more than 100 characters or slashes.'
+            ? 'Enter a Student ID with no more than 100 characters.'
             : 'Enter your Student ID.';
         return false;
     }
@@ -1565,29 +1600,34 @@ async function verifyStudentId() {
     studentLoginMessage.textContent = 'Verifying Student ID…';
     try {
         const firebase = await window.cbtFirebaseReady;
-        const lookup = await firebase.getDocument('cbtStudentIdLookup', studentId);
+        const lookupDocumentId = getStudentLookupDocumentId(studentId);
+        const lookup = await firebase.getDocument('cbtStudentIdLookup', lookupDocumentId);
         if (!lookup || normalizeStudentId(lookup.studentId) !== studentId) {
             studentLoginMessage.textContent = 'Student ID not found. Check the ID or contact an administrator.';
             return false;
         }
 
-        studentVerified = true;
-        studentName = studentId;
+        const verifiedName = typeof lookup.name === 'string' ? lookup.name : '';
+        if (!verifiedName.trim() || lookup.lookupId !== lookupDocumentId ||
+            normalizeStudentId(lookup.recordStudentId) !== studentId ||
+            typeof lookup.studentRecordId !== 'string' ||
+            !lookup.studentRecordId.trim() || lookup.studentRecordId.includes('/')) {
+            studentLoginMessage.textContent = 'The Student ID was found, but its name could not be verified. Please contact an administrator.';
+            return false;
+        }
+
+        const verifiedClass = normalizeClassName(lookup.className);
+        if (!verifiedClass) {
+            studentLoginMessage.textContent = 'The Student ID was found, but its registered class could not be verified. Please contact an administrator.';
+            return false;
+        }
+
+        studentName = verifiedName;
         currentStudentId = studentId;
         currentStudentKey = getStudentKey(studentId);
-
-        const studentRecord = await firebase.getDocument('cbtStudents', studentId).catch(() => null);
-        const secureClass = studentRecord
-            ? normalizeClassName(studentRecord.className || studentRecord.class)
-            : '';
-
-        if (secureClass) {
-            currentStudentClass = secureClass;
-            selectedDifficulty = getDifficultyForClass(secureClass);
-        } else {
-            selectedDifficulty = '';
-            currentStudentClass = '';
-        }
+        currentStudentClass = verifiedClass;
+        selectedDifficulty = getDifficultyForClass(verifiedClass);
+        studentVerified = true;
     } catch (error) {
         console.error('Unable to verify Student ID:', error);
         studentLoginMessage.textContent = `Unable to verify Student ID. ${error.message || 'Please try again later.'}`;
@@ -1595,14 +1635,12 @@ async function verifyStudentId() {
     }
 
     difficultyBtns.forEach(button => {
-        button.disabled = !studentVerified;
+        button.disabled = !studentVerified || button.dataset.difficulty !== selectedDifficulty;
         button.classList.toggle('selected', button.dataset.difficulty === selectedDifficulty);
     });
     studentExamOptions.hidden = false;
-    studentLoginMessage.textContent = currentStudentClass
-        ? 'Student ID verified. Your class is ready; select a subject and continue.'
-        : 'Student ID verified. Your class could not be confirmed from the public lookup, so please choose a valid class for this session.';
-    verifiedStudentSummary.textContent = `${currentStudentId}${currentStudentClass ? ` — ${currentStudentClass}` : ''}`;
+    studentLoginMessage.textContent = 'Student ID, name and registered class verified. Select a subject to continue.';
+    verifiedStudentSummary.textContent = `Verified Student Name: ${studentName} | Student ID: ${currentStudentId} | Class: ${currentStudentClass}`;
     verifiedStudentSummary.hidden = false;
     selectedTopic = '';
     document.querySelectorAll('.topic-btn').forEach(button => button.classList.remove('selected'));
@@ -1644,6 +1682,7 @@ async function saveCompletedAttempt() {
         id: currentAttemptId,
         studentKey: currentStudentKey,
         studentId: currentStudentId,
+        studentLookupId: getStudentLookupDocumentId(currentStudentId),
         studentName,
         name: studentName,
         className: currentStudentClass,
@@ -1667,6 +1706,7 @@ async function saveCompletedAttempt() {
     const cloudRecord = {
         id: record.id,
         studentId: record.studentId,
+        studentLookupId: record.studentLookupId,
         studentName: record.studentName,
         name: record.name,
         className: record.className,
@@ -2335,6 +2375,7 @@ async function startQuiz() {
         id: currentAttemptId,
         studentKey: currentStudentKey,
         studentId: currentStudentId,
+        studentLookupId: getStudentLookupDocumentId(currentStudentId),
         studentName,
         name: studentName,
         className: currentStudentClass,
@@ -2668,13 +2709,7 @@ difficultyBtns.forEach(button => {
     button.addEventListener('click', () => {
         if (!studentVerified) return;
         const difficulty = button.dataset.difficulty;
-        if (!classMapping[difficulty]) return;
-        selectedDifficulty = difficulty;
-        currentStudentClass = classMapping[selectedDifficulty];
-        difficultyBtns.forEach(item => item.classList.toggle('selected', item.dataset.difficulty === selectedDifficulty));
-        if (selectedClassDisplay) selectedClassDisplay.textContent = currentStudentClass;
-        refreshStudentSubjects();
-        updateDurationPreview();
+        if (!classMapping[difficulty] || difficulty !== selectedDifficulty) return;
     });
 });
 

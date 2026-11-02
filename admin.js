@@ -195,7 +195,7 @@ function showAdminLogin(message = '', status = '') {
                 <label>Firebase password<input name="firebasePassword" type="password" autocomplete="current-password" required></label>
                 <button class="admin-primary-button" type="submit">Log in</button>
             </form>
-            <p class="admin-security-note" role="status">${escapeAdminText(status || 'Sign in with a Firebase account that has the administrator custom claim.')}</p>
+            <p class="admin-security-note" role="status">${escapeAdminText(status || 'Sign in with the authorized administrator email account.')}</p>
         </section>`;
 }
 
@@ -671,7 +671,7 @@ function renderSettings() {
             <label class="admin-check-label"><input name="allowResults" type="checkbox" ${settings.allowResults ? 'checked' : ''}> Show results to students after submission</label>
             <button class="admin-primary-button" type="submit">Save Settings</button>
         </form>
-        <div class="admin-security-note">Administrator access requires a Firebase Authentication account with the administrator custom claim.</div>`;
+        <div class="admin-security-note">Administrator access is limited to the authorized Firebase email account.</div>`;
 }
 
 function formatAdminDate(value) {
@@ -743,19 +743,31 @@ async function signInAdmin(values) {
             throw new Error('Firebase sign-in succeeded without returning an authenticated user.');
         }
 
-        const token = await credential.user.getIdTokenResult(true);
-        if (token.claims.admin !== true) {
+        if (credential.user.email !== 'abuhafs8007@gmail.com') {
             await firebase.signOut(firebase.auth);
             firebaseAuthUser = null;
             return showAdminLogin('This Firebase account does not have administrator access.');
         }
 
         await window.cbtApp.loadAdminData();
+        let studentLookupSyncError = null;
+        try {
+            await window.cbtApp.syncStudentIdLookup();
+        } catch (error) {
+            console.error('Unable to synchronize the student ID verification lookup:', error);
+            studentLookupSyncError = error;
+        }
         firebaseAuthUser = credential.user;
         adminFirebaseUid = credential.user.uid;
         adminLoggedIn = true;
         adminSection = 'Dashboard';
         renderAdminPage();
+        if (studentLookupSyncError) {
+            showAdminNotice(
+                `Student records loaded, but Student ID verification could not be synchronized. ${formatFirebaseError(studentLookupSyncError)}`,
+                true
+            );
+        }
     } catch (error) {
         console.error('Firebase Authentication sign-in failed:', error);
         showAdminLogin(formatFirebaseError(error));
@@ -1170,10 +1182,11 @@ adminRoot.addEventListener('submit', async event => {
     if (form.dataset.form === 'student') {
         const originalId = String(values.get('originalId') || '');
         const previousStudent = window.cbtApp.students.find(entry => String(entry.id) === originalId);
+        const studentId = String(values.get('studentId')).trim();
         const student = {
-            id: originalId || String(values.get('studentId')).trim(),
+            id: originalId || encodeURIComponent(studentId),
             name: String(values.get('name')).trim(),
-            studentId: String(values.get('studentId')).trim(),
+            studentId,
             className: String(values.get('className')).trim()
         };
         if (!student.id || !student.name || !student.studentId || !student.className) return;

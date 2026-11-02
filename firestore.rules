@@ -3,33 +3,114 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAdministrator() {
-      return request.auth != null && request.auth.token.admin == true;
+      return request.auth != null &&
+        request.auth.token.email == 'abuhafs8007@gmail.com';
     }
 
     function validClassName(className) {
-      return className == 'JSS 1' || className == 'JSS 2' || className == 'JSS 3';
+      return className == 'BASIC 4' || className == 'BASIC 5' ||
+        className == 'JSS 1' || className == 'JSS 2' || className == 'JSS 3' ||
+        className == 'SS 1' || className == 'SS 2' || className == 'SS 3';
+    }
+
+    function validVerifiedStudentLookupRecord(lookup, lookupDocumentId, studentRecord) {
+      return lookup.keys().hasAll([
+          'lookupId', 'studentId', 'recordStudentId', 'studentRecordId', 'name', 'className'
+        ]) &&
+        lookup.keys().hasOnly([
+          'lookupId', 'studentId', 'recordStudentId', 'studentRecordId', 'name', 'className'
+        ]) &&
+        lookup.lookupId is string &&
+        lookup.lookupId == lookupDocumentId &&
+        lookup.lookupId.size() <= 1500 &&
+        lookup.studentId is string &&
+        lookup.studentId.size() > 0 &&
+        lookup.studentId.size() <= 100 &&
+        lookup.recordStudentId is string &&
+        lookup.recordStudentId.size() > 0 &&
+        lookup.recordStudentId.size() <= 100 &&
+        lookup.studentRecordId is string &&
+        lookup.studentRecordId.size() > 0 &&
+        lookup.studentRecordId.size() <= 1500 &&
+        lookup.name is string &&
+        lookup.name.size() > 0 &&
+        lookup.name.size() <= 100 &&
+        lookup.className is string &&
+        validClassName(lookup.className) &&
+        lookup.className.size() <= 100 &&
+        (
+          (
+            'studentId' in studentRecord &&
+            studentRecord.studentId == lookup.recordStudentId
+          ) ||
+          (
+            !('studentId' in studentRecord) &&
+            lookup.recordStudentId == lookup.studentRecordId
+          )
+        ) &&
+        studentRecord.name == lookup.name &&
+        (
+          (
+            'className' in studentRecord &&
+            studentRecord.className is string &&
+            studentRecord.className.size() > 0 &&
+            studentRecord.className == lookup.className
+          ) ||
+          (
+            (!('className' in studentRecord) ||
+              studentRecord.className == null ||
+              studentRecord.className == '') &&
+            'class' in studentRecord &&
+            studentRecord.class == lookup.className
+          )
+        );
+    }
+
+    function validVerifiedStudentIdLookupData(lookup, lookupDocumentId) {
+      let studentRecordPath = /databases/$(database)/documents/cbtStudents/$(lookup.studentRecordId);
+      return exists(studentRecordPath) &&
+        validVerifiedStudentLookupRecord(lookup, lookupDocumentId, get(studentRecordPath).data);
+    }
+
+    function validVerifiedStudentIdLookupDataAfter(lookup, lookupDocumentId) {
+      let studentRecordPath = /databases/$(database)/documents/cbtStudents/$(lookup.studentRecordId);
+      return existsAfter(studentRecordPath) &&
+        validVerifiedStudentLookupRecord(lookup, lookupDocumentId, getAfter(studentRecordPath).data);
+    }
+
+    function validVerifiedStudentIdLookup(lookupDocumentId) {
+      return validVerifiedStudentIdLookupData(resource.data, lookupDocumentId);
     }
 
     function validStudentSubmission(attemptId) {
       let data = request.resource.data;
       return data.keys().hasAll([
-          'id', 'studentId', 'studentName', 'name', 'className', 'class',
+          'id', 'studentId', 'studentLookupId', 'studentName', 'name', 'className', 'class',
           'subjectId', 'subjectName', 'subject', 'status', 'score',
           'percentage', 'totalQuestions', 'answeredCount', 'unansweredCount',
           'timeUsed', 'timestamp', 'dateStarted', 'dateCompleted', 'durationMinutes'
         ]) &&
         data.keys().hasOnly([
-          'id', 'studentId', 'studentName', 'name', 'className', 'class',
+            'id', 'studentId', 'studentLookupId', 'studentName', 'name', 'className', 'class',
           'subjectId', 'subjectName', 'subject', 'status', 'score',
           'percentage', 'totalQuestions', 'answeredCount', 'unansweredCount',
           'timeUsed', 'timestamp', 'dateStarted', 'dateCompleted', 'durationMinutes'
         ]) &&
         data.id == attemptId &&
         data.studentId is string && data.studentId.size() > 0 && data.studentId.size() <= 100 &&
-        exists(/databases/$(database)/documents/cbtStudentIdLookup/$(data.studentId)) &&
+        data.studentLookupId is string && data.studentLookupId.size() > 0 && data.studentLookupId.size() <= 1500 &&
+        exists(/databases/$(database)/documents/cbtStudentIdLookup/$(data.studentLookupId)) &&
+        validVerifiedStudentIdLookupData(
+          get(/databases/$(database)/documents/cbtStudentIdLookup/$(data.studentLookupId)).data,
+          data.studentLookupId
+        ) &&
+        get(/databases/$(database)/documents/cbtStudentIdLookup/$(data.studentLookupId)).data.studentId == data.studentId &&
+        get(/databases/$(database)/documents/cbtStudentIdLookup/$(data.studentLookupId)).data.name == data.studentName &&
+        data.name == data.studentName &&
         data.studentName is string && data.studentName.size() <= 100 &&
         data.name is string && data.name.size() <= 100 &&
         data.className is string && validClassName(data.className) &&
+        get(/databases/$(database)/documents/cbtStudentIdLookup/$(data.studentLookupId)).data.className == data.className &&
         data.class is string && data.class == data.className && validClassName(data.class) &&
         data.subjectId is string && data.subjectId.size() > 0 && data.subjectId.size() <= 150 &&
         data.subjectName is string && data.subjectName.size() <= 150 &&
@@ -59,15 +140,21 @@ service cloud.firestore {
           resource.data.studentId is string &&
           resource.data.studentId.size() > 0 &&
           resource.data.studentId.size() <= 100 &&
-          resource.data.studentId == studentId);
+          resource.data.studentId == studentId) ||
+        validVerifiedStudentIdLookup(studentId);
       allow list: if isAdministrator();
       allow create, update: if isAdministrator() &&
-        request.resource.data.keys().hasOnly(['studentId']) &&
-        request.resource.data.keys().hasAll(['studentId']) &&
-        request.resource.data.studentId is string &&
-        request.resource.data.studentId.size() > 0 &&
-        request.resource.data.studentId.size() <= 100 &&
-        request.resource.data.studentId == studentId;
+        (
+          (
+            request.resource.data.keys().hasOnly(['studentId']) &&
+            request.resource.data.keys().hasAll(['studentId']) &&
+            request.resource.data.studentId is string &&
+            request.resource.data.studentId.size() > 0 &&
+            request.resource.data.studentId.size() <= 100 &&
+            request.resource.data.studentId == studentId
+          ) ||
+          validVerifiedStudentIdLookupDataAfter(request.resource.data, studentId)
+        );
       allow delete: if isAdministrator();
     }
 
